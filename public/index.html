@@ -4,10 +4,112 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/styles.css" rel="stylesheet" />
     <title>Stable Diffusion Prompts Generator</title>
   </head>
   <body>
-    <div class="prompts"></div>
+    <!--Nav wrapper-->
+    <div>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="#portraits">Portraits</a></li>
+          <li><img src="logo" alt="Stable Diffusion Prompts Generator" /></li>
+          <li><a href="#landscapes">Landscapes</a></li>
+          <li><a href="#random">Random</a></li>
+        </ul>
+      </nav>
+    </div>
+    <!--Nav end-->
+    <!--User's inputs-->
+    <div>
+      <form>
+        <!-- Portraits -->
+        <h2>Portrait prompts generator</h2>
+        <section>
+          <h3>Types of shot</h3>
+          <select name="portraitShotSelect" id="portraitShotSelect">
+            <option value="fullLengthShot" title="Choose a random type of portrait shot." selected>Random shot</option>
+            <option value="fullLengthShot" title="A shot that shows the person or object in its complete environment.">Full-length shot</option>
+            <option value="americanShot" title="A shot that shows the person or object from the waist to the knees.">American shot</option>
+            <option value="mediumShot" title="A shot that shows the person or object from the waist to the hips or knees.">Medium shot</option>
+            <option value="closeUpShot" title="A shot that shows the person or object up close, cut just above the shoulders or higher.">Close-up shot</option>
+            <option value="extremeCloseUpShot" title="A shot that shows a very specific part of the person or object, such as the eyes, mouth, or hands."
+              >Extreme close-up shot</option
+            >
+          </select>
+        </section>
+        <!-- Portraits End-->
+        <!-- Landscapes -->
+        <h2>Landscapes prompts generator</h2>
+        <section>
+          <h3>Types of shot</h3>
+          <select name="landscapesShotSelect" id="landscapesShotSelect">
+            <option value="longShot" title="A shot that shows an overall view of the landscape.">Long shot</option>
+            <option value="mediumShot" title="A shot that shows a specific part of the landscape, such as a mountain or a valley.">Medium shot</option>
+            <option value="closeUpShot" title="A shot that shows a particular element of the landscape, such as a flower or a rock.">Close-up shot</option>
+            <option
+              value="extremeCloseUpShot"
+              title="A shot that shows a very specific detail of the landscape, such as the texture of a tree or the shape of clouds."
+              >Extreme close-up shot</option
+            >
+          </select>
+        </section>
+        <!-- Landscapes End-->
+        <!-- Random -->
+        <h2>Random prompts generator</h2>
+        <!-- Random End-->
+        <p>All inputs are optional !</p>
+        <section>
+          <h3>Subjects</h3>
+          <textarea
+            id="subjectsTextArea"
+            cols="30"
+            rows="10"
+            placeholder="Add subjects to the generator, one per line (e.g. Medusa, Fish, Pan, Hercules...)"
+          ></textarea>
+        </section>
+        <section>
+          <h3>Places</h3>
+          <textarea
+            id="placesTextArea"
+            cols="30"
+            rows="10"
+            placeholder="Add places to the generator, one per line (e.g. Hidden Cave, Space Station, Underwater City...)"
+          ></textarea>
+        </section>
+        <section>
+          <h3>Artists</h3>
+          <textarea
+            id="artistsTextArea"
+            cols="30"
+            rows="10"
+            placeholder="Add artists to the generator, one per line (e.g. Makoto Shinkai, Artgerm, Rebeca Saray...)"
+          ></textarea>
+        </section>
+        <section>
+          <h3>Styles</h3>
+          <textarea
+            id="stylesTextArea"
+            cols="30"
+            rows="10"
+            placeholder="Add styles to the generator, one per line (e.g. Anime, Futurism, Woodcut Print...)"
+          ></textarea>
+        </section>
+        <section>
+          <h3>Colors</h3>
+          <textarea
+            id="colorsTextArea"
+            cols="30"
+            rows="10"
+            placeholder="Add colors to the generator, one per line (e.g. Black and White, Complimentary Colors, Sepia...)"
+          ></textarea>
+        </section>
+        <button>Generate prompts !</button>
+      </form>
+    </div>
+    <!-- End of user's inputs -->
+    <div id="prompts"></div>
     <script src="js/main.js"></script>
   </body>
 </html>
