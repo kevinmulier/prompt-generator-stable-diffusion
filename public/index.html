@@ -4,62 +4,74 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.png" />
     <title>Stable Diffusion Prompts Generator</title>
   </head>
-  <body>
+  <body class="text-fublu-600 pb-8">
     <!--Nav wrapper-->
-    <div>
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="#portraits">Portraits</a></li>
-          <li><img src="logo" alt="Stable Diffusion Prompts Generator" /></li>
-          <li><a href="#landscapes">Landscapes</a></li>
-          <li><a href="#random">Random</a></li>
+    <div class="mb-10 lg:mb-20">
+      <nav class="px-3 py-1 flex justify-center bg-fublu-800">
+        <ul class="w-full max-w-5xl text-center text-sm lg:text-lg flex justify-center items-center md:gap-20 text-fublu-50">
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Home</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#portraits">Portraits</a></li>
+          <li class="px-4 py-2 flex-1 min-w-fit order-first lg:order-none"
+            ><img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" class="m-auto"
+          /></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#landscapes">Landscapes</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#random">Random</a></li>
         </ul>
       </nav>
     </div>
     <!--Nav end-->
     <!--User's inputs-->
-    <div>
+    <div class="px-5 lg:px-20">
       <form>
         <!-- Portraits -->
-        <h2>Portrait prompts generator</h2>
-        <section>
-          <h3>Types of shot</h3>
-          <select name="portraitShotSelect" id="portraitShotSelect">
-            <option value="fullLengthShot" title="Choose a random type of portrait shot." selected>Random shot</option>
-            <option value="fullLengthShot" title="A shot that shows the person or object in its complete environment.">Full-length shot</option>
-            <option value="americanShot" title="A shot that shows the person or object from the waist to the knees.">American shot</option>
-            <option value="mediumShot" title="A shot that shows the person or object from the waist to the hips or knees.">Medium shot</option>
-            <option value="closeUpShot" title="A shot that shows the person or object up close, cut just above the shoulders or higher.">Close-up shot</option>
-            <option value="extremeCloseUpShot" title="A shot that shows a very specific part of the person or object, such as the eyes, mouth, or hands."
-              >Extreme close-up shot</option
-            >
-          </select>
-        </section>
+        <div class="flex justify-center items-center flex-col align-middle">
+          <h2>Portrait prompts generator</h2>
+          <section>
+            <h3>Types of shot</h3>
+            <select name="portraitShotSelect" id="portraitShotSelect">
+              <option value="randomShot" title="Choose a random type of portrait shot." selected>Random shot</option>
+              <option value="fullLengthShot" title="A shot that shows the person or object in its complete environment.">Full-length shot</option>
+              <option value="americanShot" title="A shot that shows the person or object from the waist to the knees.">American shot</option>
+              <option value="mediumShot" title="A shot that shows the person or object from the waist to the hips or knees.">Medium shot</option>
+              <option value="closeUpShot" title="A shot that shows the person or object up close, cut just above the shoulders or higher."
+                >Close-up shot</option
+              >
+              <option value="extremeCloseUpShot" title="A shot that shows a very specific part of the person or object, such as the eyes, mouth, or hands."
+                >Extreme close-up shot</option
+              >
+            </select>
+          </section>
+        </div>
         <!-- Portraits End-->
         <!-- Landscapes -->
-        <h2>Landscapes prompts generator</h2>
-        <section>
-          <h3>Types of shot</h3>
-          <select name="landscapesShotSelect" id="landscapesShotSelect">
-            <option value="longShot" title="A shot that shows an overall view of the landscape.">Long shot</option>
-            <option value="mediumShot" title="A shot that shows a specific part of the landscape, such as a mountain or a valley.">Medium shot</option>
-            <option value="closeUpShot" title="A shot that shows a particular element of the landscape, such as a flower or a rock.">Close-up shot</option>
-            <option
-              value="extremeCloseUpShot"
-              title="A shot that shows a very specific detail of the landscape, such as the texture of a tree or the shape of clouds."
-              >Extreme close-up shot</option
-            >
-          </select>
-        </section>
+        <div class="flex justify-center items-center flex-col align-middle">
+          <h2 class="text-xl lg:text-6xl mb-10">Landscapes prompts generator</h2>
+          <section>
+            <h3>Types of shot</h3>
+            <select name="landscapesShotSelect" id="landscapesShotSelect">
+              <option value="randomShot" title="Choose a random type of portrait shot." selected>Random shot</option>
+              <option value="longShot" title="A shot that shows an overall view of the landscape.">Long shot</option>
+              <option value="mediumShot" title="A shot that shows a specific part of the landscape, such as a mountain or a valley.">Medium shot</option>
+              <option value="closeUpShot" title="A shot that shows a particular element of the landscape, such as a flower or a rock.">Close-up shot</option>
+              <option
+                value="extremeCloseUpShot"
+                title="A shot that shows a very specific detail of the landscape, such as the texture of a tree or the shape of clouds."
+                >Extreme close-up shot</option
+              >
+            </select>
+          </section>
+        </div>
         <!-- Landscapes End-->
         <!-- Random -->
-        <h2>Random prompts generator</h2>
+        <div class="flex justify-center items-center flex-col align-middle">
+          <h2>Random prompts generator</h2>
+        </div>
         <!-- Random End-->
-        <p>All inputs are optional !</p>
+        <p>All inputs are optional.</p>
         <section>
           <h3>Subjects</h3>
           <textarea
@@ -113,7 +125,14 @@
       </form>
     </div>
     <!-- End of user's inputs -->
-    <div id="prompts"></div>
+    <div class="mb-10" id="prompts"></div>
+    <!-- Credits -->
+    <div class="flex justify-center items-center flex-col">
+      <p class=""
+        >Made by <span class="font-bold">Kevin Mulier</span> | <a href="https://github.com/kevinmulier" class="font-bold">GitHub</a> |
+        <a href="https://twitter.com/KevinMulierDev" class="font-bold">Twitter</a></p
+      >
+    </div>
     <script src="js/main.js"></script>
   </body>
 </html>
