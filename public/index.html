@@ -8,124 +8,147 @@
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.png" />
     <title>Stable Diffusion Prompts Generator</title>
   </head>
-  <body class="text-fublu-600 pb-8">
+  <body class="text-fublu-600 text-xs pb-8">
     <!--Nav wrapper-->
-    <div class="mb-10 lg:mb-20">
+    <div class="mb-7 lg:mb-10">
       <nav class="px-3 py-1 flex justify-center bg-fublu-800">
         <ul class="w-full max-w-5xl text-center text-sm lg:text-lg flex justify-center items-center md:gap-20 text-fublu-50">
           <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Home</a></li>
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#portraits">Portraits</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Portraits</a></li>
           <li class="px-4 py-2 flex-1 min-w-fit order-first lg:order-none"
             ><img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" class="m-auto"
           /></li>
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#landscapes">Landscapes</a></li>
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#random">Random</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Landscapes</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Random</a></li>
         </ul>
       </nav>
     </div>
     <!--Nav end-->
     <!--User's inputs-->
     <div class="px-5 lg:px-20">
-      <form>
-        <!-- Portraits -->
-        <div class="flex justify-center items-center flex-col align-middle">
-          <h2>Portrait prompts generator</h2>
-          <section>
-            <h3>Types of shot</h3>
-            <select name="portraitShotSelect" id="portraitShotSelect">
-              <option value="randomShot" title="Choose a random type of portrait shot." selected>Random shot</option>
-              <option value="fullLengthShot" title="A shot that shows the person or object in its complete environment.">Full-length shot</option>
-              <option value="americanShot" title="A shot that shows the person or object from the waist to the knees.">American shot</option>
-              <option value="mediumShot" title="A shot that shows the person or object from the waist to the hips or knees.">Medium shot</option>
-              <option value="closeUpShot" title="A shot that shows the person or object up close, cut just above the shoulders or higher."
-                >Close-up shot</option
-              >
-              <option value="extremeCloseUpShot" title="A shot that shows a very specific part of the person or object, such as the eyes, mouth, or hands."
-                >Extreme close-up shot</option
-              >
-            </select>
-          </section>
-        </div>
-        <!-- Portraits End-->
-        <!-- Landscapes -->
-        <div class="flex justify-center items-center flex-col align-middle">
-          <h2 class="text-xl lg:text-6xl mb-10">Landscapes prompts generator</h2>
-          <section>
-            <h3>Types of shot</h3>
-            <select name="landscapesShotSelect" id="landscapesShotSelect">
-              <option value="randomShot" title="Choose a random type of portrait shot." selected>Random shot</option>
-              <option value="longShot" title="A shot that shows an overall view of the landscape.">Long shot</option>
-              <option value="mediumShot" title="A shot that shows a specific part of the landscape, such as a mountain or a valley.">Medium shot</option>
-              <option value="closeUpShot" title="A shot that shows a particular element of the landscape, such as a flower or a rock.">Close-up shot</option>
-              <option
-                value="extremeCloseUpShot"
-                title="A shot that shows a very specific detail of the landscape, such as the texture of a tree or the shape of clouds."
-                >Extreme close-up shot</option
-              >
-            </select>
-          </section>
-        </div>
-        <!-- Landscapes End-->
-        <!-- Random -->
-        <div class="flex justify-center items-center flex-col align-middle">
-          <h2>Random prompts generator</h2>
-        </div>
-        <!-- Random End-->
-        <p>All inputs are optional.</p>
-        <section>
-          <h3>Subjects</h3>
+      <!-- Portraits -->
+      <div class="flex justify-center items-center flex-col text-center">
+        <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-4">Portrait prompts generator</h2>
+        <section class="mb-8 text-base sm:text-lg md:text-xl">
+          <h3 class="mb-2 font-bold">Type of shot</h3>
+          <select name="portraitShotSelect" id="portraitShotSelect" class="p-2 text-center rounded-md border-2 border-fublu-800">
+            <option value="randomShot" title="Choose a random type of portrait shot." selected>Random shot</option>
+            <option value="fullLengthShot" title="A shot that shows the person or object in its complete environment.">Full-length shot</option>
+            <option value="americanShot" title="A shot that shows the person or object from the waist to the knees.">American shot</option>
+            <option value="mediumShot" title="A shot that shows the person or object from the waist to the hips or knees.">Medium shot</option>
+            <option value="closeUpShot" title="A shot that shows the person or object up close, cut just above the shoulders or higher.">Close-up shot</option>
+            <option value="extremeCloseUpShot" title="A shot that shows a very specific part of the person or object, such as the eyes, mouth, or hands."
+              >Extreme close-up shot</option
+            >
+          </select>
+        </section>
+      </div>
+      <!-- Portraits End-->
+      <!-- Landscapes -->
+      <div class="flex justify-center items-center flex-col text-center">
+        <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-4">Landscapes prompts generator</h2>
+        <section class="mb-8 text-base sm:text-lg md:text-xl">
+          <h3 class="mb-2 font-bold">Type of shot</h3>
+          <select name="landscapesShotSelect" id="landscapesShotSelect" class="p-2 text-center rounded-md border-2 border-fublu-800">
+            <option value="randomShot" title="Choose a random type of portrait shot." selected>Random shot</option>
+            <option value="longShot" title="A shot that shows an overall view of the landscape.">Long shot</option>
+            <option value="mediumShot" title="A shot that shows a specific part of the landscape, such as a mountain or a valley.">Medium shot</option>
+            <option value="closeUpShot" title="A shot that shows a particular element of the landscape, such as a flower or a rock.">Close-up shot</option>
+            <option
+              value="extremeCloseUpShot"
+              title="A shot that shows a very specific detail of the landscape, such as the texture of a tree or the shape of clouds."
+              >Extreme close-up shot</option
+            >
+          </select>
+        </section>
+      </div>
+      <!-- Landscapes End-->
+      <!-- Random -->
+      <div class="flex justify-center items-center flex-col text-center">
+        <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-8">Random prompts generator</h2>
+      </div>
+      <!-- Random End-->
+      <div class="flex flex-col items-center mb-4">
+        <button class="text-white sm:text-base md:text-lg lg:text-xl p-4 w-80 mb-4 rounded-md bg-fublu-600 hover:bg-fublu-500 border-2 border-fublu-800"
+          >Show generator's options</button
+        >
+        <p class="text-center"
+          >All inputs are optional. If you leave them empty, random ideas from our lists will replace them accordingly to their core concept (places, subjects,
+          artists...).</p
+        >
+      </div>
+      <div class="flex justify-evenly flex-wrap gap-5">
+        <section class="flex flex-col flex-1 max-w-md mb-3">
+          <h3 class="text-center font-bold mb-4">Subjects</h3>
           <textarea
             id="subjectsTextArea"
             cols="30"
-            rows="10"
+            rows="4"
             placeholder="Add subjects to the generator, one per line (e.g. Medusa, Fish, Pan, Hercules...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
           ></textarea>
         </section>
-        <section>
-          <h3>Places</h3>
+        <section class="flex flex-col flex-1 max-w-md mb-3">
+          <h3 class="text-center font-bold mb-4">Places</h3>
           <textarea
             id="placesTextArea"
             cols="30"
-            rows="10"
+            rows="4"
             placeholder="Add places to the generator, one per line (e.g. Hidden Cave, Space Station, Underwater City...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
           ></textarea>
         </section>
-        <section>
-          <h3>Artists</h3>
+        <section class="flex flex-col flex-1 max-w-md mb-3">
+          <h3 class="text-center font-bold mb-4">Artists</h3>
           <textarea
             id="artistsTextArea"
             cols="30"
-            rows="10"
+            rows="4"
             placeholder="Add artists to the generator, one per line (e.g. Makoto Shinkai, Artgerm, Rebeca Saray...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
           ></textarea>
         </section>
-        <section>
-          <h3>Styles</h3>
+        <section class="flex flex-col flex-1 max-w-md mb-3">
+          <h3 class="text-center font-bold mb-4">Styles</h3>
           <textarea
             id="stylesTextArea"
             cols="30"
-            rows="10"
+            rows="4"
             placeholder="Add styles to the generator, one per line (e.g. Anime, Futurism, Woodcut Print...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
           ></textarea>
         </section>
-        <section>
-          <h3>Colors</h3>
+        <section class="flex flex-col flex-1 max-w-md mb-5">
+          <h3 class="text-center font-bold mb-4">Colors</h3>
           <textarea
             id="colorsTextArea"
             cols="30"
-            rows="10"
+            rows="4"
             placeholder="Add colors to the generator, one per line (e.g. Black and White, Complimentary Colors, Sepia...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
           ></textarea>
         </section>
-        <section>
-          <h3># of prompts</h3>
-          <input type="number" id="promptsNumber" name="promptsNumber" value="10" title="How many prompts you want to generate" />
+      </div>
+      <div class="flex justify-center">
+        <section class="flex justify-center items-center flex-col text-center p-3 w-80 placeholder:p-0 placeholder:text-center">
+          <h3 class="font-bold mb-4"># of prompts</h3>
+          <input
+            type="text"
+            id="promptsNumber"
+            name="promptsNumber"
+            value="10"
+            title="How many prompts you want to generate"
+            class="w-16 px-2 py-1 rounded-md border-fublu-800 border-2 border-solid text-center"
+          />
+          <button class="text-white p-4 w-60 rounded-md bg-fublu-600 hover:bg-fublu-500 border-2 border-fublu-800">Generate prompts !</button>
         </section>
-        <button>Generate prompts !</button>
-      </form>
+      </div>
     </div>
     <!-- End of user's inputs -->
-    <div class="mb-10" id="prompts"></div>
+    <div
+      class="mx-auto mb-10 p-2 w-11/12 bg-fublu-100 rounded-md border-2 border-fublu-800 text-center text-sm text-fublu-800 shadow-sm shadow-fublu-200"
+      id="prompts"
+    ></div>
     <!-- Credits -->
     <div class="flex justify-center items-center flex-col">
       <p class=""
