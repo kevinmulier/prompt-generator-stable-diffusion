@@ -1109,6 +1109,10 @@ video {
     width: 8rem;
   }
 
+  .md\:w-8 {
+    width: 2rem;
+  }
+
   .md\:w-80 {
     width: 20rem;
   }
