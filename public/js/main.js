@@ -652,34 +652,31 @@ document.querySelector("#generatePromptsButton").addEventListener("click", (even
   }
 });
 
-// retrieve the hamburger button and the mobile menu
-const hamburgerButton = document.getElementById("hamburgerButton");
-const bgMobileMenu = document.getElementById("bgMobileMenu");
-const menuList = document.getElementById("menuList");
-
 // flag to track whether the menu is open or closed
 let isMenuOpen = false;
 
-// add an event listener for the click on the hamburger button
-hamburgerButton.addEventListener("click", () => {
-  if (isMenuOpen) {
-    menuList.classList.add("hidden"); // hide the menu
-    bgMobileMenu.classList.add("hidden"); // hide the background filter
-    hamburgerButton.blur(); // remove focus from the button
-    document.body.style.overflowY = "visible";
-  } else {
-    menuList.classList.remove("hidden"); // show the menu
-    bgMobileMenu.classList.remove("hidden"); // show the background filter
-    document.body.style.overflowY = "hidden";
-  }
-  isMenuOpen = !isMenuOpen; // invert the flag
-});
-
-// add an event listener for the click anywhere except on the button
+// add an event listener for the click on the hamburger button and anywhere except on the button
 document.addEventListener("click", (event) => {
+  // retrieve the hamburger button and the mobile menu
+  const hamburgerButton = document.getElementById("hamburgerButton");
+  const bgMobileMenu = document.getElementById("bgMobileMenu");
+  const menuList = document.getElementById("menuList");
+
   const isClickOnButton = hamburgerButton.contains(event.target); // check if the clicked element is on the hamburger button
 
-  if (!isClickOnButton) {
+  if (isClickOnButton || menuList.contains(event.target)) {
+    if (isMenuOpen) {
+      menuList.classList.add("hidden"); // hide the menu
+      bgMobileMenu.classList.add("hidden"); // hide the background filter
+      hamburgerButton.blur(); // remove focus from the button
+      document.body.style.overflowY = "visible";
+    } else {
+      menuList.classList.remove("hidden"); // show the menu
+      bgMobileMenu.classList.remove("hidden"); // show the background filter
+      document.body.style.overflowY = "hidden";
+    }
+    isMenuOpen = !isMenuOpen; // invert the flag
+  } else {
     menuList.classList.add("hidden"); // add the "hidden" class to hide the menu
     bgMobileMenu.classList.add("hidden"); // hide the background filter
     isMenuOpen = false; // set the flag to false
