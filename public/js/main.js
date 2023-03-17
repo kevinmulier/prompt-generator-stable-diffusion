@@ -597,14 +597,16 @@ function generatePrompt() {
   return prompt;
 }
 
+let currentPrompts = [];
+
 // function to generate multiple random prompts
 function generatePrompts(num) {
+  currentPrompts = [];
   document.querySelector("#prompts").innerHTML = "";
-  const prompts = [];
   for (let i = 0; i < num; i++) {
-    prompts.push(generatePrompt());
+    currentPrompts.push(generatePrompt());
   }
-  for (let prompt of prompts) {
+  for (let prompt of currentPrompts) {
     const newPromptLine = document.createElement("p");
     newPromptLine.classList.add("py-3");
     newPromptLine.textContent = `${prompt}`;
@@ -613,6 +615,27 @@ function generatePrompts(num) {
 }
 
 generatePrompts(10); // generate 10 random prompts
+
+// function to copy to clipboard and keep multiple lines
+function copyPromptsToClipboard(promptsArray) {
+  const textArea = document.createElement("textarea");
+  textArea.innerHTML = promptsArray.join("\n");
+  navigator.clipboard.writeText(textArea.innerHTML);
+}
+
+document.querySelector("#promptsCopyButton").addEventListener("click", (event) => {
+  copyPromptsToClipboard(currentPrompts);
+});
+
+// Event listener to generate prompts when pressing generate
+document.querySelector("#generatePromptsButton").addEventListener("click", (event) => {
+  const promptsNumber = document.querySelector("#promptsNumberInput").value;
+  if (!isNaN(promptsNumber) && promptsNumber > 0 && promptsNumber <= 10000) {
+    generatePrompts(promptsNumber);
+  } else {
+    alert("Please enter a number of prompts to generate between 1 and 10000.");
+  }
+});
 
 // retrieve the hamburger button and the mobile menu
 const hamburgerButton = document.getElementById("hamburgerButton");
