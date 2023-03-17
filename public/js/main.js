@@ -1,4 +1,4 @@
-// Arrays with various data
+// Arrays of randomness
 const characters = [
   "Mermaid",
   "Fairy",
@@ -552,7 +552,7 @@ function randomElement(array) {
 
 // function to generate a random prompt
 function generatePrompt() {
-  const isObjectPrompt = Math.random() < 0.2; // détermine si le prompt sera pour un objet ou un personnage
+  const isObjectPrompt = Math.random() < 0.2; // determine if the prompt will be for an object or a character
   const isStylePrompt = Math.random() < 0.75;
 
   let prompt = "";
@@ -599,17 +599,61 @@ function generatePrompt() {
 
 // function to generate multiple random prompts
 function generatePrompts(num) {
-  document.querySelector(".prompts").innerHTML = "";
-  const promptLine = document.createElement("p");
-  promptLine.style.whiteSpace = "pre-wrap";
-  document.querySelector(".prompts").appendChild(promptLine);
+  document.querySelector("#prompts").innerHTML = "";
   const prompts = [];
   for (let i = 0; i < num; i++) {
     prompts.push(generatePrompt());
   }
   for (let prompt of prompts) {
-    promptLine.textContent += `${prompt}` + "\n";
+    const newPromptLine = document.createElement("p");
+    newPromptLine.classList.add("py-3");
+    newPromptLine.textContent = `${prompt}`;
+    document.querySelector("#prompts").appendChild(newPromptLine);
   }
 }
 
 generatePrompts(10); // generate 10 random prompts
+
+// retrieve the hamburger button and the mobile menu
+const hamburgerButton = document.getElementById("hamburgerButton");
+const bgMobileMenu = document.getElementById("bgMobileMenu");
+const menuList = document.getElementById("menuList");
+
+// flag to track whether the menu is open or closed
+let isMenuOpen = false;
+
+// add an event listener for the click on the hamburger button
+hamburgerButton.addEventListener("click", () => {
+  if (isMenuOpen) {
+    menuList.classList.add("hidden"); // hide the menu
+    bgMobileMenu.classList.add("hidden"); // hide the background filter
+    hamburgerButton.blur(); // remove focus from the button
+    document.body.style.overflowY = "visible";
+  } else {
+    menuList.classList.remove("hidden"); // show the menu
+    bgMobileMenu.classList.remove("hidden"); // show the background filter
+    document.body.style.overflowY = "hidden";
+  }
+  isMenuOpen = !isMenuOpen; // invert the flag
+});
+
+// add an event listener for the click anywhere except on the button
+document.addEventListener("click", (event) => {
+  const isClickOnButton = hamburgerButton.contains(event.target); // check if the clicked element is on the hamburger button
+
+  if (!isClickOnButton) {
+    menuList.classList.add("hidden"); // add the "hidden" class to hide the menu
+    bgMobileMenu.classList.add("hidden"); // hide the background filter
+    isMenuOpen = false; // set the flag to false
+    document.body.style.overflowY = "visible";
+  }
+});
+
+// add an event listener for the focusin event
+document.addEventListener("focusin", (event) => {
+  // if the menu is open and the focused element is not a child of the menuList, focus back to the hamburgerButton
+  if (isMenuOpen && !menuList.contains(event.target)) {
+    event.stopImmediatePropagation();
+    hamburgerButton.focus();
+  }
+});
