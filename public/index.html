@@ -97,16 +97,16 @@
         <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-8">Random prompts generator</h2>
       </div>
       <!-- Random End-->
-      <div class="flex justify-center mb-4">
+      <div class="flex justify-center items-center mb-4">
         <section class="flex justify-center items-center flex-col text-center p-3 w-80 placeholder:p-0 placeholder:text-center">
           <h3 class="font-bold mb-4"># of prompts to generate</h3>
           <input
             type="text"
-            id="promptsNumber"
-            name="promptsNumber"
+            id="promptsNumberInput"
+            name="promptsNumberInput"
             value="10"
             title="How many prompts you want to generate"
-            class="w-16 px-2 py-1 mb-5 rounded-md border-fublu-800 border-2 border-solid text-center"
+            class="w-24 md:w-32 px-2 py-1 mb-5 rounded-md border-fublu-800 border-2 border-solid text-center"
           />
           <button class="text-fublu-800 p-4 md:w-80 rounded-md bg-fublu-200 hover:bg-fublu-100 border-2 border-fublu-800">Show generator's options</button>
         </section>
@@ -170,14 +170,18 @@
         </section>
       </div>
       <div class="mb-8 flex justify-center">
-        <button class="text-white p-4 w-60 rounded-md bg-fublu-600 hover:bg-fublu-500 border-2 border-fublu-800">Generate prompts</button>
+        <button class="text-white p-4 w-60 rounded-md bg-fublu-600 hover:bg-fublu-500 border-2 border-fublu-800" id="generatePromptsButton"
+          >Generate prompts</button
+        >
       </div>
     </div>
     <!-- End of user's inputs -->
-    <div
-      class="mx-auto mb-10 p-2 w-11/12 max-w-6xl bg-fublu-100 rounded-md border-2 border-fublu-800 text-center text-sm text-fublu-800 shadow-sm shadow-fublu-200"
-      id="prompts"
-    ></div>
+    <div class="relative mx-auto mb-10 p-3 py-9 w-11/12 max-w-6xl bg-fublu-100 rounded-md border-2 border-fublu-800 text-center shadow-sm shadow-fublu-200">
+      <button class="absolute top-2 right-2 text-xs md:text-sm" id="promptsCopyButton"
+        ><img src="assets/icons/copypaste.png" alt="Copy" title="Copy prompts" class="h-5 md:h-8"
+      /></button>
+      <div class="w-full text-xs md:text-sm lg:text-base text-fublu-800" id="prompts"></div>
+    </div>
     <!-- Credits -->
     <div class="flex justify-center items-center flex-col">
       <p class=""
