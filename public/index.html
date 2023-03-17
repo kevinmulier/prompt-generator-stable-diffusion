@@ -8,26 +8,55 @@
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.png" />
     <title>Stable Diffusion Prompts Generator</title>
   </head>
-  <body class="text-fublu-600 text-xs pb-8">
+  <body class="text-fublu-600 text-xs sm:text-base md:text-lg lg:text-xl pb-8">
     <!--Nav wrapper-->
     <div class="mb-7 lg:mb-10">
-      <nav class="px-3 py-1 flex justify-center bg-fublu-800">
-        <ul class="w-full max-w-5xl text-center text-sm lg:text-lg flex justify-center items-center md:gap-20 text-fublu-50">
+      <nav class="px-3 py-1 flex justify-between md:justify-center items-center bg-fublu-800">
+        <ul class="w-full max-w-5xl text-center text-sm lg:text-lg flex max-md:flex-col justify-center items-center md:gap-20 text-fublu-50 max-md:hidden">
           <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Home</a></li>
           <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Portraits</a></li>
-          <li class="px-4 py-2 flex-1 min-w-fit order-first lg:order-none"
-            ><img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" class="m-auto"
-          /></li>
+          <li class="px-4 py-2 flex-1 min-w-fit"><img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" class="m-auto" /></li>
           <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Landscapes</a></li>
           <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Random</a></li>
         </ul>
+        <div class="w-full py-4 flex justify-between md:hidden z-50">
+          <img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" />
+          <button class="relative group" id="hamburgerButton">
+            <div
+              class="relative flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all bg-slate-700 ring-0 ring-fublu-300 hover:ring-8 group-focus:ring-4 ring-opacity-30 duration-200"
+            >
+              <div class="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
+                <div class="bg-white h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:translate-y-6 delay-100"></div>
+                <div class="bg-white h-[2px] w-7 rounded transform transition-all duration-300 group-focus:translate-y-6 delay-75"></div>
+                <div class="bg-white h-[2px] w-7 transform transition-all duration-300 origin-left group-focus:translate-y-6"></div>
+
+                <div
+                  class="absolute items-center justify-between transform transition-all duration-500 top-2.5 -translate-x-10 group-focus:translate-x-0 flex w-0 group-focus:w-12"
+                >
+                  <div class="absolute bg-white h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300 group-focus:rotate-45"></div>
+                  <div class="absolute bg-white h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300 group-focus:-rotate-45"></div>
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
       </nav>
+      <div class="fixed top-[90px] left-0 w-screen h-screen bg-opacity-70 bg-fublu-900 z-40 hidden" id="bgMobileMenu">
+        <nav class="px-3 pt-4 pb-8 flex justify-between md:justify-center items-center bg-fublu-800 hidden" id="menuList">
+          <ul class="w-full h-full max-w-5xl text-center text-2xl flex-col justify-center items-center md:gap-20 text-fublu-50">
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Home</a></li>
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Portraits</a></li>
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Landscapes</a></li>
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Random</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
     <!--Nav end-->
     <!--User's inputs-->
     <div class="px-5 lg:px-20">
       <!-- Portraits -->
-      <div class="flex justify-center items-center flex-col text-center">
+      <div class="flex justify-center items-center flex-col text-center hidden">
         <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-4">Portrait prompts generator</h2>
         <section class="mb-8 text-base sm:text-lg md:text-xl">
           <h3 class="mb-2 font-bold">Type of shot</h3>
@@ -45,7 +74,7 @@
       </div>
       <!-- Portraits End-->
       <!-- Landscapes -->
-      <div class="flex justify-center items-center flex-col text-center">
+      <div class="flex justify-center items-center flex-col text-center hidden">
         <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-4">Landscapes prompts generator</h2>
         <section class="mb-8 text-base sm:text-lg md:text-xl">
           <h3 class="mb-2 font-bold">Type of shot</h3>
@@ -68,16 +97,27 @@
         <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-8">Random prompts generator</h2>
       </div>
       <!-- Random End-->
-      <div class="flex flex-col items-center mb-4">
-        <button class="text-white sm:text-base md:text-lg lg:text-xl p-4 w-80 mb-4 rounded-md bg-fublu-600 hover:bg-fublu-500 border-2 border-fublu-800"
-          >Show generator's options</button
-        >
-        <p class="text-center"
-          >All inputs are optional. If you leave them empty, random ideas from our lists will replace them accordingly to their core concept (places, subjects,
-          artists...).</p
+      <div class="flex justify-center mb-4">
+        <section class="flex justify-center items-center flex-col text-center p-3 w-80 placeholder:p-0 placeholder:text-center">
+          <h3 class="font-bold mb-4"># of prompts to generate</h3>
+          <input
+            type="text"
+            id="promptsNumber"
+            name="promptsNumber"
+            value="10"
+            title="How many prompts you want to generate"
+            class="w-16 px-2 py-1 mb-5 rounded-md border-fublu-800 border-2 border-solid text-center"
+          />
+          <button class="text-fublu-800 p-4 md:w-80 rounded-md bg-fublu-200 hover:bg-fublu-100 border-2 border-fublu-800">Show generator's options</button>
+        </section>
+      </div>
+      <div class="flex flex-col items-center mb-4 hidden">
+        <p class="text-center mb-5"
+          >* All inputs are optional. If you leave them empty, random ideas from our lists will replace them accordingly to their core concept (places,
+          subjects, artists...).</p
         >
       </div>
-      <div class="flex justify-evenly flex-wrap gap-5">
+      <div class="mb-8 flex justify-evenly flex-wrap gap-5 hidden">
         <section class="flex flex-col flex-1 max-w-md mb-3">
           <h3 class="text-center font-bold mb-4">Subjects</h3>
           <textarea
@@ -129,24 +169,13 @@
           ></textarea>
         </section>
       </div>
-      <div class="flex justify-center">
-        <section class="flex justify-center items-center flex-col text-center p-3 w-80 placeholder:p-0 placeholder:text-center">
-          <h3 class="font-bold mb-4"># of prompts</h3>
-          <input
-            type="text"
-            id="promptsNumber"
-            name="promptsNumber"
-            value="10"
-            title="How many prompts you want to generate"
-            class="w-16 px-2 py-1 rounded-md border-fublu-800 border-2 border-solid text-center"
-          />
-          <button class="text-white p-4 w-60 rounded-md bg-fublu-600 hover:bg-fublu-500 border-2 border-fublu-800">Generate prompts !</button>
-        </section>
+      <div class="mb-8 flex justify-center">
+        <button class="text-white p-4 w-60 rounded-md bg-fublu-600 hover:bg-fublu-500 border-2 border-fublu-800">Generate prompts</button>
       </div>
     </div>
     <!-- End of user's inputs -->
     <div
-      class="mx-auto mb-10 p-2 w-11/12 bg-fublu-100 rounded-md border-2 border-fublu-800 text-center text-sm text-fublu-800 shadow-sm shadow-fublu-200"
+      class="mx-auto mb-10 p-2 w-11/12 max-w-6xl bg-fublu-100 rounded-md border-2 border-fublu-800 text-center text-sm text-fublu-800 shadow-sm shadow-fublu-200"
       id="prompts"
     ></div>
     <!-- Credits -->
