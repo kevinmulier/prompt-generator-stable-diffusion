@@ -607,20 +607,25 @@ function generatePrompt() {
 }
 
 let currentPrompts = [];
+const promptsDiv = document.querySelector("#prompts");
 
 // function to generate multiple random prompts
 function generatePrompts(num) {
   currentPrompts = [];
-  document.querySelector("#prompts").innerHTML = "";
+  promptsDiv.innerHTML = "";
   for (let i = 0; i < num; i++) {
     currentPrompts.push(generatePrompt());
   }
-  for (let prompt of currentPrompts) {
+  // create a temporary document fragment that receives all the new prompts lines
+  const tempDocumentFragment = document.createDocumentFragment();
+  for (let i = 0; i < currentPrompts.length; i++) {
     const newPromptLine = document.createElement("p");
     newPromptLine.classList.add("py-3");
-    newPromptLine.textContent = `${prompt}`;
-    document.querySelector("#prompts").appendChild(newPromptLine);
+    newPromptLine.textContent = `${currentPrompts[i]}`;
+    tempDocumentFragment.appendChild(newPromptLine);
   }
+  // apprend the temporary document fragment to the promptsDiv element in a single operation -> enhance performance
+  promptsDiv.appendChild(tempDocumentFragment);
 }
 
 generatePrompts(10); // generate 10 random prompts
