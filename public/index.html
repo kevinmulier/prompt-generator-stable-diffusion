@@ -12,6 +12,7 @@
     <!--Nav wrapper-->
     <div class="mb-7 lg:mb-10">
       <nav class="px-3 py-1 flex justify-between md:justify-center items-center bg-fublu-800">
+        <!-- Desktop navbar -->
         <ul class="w-full max-w-5xl text-center text-sm lg:text-lg flex max-md:flex-col justify-center items-center md:gap-20 text-fublu-50 max-md:hidden">
           <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Home</a></li>
           <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Portraits</a></li>
@@ -19,6 +20,8 @@
           <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Landscapes</a></li>
           <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Random</a></li>
         </ul>
+        <!-- End of desktop navbar -->
+        <!-- Mobile hamburger button -->
         <div class="w-full py-4 flex justify-between md:hidden z-50">
           <img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" />
           <button class="relative group" id="hamburgerButton">
@@ -40,7 +43,9 @@
             </div>
           </button>
         </div>
+        <!-- End of mobile hamburger button -->
       </nav>
+      <!-- Mobile menu -->
       <div class="fixed top-[90px] left-0 w-screen h-screen bg-opacity-70 bg-fublu-900 z-40 hidden" id="bgMobileMenu">
         <nav class="px-3 pt-4 pb-8 flex justify-between md:justify-center items-center bg-fublu-800 hidden" id="menuList">
           <ul class="w-full h-full max-w-5xl text-center text-2xl flex-col justify-center items-center md:gap-20 text-fublu-50">
@@ -51,6 +56,7 @@
           </ul>
         </nav>
       </div>
+      <!-- End of mobile menu -->
     </div>
     <!--Nav end-->
     <!--User's inputs-->
@@ -97,6 +103,7 @@
         <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-8">Random prompts generator</h2>
       </div>
       <!-- Random End-->
+      <!-- Num of prompts & show generator's options -->
       <div class="flex justify-center items-center mb-4">
         <section class="flex justify-center items-center flex-col text-center p-3 w-80 placeholder:p-0 placeholder:text-center">
           <h3 class="font-bold mb-4"># of prompts to generate</h3>
@@ -111,6 +118,8 @@
           <button class="text-fublu-800 p-4 md:w-80 rounded-md bg-fublu-200 hover:bg-fublu-100 border-2 border-fublu-800">Show generator's options</button>
         </section>
       </div>
+      <!-- Enf of num of prompts & show generator's options -->
+      <!-- Hidden inputs -->
       <div class="flex flex-col items-center mb-4 hidden">
         <p class="text-center mb-5"
           >* All inputs are optional. If you leave them empty, random ideas from our lists will replace them accordingly to their core concept (places,
@@ -169,19 +178,24 @@
           ></textarea>
         </section>
       </div>
+      <!-- End of hidden inputs -->
+      <!-- Generate prompts button -->
       <div class="mb-8 flex justify-center">
         <button class="text-white p-4 w-60 rounded-md bg-fublu-600 hover:bg-fublu-500 border-2 border-fublu-800" id="generatePromptsButton"
           >Generate prompts</button
         >
       </div>
+      <!-- End of generate prompts button -->
     </div>
     <!-- End of user's inputs -->
+    <!-- Prompts -->
     <div class="relative mx-auto mb-10 p-3 py-9 w-11/12 max-w-6xl bg-fublu-100 rounded-md border-2 border-fublu-800 text-center shadow-sm shadow-fublu-200">
       <button class="absolute top-2 right-2 text-xs md:text-sm" id="promptsCopyButton"
         ><img src="assets/icons/copypaste.png" alt="Copy" title="Copy prompts" class="h-5 md:h-8"
       /></button>
       <div class="w-full text-xs md:text-sm lg:text-base text-fublu-800" id="prompts"></div>
     </div>
+    <!-- End of prompts -->
     <!-- Credits -->
     <div class="flex justify-center items-center flex-col">
       <p class=""
@@ -189,6 +203,7 @@
         <a href="https://twitter.com/KevinMulierDev" class="font-bold">Twitter</a></p
       >
     </div>
+    <!-- End of credits -->
     <script src="js/main.js"></script>
   </body>
 </html>
