@@ -552,7 +552,7 @@ function randomElement(array) {
 
 // function to generate a random prompt
 function generatePrompt() {
-  const isObjectPrompt = Math.random() < 0.2; // determine if the prompt will be for an object or a character
+  const isObjectPrompt = Math.random() < 0.1; // determine if the prompt will be for an object or a character
   const isStylePrompt = Math.random() < 0.75;
 
   let prompt = "";
@@ -575,15 +575,24 @@ function generatePrompt() {
 
   if (isObjectPrompt) {
     mainSubject = randomElement(objects);
-    prompt += ` ${mainSubject} in ${randomElement(locations)}`;
+    prompt += ` ${mainSubject}`;
   } else {
     mainSubject = randomElement(characters);
-    prompt += ` ${mainSubject} in ${randomElement(locations)}`;
+    if (Math.random() < 0.25) {
+      prompt += ` ${mainSubject} with ${randomElement(objects)}`;
+    } else {
+      prompt += ` ${mainSubject}`;
+    }
   }
 
   // adds a random element
   if (Math.random() < 0.5) {
     prompt += ` of ${randomElement(elements)}`;
+  }
+
+  // adds a place
+  if (Math.random() < 0.66) {
+    prompt += `, ${randomElement(locations)}`;
   }
 
   // adds random adjectives
