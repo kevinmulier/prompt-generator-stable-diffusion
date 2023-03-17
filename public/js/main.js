@@ -630,10 +630,11 @@ function generatePrompts(num) {
 
 generatePrompts(10); // generate 10 random prompts
 
+const textArea = document.createElement("textarea");
+
 // function to copy to clipboard and keep multiple lines
 function copyPromptsToClipboard(promptsArray) {
-  const textArea = document.createElement("textarea");
-  textArea.innerHTML = promptsArray.join("\n");
+  textArea.textContent = promptsArray.join("\n");
   navigator.clipboard.writeText(textArea.innerHTML);
 }
 
