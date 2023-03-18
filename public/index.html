@@ -15,13 +15,14 @@
       <nav class="px-3 py-1 flex justify-between md:justify-center items-center bg-fublu-800">
         <!-- Desktop navbar -->
         <ul class="w-full max-w-5xl text-center text-sm lg:text-lg flex max-md:flex-col justify-center items-center md:gap-20 text-fublu-50 max-md:hidden">
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Home</a></li>
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Portraits</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="randomLink">Home</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="portraitLink">Portraits</a></li>
           <li class="px-4 py-2 flex-1 min-w-fit"
             ><img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" class="m-auto" width="50px" height="50px"
           /></li>
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Landscapes</a></li>
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Random</a></li>
+
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="landscapesLink">Landscapes</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="randomLink">Random</a></li>
         </ul>
         <!-- End of desktop navbar -->
         <!-- Mobile hamburger button -->
@@ -52,10 +53,10 @@
       <div class="fixed top-[90px] left-0 w-screen h-screen bg-opacity-70 bg-fublu-900 z-40 hidden" id="bgMobileMenu">
         <nav class="px-3 pt-4 pb-8 flex justify-between md:justify-center items-center bg-fublu-800 hidden" id="menuList">
           <ul class="w-full h-full max-w-5xl text-center text-2xl flex-col justify-center items-center md:gap-20 text-fublu-50">
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Home</a></li>
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Portraits</a></li>
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Landscapes</a></li>
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#">Random</a></li>
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="randomLink">Home</a></li>
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="portraitLink">Portraits</a></li>
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="landscapesLink">Landscapes</a></li>
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="randomLink">Random</a></li>
           </ul>
         </nav>
       </div>
@@ -65,7 +66,7 @@
     <!--User's inputs-->
     <div class="px-5 lg:px-20">
       <!-- Portraits -->
-      <div class="flex justify-center items-center flex-col text-center hidden">
+      <div class="flex justify-center items-center flex-col text-center hidden" id="portraitDiv">
         <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-4">Portrait prompts generator</h2>
         <section class="mb-8 text-base sm:text-lg md:text-xl">
           <h3 class="mb-2 font-bold">Type of shot</h3>
@@ -83,7 +84,7 @@
       </div>
       <!-- Portraits End-->
       <!-- Landscapes -->
-      <div class="flex justify-center items-center flex-col text-center hidden">
+      <div class="flex justify-center items-center flex-col text-center hidden" id="landscapesDiv">
         <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-4">Landscapes prompts generator</h2>
         <section class="mb-8 text-base sm:text-lg md:text-xl">
           <h3 class="mb-2 font-bold">Type of shot</h3>
@@ -102,7 +103,7 @@
       </div>
       <!-- Landscapes End-->
       <!-- Random -->
-      <div class="flex justify-center items-center flex-col text-center">
+      <div class="flex justify-center items-center flex-col text-center" id="randomDiv">
         <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-8">Random prompts generator</h2>
       </div>
       <!-- Random End-->
@@ -118,18 +119,20 @@
             title="How many prompts you want to generate"
             class="w-24 md:w-32 px-2 py-1 mb-5 rounded-md border-fublu-800 border-2 border-solid text-center"
           />
-          <button class="text-fublu-800 p-4 md:w-80 rounded-md bg-fublu-200 hover:bg-fublu-100 border-2 border-fublu-800">Show generator's options</button>
+          <button class="text-fublu-800 p-4 md:w-80 rounded-md bg-fublu-200 hover:bg-fublu-100 border-2 border-fublu-800" id="generatorOptionsButton"
+            >Show options</button
+          >
         </section>
       </div>
       <!-- Enf of num of prompts & show generator's options -->
       <!-- Hidden inputs -->
-      <div class="flex flex-col items-center mb-4 hidden">
+      <div class="flex flex-col items-center mb-4 hidden" id="inputsDisclaimer">
         <p class="text-center mb-5"
           >* All inputs are optional. If you leave them empty, random ideas from our lists will replace them accordingly to their core concept (places,
           subjects, artists...).</p
         >
       </div>
-      <div class="mb-8 flex justify-evenly flex-wrap gap-5 hidden">
+      <div class="mb-8 flex justify-evenly flex-wrap gap-5 hidden" id="generatorOptionsDiv">
         <section class="flex flex-col flex-1 max-w-md mb-3">
           <h3 class="text-center font-bold mb-4">Subjects</h3>
           <textarea
