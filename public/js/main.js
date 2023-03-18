@@ -1,3 +1,151 @@
+class PromptGenerator {
+  constructor() {
+    this.currentPrompts = [];
+    this.promptsDiv = document.querySelector("#prompts");
+    this.textArea = document.createElement("textarea");
+  }
+
+  generatePrompt() {
+    const isObjectPrompt = Math.random() < 0.1; // determine if the prompt will be for an object or a character
+    const isStylePrompt = Math.random() < 0.75;
+
+    let prompt = "";
+    let mainSubject = "";
+
+    if (isStylePrompt) {
+      prompt += `${this.randomElement(styles)} of`;
+    } else {
+      prompt += `${this.randomElement(artists)} art of`;
+    }
+
+    // IDEA: ADD PREFIXES LIKE "ZOMBIE" BEFORE CHARACTERS
+
+    // For portraits
+    // if (isStylePrompt) {
+    //   prompt += `${this.randomElement(styles)} portrait of`;
+    // } else {
+    //   prompt += `${this.randomElement(artists)} art portrait of`;
+    // }
+
+    if (isObjectPrompt) {
+      mainSubject = this.randomElement(objects);
+      prompt += ` ${mainSubject}`;
+    } else {
+      mainSubject = this.randomElement(characters);
+      if (Math.random() < 0.25) {
+        prompt += ` ${mainSubject} with ${this.randomElement(objects)}`;
+      } else {
+        prompt += ` ${mainSubject}`;
+      }
+    }
+
+    // adds a random element
+    if (Math.random() < 0.5) {
+      prompt += ` of ${this.randomElement(elements)}`;
+    }
+
+    // adds a place
+    if (Math.random() < 0.66) {
+      prompt += `, ${this.randomElement(locations)}`;
+    }
+
+    // adds random adjectives
+    prompt += `, ${this.randomElement(adjectives)}, ${this.randomElement(adjectives)}, masterpiece, trending on ArtStation`;
+
+    // adds a random color palette
+    if (Math.random() < 0.25) {
+      prompt += `, ${this.randomElement(colours)}`;
+    }
+
+    this.currentPrompts.push(prompt);
+  }
+
+  generatePrompts(num) {
+    this.currentPrompts = [];
+    this.promptsDiv.innerHTML = "";
+    for (let i = 0; i < num; i++) {
+      this.generatePrompt();
+    }
+    // create a temporary document fragment that receives all the new prompts lines
+    const tempDocumentFragment = document.createDocumentFragment();
+    for (let i = 0; i < this.currentPrompts.length; i++) {
+      const newPromptLine = document.createElement("p");
+      newPromptLine.classList.add("py-3");
+      newPromptLine.textContent = `${this.currentPrompts[i]}`;
+      tempDocumentFragment.appendChild(newPromptLine);
+    }
+    // apprend the temporary document fragment to the promptsDiv element in a single operation -> enhance performance
+    this.promptsDiv.appendChild(tempDocumentFragment);
+  }
+
+  randomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+
+  copyPromptsToClipboard(promptsArray) {
+    this.textArea.textContent = promptsArray.join("\n");
+    navigator.clipboard.writeText(this.textArea.textContent);
+  }
+}
+
+const promptGenerator = new PromptGenerator();
+
+// Event listener to copy prompts to clipboard
+document.querySelector("#promptsCopyButton").addEventListener("click", (event) => {
+  promptGenerator.copyPromptsToClipboard(promptGenerator.currentPrompts);
+});
+
+// Event listener to generate prompts when pressing generate
+document.querySelector("#generatePromptsButton").addEventListener("click", (event) => {
+  const promptsNumber = document.querySelector("#promptsNumberInput").value;
+  if (!isNaN(promptsNumber) && promptsNumber > 0 && promptsNumber <= 10000) {
+    promptGenerator.generatePrompts(promptsNumber);
+  } else {
+    alert("Please enter a number of prompts to generate between 1 and 10000.");
+  }
+});
+
+// flag to track whether the menu is open or closed
+let isMenuOpen = false;
+
+// add an event listener for the click on the hamburger button and anywhere except on the button
+document.addEventListener("click", (event) => {
+  // retrieve the hamburger button and the mobile menu
+  const hamburgerButton = document.getElementById("hamburgerButton");
+  const bgMobileMenu = document.getElementById("bgMobileMenu");
+  const menuList = document.getElementById("menuList");
+
+  const isClickOnButton = hamburgerButton.contains(event.target); // check if the clicked element is on the hamburger button
+
+  if (isClickOnButton || menuList.contains(event.target)) {
+    if (isMenuOpen) {
+      menuList.classList.add("hidden"); // hide the menu
+      bgMobileMenu.classList.add("hidden"); // hide the background filter
+      hamburgerButton.blur(); // remove focus from the button
+      document.body.style.overflowY = "visible";
+    } else {
+      menuList.classList.remove("hidden"); // show the menu
+      bgMobileMenu.classList.remove("hidden"); // show the background filter
+      document.body.style.overflowY = "hidden";
+    }
+    isMenuOpen = !isMenuOpen; // invert the flag
+  } else {
+    menuList.classList.add("hidden"); // add the "hidden" class to hide the menu
+    bgMobileMenu.classList.add("hidden"); // hide the background filter
+    isMenuOpen = false; // set the flag to false
+    document.body.style.overflowY = "visible";
+  }
+});
+
+// add an event listener for the focusin event
+document.addEventListener("focusin", (event) => {
+  // if the menu is open and the focused element is not a child of the menuList, focus back to the hamburgerButton
+  if (isMenuOpen && !menuList.contains(event.target)) {
+    event.stopImmediatePropagation();
+    hamburgerButton.focus();
+  }
+});
+
 // Arrays of randomness
 const characters = [
   "Mermaid",
@@ -545,150 +693,5 @@ const artists = [
   "Zdzislaw Beksinski",
 ];
 
-// function to choose a random element from an array
-function randomElement(array) {
-  return array[Math.floor(Math.random() * array.length)];
-}
-
-// function to generate a random prompt
-function generatePrompt() {
-  const isObjectPrompt = Math.random() < 0.1; // determine if the prompt will be for an object or a character
-  const isStylePrompt = Math.random() < 0.75;
-
-  let prompt = "";
-  let mainSubject = "";
-
-  if (isStylePrompt) {
-    prompt += `${randomElement(styles)} of`;
-  } else {
-    prompt += `${randomElement(artists)} art of`;
-  }
-
-  // IDEA: ADD PREFIXES LIKE "ZOMBIE" BEFORE CHARACTERS
-
-  // For portraits
-  // if (isStylePrompt) {
-  //   prompt += `${randomElement(styles)} portrait of`;
-  // } else {
-  //   prompt += `${randomElement(artists)} art portrait of`;
-  // }
-
-  if (isObjectPrompt) {
-    mainSubject = randomElement(objects);
-    prompt += ` ${mainSubject}`;
-  } else {
-    mainSubject = randomElement(characters);
-    if (Math.random() < 0.25) {
-      prompt += ` ${mainSubject} with ${randomElement(objects)}`;
-    } else {
-      prompt += ` ${mainSubject}`;
-    }
-  }
-
-  // adds a random element
-  if (Math.random() < 0.5) {
-    prompt += ` of ${randomElement(elements)}`;
-  }
-
-  // adds a place
-  if (Math.random() < 0.66) {
-    prompt += `, ${randomElement(locations)}`;
-  }
-
-  // adds random adjectives
-  prompt += `, ${randomElement(adjectives)}, ${randomElement(adjectives)}, masterpiece, trending on ArtStation`;
-
-  // adds a random color palette
-  if (Math.random() < 0.25) {
-    prompt += `, ${randomElement(colours)}`;
-  }
-
-  return prompt;
-}
-
-let currentPrompts = [];
-const promptsDiv = document.querySelector("#prompts");
-
-// function to generate multiple random prompts
-function generatePrompts(num) {
-  currentPrompts = [];
-  promptsDiv.innerHTML = "";
-  for (let i = 0; i < num; i++) {
-    currentPrompts.push(generatePrompt());
-  }
-  // create a temporary document fragment that receives all the new prompts lines
-  const tempDocumentFragment = document.createDocumentFragment();
-  for (let i = 0; i < currentPrompts.length; i++) {
-    const newPromptLine = document.createElement("p");
-    newPromptLine.classList.add("py-3");
-    newPromptLine.textContent = `${currentPrompts[i]}`;
-    tempDocumentFragment.appendChild(newPromptLine);
-  }
-  // apprend the temporary document fragment to the promptsDiv element in a single operation -> enhance performance
-  promptsDiv.appendChild(tempDocumentFragment);
-}
-
-generatePrompts(10); // generate 10 random prompts
-
-const textArea = document.createElement("textarea");
-
-// function to copy to clipboard and keep multiple lines
-function copyPromptsToClipboard(promptsArray) {
-  textArea.textContent = promptsArray.join("\n");
-  navigator.clipboard.writeText(textArea.innerHTML);
-}
-
-document.querySelector("#promptsCopyButton").addEventListener("click", (event) => {
-  copyPromptsToClipboard(currentPrompts);
-});
-
-// Event listener to generate prompts when pressing generate
-document.querySelector("#generatePromptsButton").addEventListener("click", (event) => {
-  const promptsNumber = document.querySelector("#promptsNumberInput").value;
-  if (!isNaN(promptsNumber) && promptsNumber > 0 && promptsNumber <= 10000) {
-    generatePrompts(promptsNumber);
-  } else {
-    alert("Please enter a number of prompts to generate between 1 and 10000.");
-  }
-});
-
-// flag to track whether the menu is open or closed
-let isMenuOpen = false;
-
-// add an event listener for the click on the hamburger button and anywhere except on the button
-document.addEventListener("click", (event) => {
-  // retrieve the hamburger button and the mobile menu
-  const hamburgerButton = document.getElementById("hamburgerButton");
-  const bgMobileMenu = document.getElementById("bgMobileMenu");
-  const menuList = document.getElementById("menuList");
-
-  const isClickOnButton = hamburgerButton.contains(event.target); // check if the clicked element is on the hamburger button
-
-  if (isClickOnButton || menuList.contains(event.target)) {
-    if (isMenuOpen) {
-      menuList.classList.add("hidden"); // hide the menu
-      bgMobileMenu.classList.add("hidden"); // hide the background filter
-      hamburgerButton.blur(); // remove focus from the button
-      document.body.style.overflowY = "visible";
-    } else {
-      menuList.classList.remove("hidden"); // show the menu
-      bgMobileMenu.classList.remove("hidden"); // show the background filter
-      document.body.style.overflowY = "hidden";
-    }
-    isMenuOpen = !isMenuOpen; // invert the flag
-  } else {
-    menuList.classList.add("hidden"); // add the "hidden" class to hide the menu
-    bgMobileMenu.classList.add("hidden"); // hide the background filter
-    isMenuOpen = false; // set the flag to false
-    document.body.style.overflowY = "visible";
-  }
-});
-
-// add an event listener for the focusin event
-document.addEventListener("focusin", (event) => {
-  // if the menu is open and the focused element is not a child of the menuList, focus back to the hamburgerButton
-  if (isMenuOpen && !menuList.contains(event.target)) {
-    event.stopImmediatePropagation();
-    hamburgerButton.focus();
-  }
-});
+// generate 10 random prompts
+promptGenerator.generatePrompts(10);
