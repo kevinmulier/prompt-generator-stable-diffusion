@@ -3,6 +3,14 @@ class PromptGenerator {
     this.currentPrompts = [];
     this.promptsDiv = document.querySelector("#prompts");
     this.textArea = document.createElement("textarea");
+    this.portraitDiv = document.querySelector("#portraitDiv");
+    this.landscapesDiv = document.querySelector("#landscapesDiv");
+    this.randomDiv = document.querySelector("#randomDiv");
+    this.generatorOptionsButton = document.querySelector("#generatorOptionsButton");
+    this.generatorOptionsDiv = document.querySelector("#generatorOptionsDiv");
+    this.inputsDisclaimer = document.querySelector("#inputsDisclaimer");
+    this.shownOptions = 0;
+    this.currentGenerator = "random";
   }
 
   generatePrompt() {
@@ -76,6 +84,29 @@ class PromptGenerator {
     }
     // apprend the temporary document fragment to the promptsDiv element in a single operation -> enhance performance
     this.promptsDiv.appendChild(tempDocumentFragment);
+  }
+
+  showChosenGenerator() {
+    this.portraitDiv.classList.add("hidden");
+    this.landscapesDiv.classList.add("hidden");
+    this.randomDiv.classList.add("hidden");
+    if (this.currentGenerator === "portrait") {
+      this.portraitDiv.classList.remove("hidden");
+    } else if (this.currentGenerator === "landscapes") {
+      this.landscapesDiv.classList.remove("hidden");
+    } else if (this.currentGenerator === "random") {
+      this.randomDiv.classList.remove("hidden");
+    }
+  }
+
+  showGeneratorOptions() {
+    if (!this.shownOptions) {
+      this.generatorOptionsButton.innerHTML.replace("Show", "Hide");
+    } else {
+      this.generatorOptionsButton.innerHTML.replace("Hide", "Show");
+    }
+    this.inputsDisclaimer.classList.toggle("hidden");
+    this.generatorOptionsDiv.classList.toggle("hidden");
   }
 
   randomElement(array) {
