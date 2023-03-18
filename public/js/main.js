@@ -108,8 +108,7 @@ document.querySelector("#generatePromptsButton").addEventListener("click", (even
 // flag to track whether the menu is open or closed
 let isMenuOpen = false;
 
-// add an event listener for the click on the hamburger button and anywhere except on the button
-document.addEventListener("click", (event) => {
+function mobileMenuClickHandling(event) {
   // retrieve the hamburger button and the mobile menu
   const hamburgerButton = document.getElementById("hamburgerButton");
   const bgMobileMenu = document.getElementById("bgMobileMenu");
@@ -135,16 +134,42 @@ document.addEventListener("click", (event) => {
     isMenuOpen = false; // set the flag to false
     document.body.style.overflowY = "visible";
   }
-});
+}
 
-// add an event listener for the focusin event
-document.addEventListener("focusin", (event) => {
-  // if the menu is open and the focused element is not a child of the menuList, focus back to the hamburgerButton
+function mobileMenuFocusBack(event) {
   if (isMenuOpen && !menuList.contains(event.target)) {
     event.stopImmediatePropagation();
     hamburgerButton.focus();
   }
-});
+}
+
+// add an event listener for the click on the hamburger button and anywhere except on the button
+document.addEventListener("click", mobileMenuClickHandling);
+
+// add an event listener for the focusin event
+document.addEventListener("focusin", mobileMenuFocusBack);
+
+function switchGenerator() {
+  const isClickOnPortrait = event.target.classList.contains("portraitLink");
+  const isClickOnLandscapes = event.target.classList.contains("landscapesLink");
+  const isClickOnRandom = event.target.classList.contains("randomLink");
+
+  if (isClickOnPortrait) {
+    promptGenerator.currentGenerator = "portrait";
+  } else if (isClickOnLandscapes) {
+    promptGenerator.currentGenerator = "landscapes";
+  } else if (isClickOnRandom) {
+    promptGenerator.currentGenerator = "random";
+  }
+
+  promptGenerator.showChosenGenerator();
+}
+
+// add an event listener to handle generator switching
+document.querySelector("nav").addEventListener("click", switchGenerator);
+
+// add an event listener to show/hide the generator options
+promptGenerator.generatorOptionsButton.addEventListener("click", promptGenerator.showGeneratorOptions);
 
 // Arrays of randomness
 const characters = [
