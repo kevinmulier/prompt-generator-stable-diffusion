@@ -99,16 +99,6 @@ class PromptGenerator {
     }
   }
 
-  showGeneratorOptions() {
-    if (!this.shownOptions) {
-      this.generatorOptionsButton.innerHTML.replace("Show", "Hide");
-    } else {
-      this.generatorOptionsButton.innerHTML.replace("Hide", "Show");
-    }
-    this.inputsDisclaimer.classList.toggle("hidden");
-    this.generatorOptionsDiv.classList.toggle("hidden");
-  }
-
   randomElement(array) {
     return array[Math.floor(Math.random() * array.length)];
   }
@@ -180,6 +170,7 @@ document.addEventListener("click", mobileMenuClickHandling);
 // add an event listener for the focusin event
 document.addEventListener("focusin", mobileMenuFocusBack);
 
+// add a function to switch between generators
 function switchGenerator() {
   const isClickOnPortrait = event.target.classList.contains("portraitLink");
   const isClickOnLandscapes = event.target.classList.contains("landscapesLink");
@@ -199,8 +190,21 @@ function switchGenerator() {
 // add an event listener to handle generator switching
 document.querySelector("nav").addEventListener("click", switchGenerator);
 
+// add a function to show generator options
+function showGeneratorOptions() {
+  if (promptGenerator.shownOptions == 0) {
+    promptGenerator.generatorOptionsButton.textContent = promptGenerator.generatorOptionsButton.textContent.replace("Show", "Hide");
+    promptGenerator.shownOptions++;
+  } else {
+    promptGenerator.generatorOptionsButton.textContent = promptGenerator.generatorOptionsButton.innerHTML.replace("Hide", "Show");
+    promptGenerator.shownOptions--;
+  }
+  promptGenerator.inputsDisclaimer.classList.toggle("hidden");
+  promptGenerator.generatorOptionsDiv.classList.toggle("hidden");
+}
+
 // add an event listener to show/hide the generator options
-promptGenerator.generatorOptionsButton.addEventListener("click", promptGenerator.showGeneratorOptions);
+document.querySelector("#generatorOptionsButton").addEventListener("click", showGeneratorOptions);
 
 // Arrays of randomness
 const characters = [
