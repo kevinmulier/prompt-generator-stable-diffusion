@@ -9,6 +9,7 @@ class PromptGenerator {
     this.generatorOptionsButton = document.querySelector("#generatorOptionsButton");
     this.generatorOptionsDiv = document.querySelector("#generatorOptionsDiv");
     this.inputsDisclaimer = document.querySelector("#inputsDisclaimer");
+    this.subjectsInputDiv = document.querySelector("#subjectsInputDiv");
     this.shownOptions = 0;
     this.currentGenerator = "random";
   }
@@ -16,49 +17,84 @@ class PromptGenerator {
   generatePrompt() {
     const isObjectPrompt = Math.random() < 0.1; // determine if the prompt will be for an object or a character
     const isStylePrompt = Math.random() < 0.75;
+    const isPortraitPrompt = this.currentGenerator === "portrait";
+    const selectedPortraitShot = document.querySelector("#portraitShotSelect").value;
+    const portraitShotOptions = ["Full-Length Shot", "American Shot", "Medium Shot", "Close-Up Shot", "Extreme Close-Up Shot"];
+    const randomizedPortraitShot = portraitShotOptions[Math.floor(Math.random() * portraitShotOptions.length)];
+    const isLandscapesPrompt = this.currentGenerator === "landscapes";
+    const selectedLandscapesShot = document.querySelector("#landscapesShotSelect").value;
+    const landscapesShotOptions = ["Long Shot", "Medium Shot", "Close-Up Shot", "Extreme Close-Up Shot"];
+    const randomizedLandscapesShot = landscapesShotOptions[Math.floor(Math.random() * landscapesShotOptions.length)];
 
     let prompt = "";
     let mainSubject = "";
 
     if (isStylePrompt) {
-      prompt += `${this.randomElement(styles)} of`;
+      prompt += `${this.randomElement(styles)} `;
     } else {
-      prompt += `${this.randomElement(artists)} art of`;
+      prompt += `${this.randomElement(artists)} style `;
     }
+
+    if (isPortraitPrompt) {
+      if (selectedPortraitShot !== "Random Shot") {
+        prompt += selectedPortraitShot + " ";
+      } else {
+        prompt += Math.random() < 0.33 ? " " : `${randomizedPortraitShot} `;
+      }
+    } else if (isLandscapesPrompt) {
+      if (selectedLandscapesShot !== "Random Shot") {
+        prompt += selectedLandscapesShot + " ";
+      } else {
+        prompt += Math.random() < 0.33 ? " " : `${randomizedLandscapesShot} `;
+      }
+    } else {
+      if (Math.random() < 0.5) {
+        if (Math.random() < 0.5) {
+          prompt += `${randomizedLandscapesShot} `;
+        } else {
+          prompt += `${randomizedPortraitShot} `;
+        }
+      }
+    }
+
+    prompt += "of";
 
     // IDEA: ADD PREFIXES LIKE "ZOMBIE" BEFORE CHARACTERS
 
-    // For portraits
     // if (isStylePrompt) {
     //   prompt += `${this.randomElement(styles)} portrait of`;
     // } else {
     //   prompt += `${this.randomElement(artists)} art portrait of`;
     // }
 
+    if (!isLandscapesPrompt) {
     if (isObjectPrompt) {
       mainSubject = this.randomElement(objects);
-      prompt += ` ${mainSubject}`;
+        prompt += ` ${mainSubject},`;
     } else {
       mainSubject = this.randomElement(characters);
       if (Math.random() < 0.25) {
-        prompt += ` ${mainSubject} with ${this.randomElement(objects)}`;
+          prompt += ` ${mainSubject} with ${this.randomElement(objects)},`;
       } else {
-        prompt += ` ${mainSubject}`;
+          prompt += ` ${mainSubject},`;
       }
     }
 
     // adds a random element
     if (Math.random() < 0.5) {
-      prompt += ` of ${this.randomElement(elements)}`;
+        prompt += ` of ${this.randomElement(elements)},`;
+      }
     }
 
     // adds a place
-    if (Math.random() < 0.66) {
-      prompt += `, ${this.randomElement(locations)}`;
+    if (isLandscapesPrompt) {
+      prompt += ` ${this.randomElement(locations)},`;
+    } else if (Math.random() < 0.66) {
+      prompt += ` ${this.randomElement(locations)},`;
     }
 
     // adds random adjectives
-    prompt += `, ${this.randomElement(adjectives)}, ${this.randomElement(adjectives)}, masterpiece, trending on ArtStation`;
+    prompt += ` ${this.randomElement(adjectives)}, ${this.randomElement(adjectives)}, masterpiece, trending on ArtStation`;
 
     // adds a random color palette
     if (Math.random() < 0.25) {
@@ -90,10 +126,12 @@ class PromptGenerator {
     this.portraitDiv.classList.add("hidden");
     this.landscapesDiv.classList.add("hidden");
     this.randomDiv.classList.add("hidden");
+    this.subjectsInputDiv.classList.remove("hidden");
     if (this.currentGenerator === "portrait") {
       this.portraitDiv.classList.remove("hidden");
     } else if (this.currentGenerator === "landscapes") {
       this.landscapesDiv.classList.remove("hidden");
+      this.subjectsInputDiv.classList.add("hidden");
     } else if (this.currentGenerator === "random") {
       this.randomDiv.classList.remove("hidden");
     }
