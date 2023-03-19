@@ -137,7 +137,7 @@ function mobileMenuClickHandling(event) {
 
   const isClickOnButton = hamburgerButton.contains(event.target); // check if the clicked element is on the hamburger button
 
-  if (isClickOnButton || menuList.contains(event.target)) {
+  if (isClickOnButton) {
     if (isMenuOpen) {
       menuList.classList.add("hidden"); // hide the menu
       bgMobileMenu.classList.add("hidden"); // hide the background filter
@@ -149,6 +149,12 @@ function mobileMenuClickHandling(event) {
       document.body.style.overflowY = "hidden";
     }
     isMenuOpen = !isMenuOpen; // invert the flag
+  } else if (menuList.contains(event.target)) {
+    switchGenerator();
+    menuList.classList.add("hidden"); // add the "hidden" class to hide the menu
+    bgMobileMenu.classList.add("hidden"); // hide the background filter
+    isMenuOpen = false; // set the flag to false
+    document.body.style.overflowY = "visible";
   } else {
     menuList.classList.add("hidden"); // add the "hidden" class to hide the menu
     bgMobileMenu.classList.add("hidden"); // hide the background filter
