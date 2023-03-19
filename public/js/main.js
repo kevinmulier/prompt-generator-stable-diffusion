@@ -84,6 +84,7 @@ class PromptGenerator {
     }
     // apprend the temporary document fragment to the promptsDiv element in a single operation -> enhance performance
     this.promptsDiv.appendChild(tempDocumentFragment);
+    tempDocumentFragment.remove();
   }
 
   showChosenGenerator() {
