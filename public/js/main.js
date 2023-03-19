@@ -68,20 +68,20 @@ class PromptGenerator {
     // }
 
     if (!isLandscapesPrompt) {
-    if (isObjectPrompt) {
-      mainSubject = this.randomElement(objects);
+      if (isObjectPrompt) {
+        mainSubject = this.randomElement(objects);
         prompt += ` ${mainSubject},`;
-    } else {
-      mainSubject = this.randomElement(characters);
-      if (Math.random() < 0.25) {
-          prompt += ` ${mainSubject} with ${this.randomElement(objects)},`;
       } else {
+        mainSubject = this.randomElement(characters);
+        if (Math.random() < 0.25) {
+          prompt += ` ${mainSubject} with ${this.randomElement(objects)},`;
+        } else {
           prompt += ` ${mainSubject},`;
+        }
       }
-    }
 
-    // adds a random element
-    if (Math.random() < 0.5) {
+      // adds a random element
+      if (Math.random() < 0.5) {
         prompt += ` of ${this.randomElement(elements)},`;
       }
     }
@@ -505,14 +505,12 @@ const locations = [
   "Underground Bunker",
   "Lunar Base",
   "Forgotten Citadel",
-  "Thundering Waterfall",
   "Ancient Catacombs",
   "Holographic Theme Park",
   "Crystal Lake",
   "Floating Market",
   "Underground Volcano",
   "Abandoned Space Station",
-  "Lost Wilderness",
   "Surreal Landscape",
   "Crystal Tower",
   "Mystical Island",
@@ -522,6 +520,58 @@ const locations = [
   "Sunken Cityscape",
   "Haunted Forest",
   "Space Elevator",
+  "Crystal Lagoon",
+  "Magma Chamber",
+  "Thundering Waterfall",
+  "Ethereal Valley",
+  "Abandoned Subway System",
+  "Mirrored City",
+  "Ancient Citadel",
+  "Frozen Tundra",
+  "Haunted Amusement Park",
+  "Sunken Ruins",
+  "Enchanted Castle",
+  "Sandswept Canyon",
+  "Orbital Station",
+  "Lost Wilderness",
+  "Aurora Borealis",
+  "Giant Redwood Forest",
+  "Futuristic Casino",
+  "Mythical Underworld",
+  "Infinite Desert",
+  "Mystical Labyrinth",
+  "Galactic Gateway",
+  "Submerged Cavern",
+  "Eternal Ice Fields",
+  "Dark Matter Realm",
+  "Holographic City",
+  "Celestial Observatory",
+  "Nebula Cluster",
+  "Glacier National Park",
+  "Undiscovered Island",
+  "Underground Laboratory",
+  "Retro Arcade",
+  "Crystal Gardens",
+  "Chromatic Coastline",
+  "Iridescent Reef",
+  "Lunar Colony",
+  "Rainforest Canopy",
+  "Hyperborean Forest",
+  "Tesseract Station",
+  "Magnetic Caves",
+  "Abyssal Trench",
+  "Interstellar Hub",
+  "Exoplanet Outpost",
+  "Emerald Canyon",
+  "Spectral Sands",
+  "Lost Oasis",
+  "Nebula Nebula",
+  "Astral Nexus",
+  "Radiant Cityscape",
+  "Euphoric Eden",
+  "Pixelated Wonderland",
+  "Clockwork Metropolis",
+  "Ethereal Plane",
 ];
 
 const elements = [
@@ -707,7 +757,7 @@ const styles = [
   "Wood-Carving",
   "Light Art",
   "Bokeh",
-  "Golden Hour Shot",
+  "Golden Hour",
   "Wildlife Photography",
   "Portrait",
   "Microscopic",
@@ -716,6 +766,7 @@ const styles = [
   "Closeup",
   "Blur Effect",
   "Lens Flare",
+  "Underwater",
 ];
 
 const colours = [
@@ -740,6 +791,7 @@ const colours = [
   "Atari Graphics",
   "Adobe RGB",
   "Hexadecimal",
+  "Vintage",
 ];
 
 const artists = [
