@@ -15,14 +15,18 @@
       <nav class="px-3 py-1 flex justify-between md:justify-center items-center bg-fublu-800">
         <!-- Desktop navbar -->
         <ul class="w-full max-w-5xl text-center text-sm lg:text-lg flex max-md:flex-col justify-center items-center md:gap-20 text-fublu-50 max-md:hidden">
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="randomLink">Home</a></li>
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="portraitLink">Portraits</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Home</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer portraitLink"
+            ><a href="#" class="portraitLink">Portraits</a></li
+          >
           <li class="px-4 py-2 flex-1 min-w-fit"
             ><img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" class="m-auto" width="50px" height="50px"
           /></li>
 
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="landscapesLink">Landscapes</a></li>
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="randomLink">Random</a></li>
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer landscapesLink"
+            ><a href="#" class="landscapesLink">Landscapes</a></li
+          >
+          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Random</a></li>
         </ul>
         <!-- End of desktop navbar -->
         <!-- Mobile hamburger button -->
@@ -53,10 +57,14 @@
       <div class="fixed top-[90px] left-0 w-screen h-screen bg-opacity-70 bg-fublu-900 z-40 hidden" id="bgMobileMenu">
         <nav class="px-3 pt-4 pb-8 flex justify-between md:justify-center items-center bg-fublu-800 hidden" id="menuList">
           <ul class="w-full h-full max-w-5xl text-center text-2xl flex-col justify-center items-center md:gap-20 text-fublu-50">
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="randomLink">Home</a></li>
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="portraitLink">Portraits</a></li>
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="landscapesLink">Landscapes</a></li>
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all"><a href="#" class="randomLink">Random</a></li>
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Home</a></li>
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer portraitLink"
+              ><a href="#" class="portraitLink">Portraits</a></li
+            >
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer landscapesLink"
+              ><a href="#" class="landscapesLink">Landscapes</a></li
+            >
+            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Random</a></li>
           </ul>
         </nav>
       </div>
