@@ -79,12 +79,14 @@
         <section class="mb-4 text-base sm:text-lg md:text-xl">
           <h3 class="mb-2 font-bold">Type of shot</h3>
           <select name="portraitShotSelect" id="portraitShotSelect" class="p-2 text-center rounded-md border-2 border-fublu-800">
-            <option value="randomShot" title="Choose a random type of portrait shot." selected>Random shot</option>
-            <option value="fullLengthShot" title="A shot that shows the person or object in its complete environment.">Full-length shot</option>
-            <option value="americanShot" title="A shot that shows the person or object from the waist to the knees.">American shot</option>
-            <option value="mediumShot" title="A shot that shows the person or object from the waist to the hips or knees.">Medium shot</option>
-            <option value="closeUpShot" title="A shot that shows the person or object up close, cut just above the shoulders or higher.">Close-up shot</option>
-            <option value="extremeCloseUpShot" title="A shot that shows a very specific part of the person or object, such as the eyes, mouth, or hands."
+            <option value="Random Shot" title="Choose a random type of portrait shot." selected>Random shot</option>
+            <option value="Full-Length Shot" title="A shot that shows the person or object in its complete environment.">Full-length shot</option>
+            <option value="American Shot" title="A shot that shows the person or object from the waist to the knees.">American shot</option>
+            <option value="Medium Shot" title="A shot that shows the person or object from the waist to the hips or knees.">Medium shot</option>
+            <option value="Close-Up Shot" title="A shot that shows the person or object up close, cut just above the shoulders or higher."
+              >Close-up shot</option
+            >
+            <option value="Extreme Close-Up Shot" title="A shot that shows a very specific part of the person or object, such as the eyes, mouth, or hands."
               >Extreme close-up shot</option
             >
           </select>
@@ -97,12 +99,12 @@
         <section class="mb-4 text-base sm:text-lg md:text-xl">
           <h3 class="mb-2 font-bold">Type of shot</h3>
           <select name="landscapesShotSelect" id="landscapesShotSelect" class="p-2 text-center rounded-md border-2 border-fublu-800">
-            <option value="randomShot" title="Choose a random type of portrait shot." selected>Random shot</option>
-            <option value="longShot" title="A shot that shows an overall view of the landscape.">Long shot</option>
-            <option value="mediumShot" title="A shot that shows a specific part of the landscape, such as a mountain or a valley.">Medium shot</option>
-            <option value="closeUpShot" title="A shot that shows a particular element of the landscape, such as a flower or a rock.">Close-up shot</option>
+            <option value="Random Shot" title="Choose a random type of portrait shot." selected>Random shot</option>
+            <option value="Long Shot" title="A shot that shows an overall view of the landscape.">Long shot</option>
+            <option value="MediumShot" title="A shot that shows a specific part of the landscape, such as a mountain or a valley.">Medium shot</option>
+            <option value="Close-Up Shot" title="A shot that shows a particular element of the landscape, such as a flower or a rock.">Close-up shot</option>
             <option
-              value="extremeCloseUpShot"
+              value="Extreme Close-Up Shot"
               title="A shot that shows a very specific detail of the landscape, such as the texture of a tree or the shape of clouds."
               >Extreme close-up shot</option
             >
@@ -141,7 +143,7 @@
         >
       </div>
       <div class="mb-8 flex justify-evenly flex-wrap gap-5 hidden" id="generatorOptionsDiv">
-        <section class="flex flex-col flex-1 max-w-md mb-3">
+        <section class="flex flex-col flex-1 max-w-md mb-3" id="subjectsInputDiv">
           <h3 class="text-center font-bold mb-4">Subjects</h3>
           <textarea
             id="subjectsTextArea"
