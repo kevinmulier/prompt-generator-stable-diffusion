@@ -70,31 +70,31 @@ class PromptGenerator {
     if (!isLandscapesPrompt) {
       if (isObjectPrompt) {
         mainSubject = this.randomElement(objects);
-        prompt += ` ${mainSubject},`;
+        prompt += ` ${mainSubject}`;
       } else {
         mainSubject = this.randomElement(characters);
         if (Math.random() < 0.25) {
-          prompt += ` ${mainSubject} with ${this.randomElement(objects)},`;
+          prompt += ` ${mainSubject} with ${this.randomElement(objects)}`;
         } else {
-          prompt += ` ${mainSubject},`;
+          prompt += ` ${mainSubject}`;
         }
       }
 
       // adds a random element
       if (Math.random() < 0.5) {
-        prompt += ` of ${this.randomElement(elements)},`;
+        prompt += ` of ${this.randomElement(elements)}`;
       }
     }
 
     // adds a place
     if (isLandscapesPrompt) {
-      prompt += ` ${this.randomElement(locations)},`;
+      prompt += ` ${this.randomElement(locations)}`;
     } else if (Math.random() < 0.66) {
-      prompt += ` ${this.randomElement(locations)},`;
+      prompt += `, ${this.randomElement(locations)}`;
     }
 
     // adds random adjectives
-    prompt += ` ${this.randomElement(adjectives)}, ${this.randomElement(adjectives)}, masterpiece, trending on ArtStation`;
+    prompt += `, ${this.randomElement(adjectives)}, ${this.randomElement(adjectives)}, masterpiece, trending on ArtStation`;
 
     // adds a random color palette
     if (Math.random() < 0.25) {
