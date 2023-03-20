@@ -25,9 +25,24 @@ class PromptGenerator {
     const selectedLandscapesShot = document.querySelector("#landscapesShotSelect").value;
     const landscapesShotOptions = ["Long Shot", "Medium Shot", "Close-Up Shot", "Extreme Close-Up Shot"];
     const randomizedLandscapesShot = landscapesShotOptions[Math.floor(Math.random() * landscapesShotOptions.length)];
+    const subjectsInput = document.querySelector("#subjectsTextArea");
+    const placesInput = document.querySelector("#placesTextArea");
+    const artistsInput = document.querySelector("#artistsTextArea");
+    const stylesInput = document.querySelector("#stylesTextArea");
+    const colorsInput = document.querySelector("#colorsTextArea");
+    let currentSubjects, currentObjects, currentPlaces, curretArtists, currentStyles, currentColors;
 
     let prompt = "";
     let mainSubject = "";
+
+    // Check if user has put inputs, and then assign them to their respective arrays
+    if (this.checkUserArraysInputs(document.querySelector("#subjectsTextArea"))) {
+      currentSubjects = subjectsInput.value.split(/\r?\n/);
+      currentObjects = subjectsInput.value.split(/\r?\n/);
+    } else {
+      currentSubjects = characters;
+      currentObjects = objects;
+    }
 
     if (isStylePrompt) {
       prompt += `${this.randomElement(styles)} `;
@@ -144,6 +159,10 @@ class PromptGenerator {
   copyPromptsToClipboard(promptsArray) {
     this.textArea.textContent = promptsArray.join("\n");
     navigator.clipboard.writeText(this.textArea.textContent);
+  }
+
+  checkUserArraysInputs(textArea) {
+    return textArea.value !== "";
   }
 }
 
