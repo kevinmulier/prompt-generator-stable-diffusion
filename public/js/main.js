@@ -12,6 +12,12 @@ class PromptGenerator {
     this.subjectsInputDiv = document.querySelector("#subjectsInputDiv");
     this.shownOptions = 0;
     this.currentGenerator = "random";
+    this.currentCharacters = [];
+    this.currentObjects = [];
+    this.currentPlaces = [];
+    this.currentArtists = [];
+    this.currentStyles = [];
+    this.currentColors = [];
   }
 
   generatePrompt() {
@@ -25,29 +31,18 @@ class PromptGenerator {
     const selectedLandscapesShot = document.querySelector("#landscapesShotSelect").value;
     const landscapesShotOptions = ["Long Shot", "Medium Shot", "Close-Up Shot", "Extreme Close-Up Shot"];
     const randomizedLandscapesShot = landscapesShotOptions[Math.floor(Math.random() * landscapesShotOptions.length)];
-    const subjectsInput = document.querySelector("#subjectsTextArea");
-    const placesInput = document.querySelector("#placesTextArea");
-    const artistsInput = document.querySelector("#artistsTextArea");
-    const stylesInput = document.querySelector("#stylesTextArea");
-    const colorsInput = document.querySelector("#colorsTextArea");
-    let currentSubjects, currentObjects, currentPlaces, curretArtists, currentStyles, currentColors;
 
     let prompt = "";
     let mainSubject = "";
 
-    // Check if user has put inputs, and then assign them to their respective arrays
-    if (this.checkUserArraysInputs(document.querySelector("#subjectsTextArea"))) {
-      currentSubjects = subjectsInput.value.split(/\r?\n/);
-      currentObjects = subjectsInput.value.split(/\r?\n/);
+    if (this.currentArtists[0] !== artists[0] && this.currentStyles[0] !== styles[0]) {
+      prompt += `${this.randomElement(this.currentStyles)} in ${this.randomElement(this.currentArtists)} style `;
+    } else if (this.currentArtists[0] !== artists[0]) {
+      prompt += `${this.randomElement(this.currentArtists)} style `;
+    } else if (this.currentStyles[0] !== styles[0] || isStylePrompt) {
+      prompt += `${this.randomElement(this.currentStyles)} `;
     } else {
-      currentSubjects = characters;
-      currentObjects = objects;
-    }
-
-    if (isStylePrompt) {
-      prompt += `${this.randomElement(styles)} `;
-    } else {
-      prompt += `${this.randomElement(artists)} style `;
+      prompt += `${this.randomElement(this.currentArtists)} style `;
     }
 
     if (isPortraitPrompt) {
@@ -76,18 +71,12 @@ class PromptGenerator {
 
     // IDEA: ADD PREFIXES LIKE "ZOMBIE" BEFORE CHARACTERS
 
-    // if (isStylePrompt) {
-    //   prompt += `${this.randomElement(styles)} portrait of`;
-    // } else {
-    //   prompt += `${this.randomElement(artists)} art portrait of`;
-    // }
-
     if (!isLandscapesPrompt) {
       if (isObjectPrompt) {
-        mainSubject = this.randomElement(objects);
+        mainSubject = this.randomElement(this.currentObjects);
         prompt += ` ${mainSubject}`;
       } else {
-        mainSubject = this.randomElement(characters);
+        mainSubject = this.randomElement(this.currentCharacters);
         if (Math.random() < 0.25) {
           prompt += ` ${mainSubject} with ${this.randomElement(objects)}`;
         } else {
@@ -103,17 +92,17 @@ class PromptGenerator {
 
     // adds a place
     if (isLandscapesPrompt) {
-      prompt += ` ${this.randomElement(locations)}`;
-    } else if (Math.random() < 0.66) {
-      prompt += `, ${this.randomElement(locations)}`;
+      prompt += ` ${this.randomElement(this.currentPlaces)}`;
+    } else if (Math.random() < 0.66 || this.currentPlaces[0] !== places[0]) {
+      prompt += `, ${this.randomElement(this.currentPlaces)}`;
     }
 
     // adds random adjectives
     prompt += `, ${this.randomElement(adjectives)}, ${this.randomElement(adjectives)}, masterpiece, trending on ArtStation`;
 
     // adds a random color palette
-    if (Math.random() < 0.25) {
-      prompt += `, ${this.randomElement(colours)}`;
+    if (Math.random() < 0.25 || this.currentColors[0] !== colors[0]) {
+      prompt += `, ${this.randomElement(this.currentColors)}`;
     }
 
     this.currentPrompts.push(prompt);
@@ -122,6 +111,11 @@ class PromptGenerator {
   generatePrompts(num) {
     this.currentPrompts = [];
     this.promptsDiv.innerHTML = "";
+
+    // replace the arrays with the user inputs, and if user inputs are empty, they are replaced with default arrays
+    this.replaceArraysWithUserInputs.bind(this);
+    this.replaceArraysWithUserInputs();
+
     for (let i = 0; i < num; i++) {
       this.generatePrompt();
     }
@@ -163,6 +157,47 @@ class PromptGenerator {
 
   checkUserArraysInputs(textArea) {
     return textArea.value !== "";
+  }
+
+  // Check if user has put inputs, and then assign them to their respective arrays
+  replaceArraysWithUserInputs() {
+    const subjectsInput = document.querySelector("#subjectsTextArea");
+    const placesInput = document.querySelector("#placesTextArea");
+    const artistsInput = document.querySelector("#artistsTextArea");
+    const stylesInput = document.querySelector("#stylesTextArea");
+    const colorsInput = document.querySelector("#colorsTextArea");
+
+    if (this.checkUserArraysInputs(subjectsInput)) {
+      this.currentCharacters = subjectsInput.value.split(/\r?\n/);
+      this.currentObjects = subjectsInput.value.split(/\r?\n/);
+    } else {
+      this.currentCharacters = [...characters];
+      this.currentObjects = [...objects];
+    }
+
+    if (this.checkUserArraysInputs(placesInput)) {
+      this.currentPlaces = placesInput.value.split(/\r?\n/);
+    } else {
+      this.currentPlaces = [...places];
+    }
+
+    if (this.checkUserArraysInputs(artistsInput)) {
+      this.currentArtists = artistsInput.value.split(/\r?\n/);
+    } else {
+      this.currentArtists = [...artists];
+    }
+
+    if (this.checkUserArraysInputs(stylesInput)) {
+      this.currentStyles = stylesInput.value.split(/\r?\n/);
+    } else {
+      this.currentStyles = [...styles];
+    }
+
+    if (this.checkUserArraysInputs(colorsInput)) {
+      this.currentColors = colorsInput.value.split(/\r?\n/);
+    } else {
+      this.currentColors = [...colors];
+    }
   }
 }
 
@@ -538,7 +573,7 @@ const objects = [
   "Shotgun",
 ];
 
-const locations = [
+const places = [
   "Underwater City",
   "Sky Castle",
   "Forest Temple",
@@ -857,7 +892,7 @@ const styles = [
   "Lens Flare",
 ];
 
-const colours = [
+const colors = [
   "Warm Color Palette",
   "Colorful",
   "Rainbow",
