@@ -139,17 +139,27 @@
       <div class="flex flex-col items-center mb-4 hidden" id="inputsDisclaimer">
         <p class="text-center mb-5"
           >* All inputs are optional. If you leave them empty, random ideas from our lists will replace them accordingly to their core concept (places,
-          subjects, artists...).</p
+          characters, objects, artists...).</p
         >
       </div>
       <div class="mb-8 flex justify-evenly flex-wrap gap-5 hidden" id="generatorOptionsDiv">
-        <section class="flex flex-col flex-1 max-w-md mb-3" id="subjectsInputDiv">
-          <h3 class="text-center font-bold mb-4">Subjects</h3>
+        <section class="flex flex-col flex-1 max-w-md mb-3" id="charactersInputDiv">
+          <h3 class="text-center font-bold mb-4">Characters</h3>
           <textarea
-            id="subjectsTextArea"
+            id="charactersTextArea"
             cols="30"
             rows="4"
-            placeholder="Add subjects to the generator, one per line (e.g. Medusa, Fish, Pan, Hercules...)"
+            placeholder="Add characters to the generator, one per line (e.g. Medusa, Dog, Hercules...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+          ></textarea>
+        </section>
+        <section class="flex flex-col flex-1 max-w-md mb-3" id="objectsInputDiv">
+          <h3 class="text-center font-bold mb-4">Objects</h3>
+          <textarea
+            id="objectsTextArea"
+            cols="30"
+            rows="4"
+            placeholder="Add Objects to the generator, one per line (e.g. Pan, Sword, Helmet...)"
             class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
           ></textarea>
         </section>

@@ -9,7 +9,8 @@ class PromptGenerator {
     this.generatorOptionsButton = document.querySelector("#generatorOptionsButton");
     this.generatorOptionsDiv = document.querySelector("#generatorOptionsDiv");
     this.inputsDisclaimer = document.querySelector("#inputsDisclaimer");
-    this.subjectsInputDiv = document.querySelector("#subjectsInputDiv");
+    this.charactersInputDiv = document.querySelector("#charactersInputDiv");
+    this.objectsInputDiv = document.querySelector("#objectsInputDiv");
     this.shownOptions = 0;
     this.currentGenerator = "random";
     this.currentCharacters = [];
@@ -77,8 +78,8 @@ class PromptGenerator {
         prompt += ` ${mainSubject}`;
       } else {
         mainSubject = this.randomElement(this.currentCharacters);
-        if (Math.random() < 0.25) {
-          prompt += ` ${mainSubject} with ${this.randomElement(objects)}`;
+        if (Math.random() < 0.25 || this.currentObjects[0] !== objects[0]) {
+          prompt += ` ${mainSubject} with ${this.randomElement(this.currentObjects)}`;
         } else {
           prompt += ` ${mainSubject}`;
         }
@@ -135,12 +136,14 @@ class PromptGenerator {
     this.portraitDiv.classList.add("hidden");
     this.landscapesDiv.classList.add("hidden");
     this.randomDiv.classList.add("hidden");
-    this.subjectsInputDiv.classList.remove("hidden");
+    this.characterssInputDiv.classList.remove("hidden");
+    this.objectsInputDiv.classList.remove("hidden");
     if (this.currentGenerator === "portrait") {
       this.portraitDiv.classList.remove("hidden");
     } else if (this.currentGenerator === "landscapes") {
       this.landscapesDiv.classList.remove("hidden");
-      this.subjectsInputDiv.classList.add("hidden");
+      this.charactersInputDiv.classList.add("hidden");
+      this.objectsInputDiv.classList.add("hidden");
     } else if (this.currentGenerator === "random") {
       this.randomDiv.classList.remove("hidden");
     }
@@ -161,17 +164,22 @@ class PromptGenerator {
 
   // Check if user has put inputs, and then assign them to their respective arrays
   replaceArraysWithUserInputs() {
-    const subjectsInput = document.querySelector("#subjectsTextArea");
+    const charactersInput = document.querySelector("#charactersTextArea");
+    const objectsInput = document.querySelector("#objectsTextArea");
     const placesInput = document.querySelector("#placesTextArea");
     const artistsInput = document.querySelector("#artistsTextArea");
     const stylesInput = document.querySelector("#stylesTextArea");
     const colorsInput = document.querySelector("#colorsTextArea");
 
-    if (this.checkUserArraysInputs(subjectsInput)) {
-      this.currentCharacters = subjectsInput.value.split(/\r?\n/);
-      this.currentObjects = subjectsInput.value.split(/\r?\n/);
+    if (this.checkUserArraysInputs(charactersInput)) {
+      this.currentCharacters = charactersInput.value.split(/\r?\n/);
     } else {
       this.currentCharacters = [...characters];
+    }
+
+    if (this.checkUserArraysInputs(objectsInput)) {
+      this.currentObjects = objectsInput.value.split(/\r?\n/);
+    } else {
       this.currentObjects = [...objects];
     }
 
