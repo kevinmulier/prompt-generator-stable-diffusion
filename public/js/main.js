@@ -363,6 +363,9 @@ function showGeneratorOptions() {
 // add an event listener to show/hide the generator options
 document.querySelector("#generatorOptionsButton").addEventListener("click", showGeneratorOptions);
 
+// add an event listener to reset generators options
+document.querySelector("#resetInputsButton").addEventListener("click", promptGenerator.resetUserInputs);
+
 // Arrays of randomness
 const characters = [
   "Mermaid",
