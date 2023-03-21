@@ -136,7 +136,7 @@ class PromptGenerator {
     this.portraitDiv.classList.add("hidden");
     this.landscapesDiv.classList.add("hidden");
     this.randomDiv.classList.add("hidden");
-    this.characterssInputDiv.classList.remove("hidden");
+    this.charactersInputDiv.classList.remove("hidden");
     this.objectsInputDiv.classList.remove("hidden");
     if (this.currentGenerator === "portrait") {
       this.portraitDiv.classList.remove("hidden");
