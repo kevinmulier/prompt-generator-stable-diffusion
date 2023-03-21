@@ -173,39 +173,90 @@ class PromptGenerator {
 
     if (this.checkUserArraysInputs(charactersInput)) {
       this.currentCharacters = charactersInput.value.split(/\r?\n/);
+      localStorage.setItem("characters", charactersInput.value);
     } else {
       this.currentCharacters = [...characters];
+      localStorage.setItem("characters", "");
     }
 
     if (this.checkUserArraysInputs(objectsInput)) {
       this.currentObjects = objectsInput.value.split(/\r?\n/);
+      localStorage.setItem("objects", objectsInput.value);
     } else {
       this.currentObjects = [...objects];
+      localStorage.setItem("objects", "");
     }
 
     if (this.checkUserArraysInputs(placesInput)) {
       this.currentPlaces = placesInput.value.split(/\r?\n/);
+      localStorage.setItem("places", placesInput.value);
     } else {
       this.currentPlaces = [...places];
+      localStorage.setItem("places", "");
     }
 
     if (this.checkUserArraysInputs(artistsInput)) {
       this.currentArtists = artistsInput.value.split(/\r?\n/);
+      localStorage.setItem("artists", artistsInput.value);
     } else {
       this.currentArtists = [...artists];
+      localStorage.setItem("artists", "");
     }
 
     if (this.checkUserArraysInputs(stylesInput)) {
       this.currentStyles = stylesInput.value.split(/\r?\n/);
+      localStorage.setItem("styles", stylesInput.value);
     } else {
       this.currentStyles = [...styles];
+      localStorage.setItem("styles", "");
     }
 
     if (this.checkUserArraysInputs(colorsInput)) {
       this.currentColors = colorsInput.value.split(/\r?\n/);
+      localStorage.setItem("colors", colorsInput.value);
     } else {
       this.currentColors = [...colors];
+      localStorage.setItem("colors", "");
     }
+  }
+
+  addPreviousUserInputs() {
+    const charactersInput = document.querySelector("#charactersTextArea");
+    const objectsInput = document.querySelector("#objectsTextArea");
+    const placesInput = document.querySelector("#placesTextArea");
+    const artistsInput = document.querySelector("#artistsTextArea");
+    const stylesInput = document.querySelector("#stylesTextArea");
+    const colorsInput = document.querySelector("#colorsTextArea");
+
+    charactersInput.value = localStorage.getItem("characters");
+    objectsInput.value = localStorage.getItem("objects", "");
+    placesInput.value = localStorage.getItem("places", "");
+    artistsInput.value = localStorage.getItem("artists", "");
+    stylesInput.value = localStorage.getItem("styles", "");
+    colorsInput.value = localStorage.getItem("colors", "");
+  }
+
+  resetUserInputs() {
+    const charactersInput = document.querySelector("#charactersTextArea");
+    const objectsInput = document.querySelector("#objectsTextArea");
+    const placesInput = document.querySelector("#placesTextArea");
+    const artistsInput = document.querySelector("#artistsTextArea");
+    const stylesInput = document.querySelector("#stylesTextArea");
+    const colorsInput = document.querySelector("#colorsTextArea");
+
+    localStorage.setItem("characters", "");
+    localStorage.setItem("objects", "");
+    localStorage.setItem("places", "");
+    localStorage.setItem("artists", "");
+    localStorage.setItem("styles", "");
+    localStorage.setItem("colors", "");
+
+    charactersInput.value = localStorage.getItem("characters");
+    objectsInput.value = localStorage.getItem("objects", "");
+    placesInput.value = localStorage.getItem("places", "");
+    artistsInput.value = localStorage.getItem("artists", "");
+    stylesInput.value = localStorage.getItem("styles", "");
+    colorsInput.value = localStorage.getItem("colors", "");
   }
 }
 
@@ -979,6 +1030,8 @@ const artists = [
   "Wayne Barlowe",
   "Zdzislaw Beksinski",
 ];
+
+promptGenerator.addPreviousUserInputs();
 
 // generate 10 random prompts
 promptGenerator.generatePrompts(10);
