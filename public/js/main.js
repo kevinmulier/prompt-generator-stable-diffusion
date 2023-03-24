@@ -25,15 +25,34 @@ class PromptGenerator {
   }
 
   generatePrompt() {
-    const isObjectPrompt = Math.random() < 0.1; // determine if the prompt will be for an object or a character
+    // Determine whether the prompt will be for an object or a character
+    const isObjectPrompt = Math.random() < 0.1;
+
+    // Check if the current generator is for portraits
     const isPortraitPrompt = this.currentGenerator === "portrait";
+
+    // Get the selected portrait shot from the HTML select element
     const selectedPortraitShot = document.querySelector("#portraitShotSelect").value;
+
+    // Define options for portrait shot types
     const portraitShotOptions = ["Full-Length Shot", "American Shot", "Medium Shot", "Close-Up Shot", "Extreme Close-Up Shot"];
+
+    // Randomly select a portrait shot type
     const randomizedPortraitShot = portraitShotOptions[Math.floor(Math.random() * portraitShotOptions.length)];
+
+    // Check if the current generator is for landscapes
     const isLandscapesPrompt = this.currentGenerator === "landscapes";
+
+    // Get the selected landscapes shot from the HTML select element
     const selectedLandscapesShot = document.querySelector("#landscapesShotSelect").value;
+
+    // Define options for landscape shot types
     const landscapesShotOptions = ["Long Shot", "Medium Shot", "Close-Up Shot", "Extreme Close-Up Shot"];
+
+    // Randomly select a landscape shot type
     const randomizedLandscapesShot = landscapesShotOptions[Math.floor(Math.random() * landscapesShotOptions.length)];
+
+    // Check whether various types of prompts are active based on checkbox values
     const isObjectsActive = document.querySelector("#objectsActive").checked;
     const isPlacesActive = document.querySelector("#placesActive").checked;
     const isArtistsActive = document.querySelector("#artistsActive").checked;
@@ -43,15 +62,18 @@ class PromptGenerator {
     const isElementsActive = document.querySelector("#elementsActive").checked;
     const isImproversActive = document.querySelector("#improversActive").checked;
 
+    // Initialize prompt and mainSubject variables
     let prompt = "";
     let mainSubject = "";
 
+    // Hide the "Places" checkbox if generating a landscapes prompt
     if (isLandscapesPrompt) {
       document.querySelector("#placesActive").classList.add("hidden");
     } else {
       document.querySelector("#placesActive").classList.remove("hidden");
     }
 
+    // Add a random artist and/or style to the prompt
     if (isArtistsActive && isStylesActive) {
       prompt += `${this.randomElement(this.currentStyles)} in ${this.randomElement(this.currentArtists)} style `;
     } else if (isArtistsActive) {
@@ -62,17 +84,22 @@ class PromptGenerator {
 
     if (isPortraitPrompt) {
       if (selectedPortraitShot !== "Random Shot") {
+        // if a specific portrait shot is selected, add it to the prompt
         prompt += selectedPortraitShot + " ";
       } else {
+        // otherwise, randomly choose whether to add a randomized portrait shot to the prompt
         prompt += Math.random() < 0.33 ? " " : `${randomizedPortraitShot} `;
       }
     } else if (isLandscapesPrompt) {
       if (selectedLandscapesShot !== "Random Shot") {
+        // if a specific landscape shot is selected, add it to the prompt
         prompt += selectedLandscapesShot + " ";
       } else {
+        // otherwise, randomly choose whether to add a randomized landscape shot to the prompt
         prompt += Math.random() < 0.33 ? " " : `${randomizedLandscapesShot} `;
       }
     } else {
+      // if neither portrait nor landscapes prompt is active, randomly add either a randomized portrait shot or landscape shot to the prompt
       if (Math.random() < 0.5) {
         if (Math.random() < 0.5) {
           prompt += `${randomizedLandscapesShot} `;
@@ -83,14 +110,17 @@ class PromptGenerator {
     }
 
     if (prompt.length > 1) {
+      // if prompt has content, add "of" to the end of the prompt
       prompt += "of";
     }
 
     if (!isLandscapesPrompt) {
       if (isObjectPrompt && isObjectsActive) {
+        // if object prompt is active and objects are active, add a random object as the main subject of the prompt
         mainSubject = this.randomElement(this.currentObjects);
         prompt += ` ${mainSubject}`;
       } else {
+        // otherwise, add a random character as the main subject of the prompt, possibly with a random object
         mainSubject = this.randomElement(this.currentCharacters);
         if (Math.random() < 0.25 || this.currentObjects[0] !== objects[0]) {
           if (isObjectsActive) {
@@ -103,20 +133,20 @@ class PromptGenerator {
         }
       }
 
-      // adds a random element
+      // adds a random element to the prompt if element prompt is active
       if (isElementsActive) {
         prompt += ` of ${this.randomElement(this.currentElements)}`;
       }
     }
 
-    // adds a place
+    // adds a random place to the prompt if landscape prompt is active, or a random place after the main subject if place prompt is active
     if (isLandscapesPrompt) {
       prompt += ` ${this.randomElement(this.currentPlaces)}`;
     } else if (isPlacesActive) {
       prompt += `, ${this.randomElement(this.currentPlaces)}`;
     }
 
-    // adds random adjectives
+    // adds random adjectives to the prompt if adjective prompt is active
     if (isAdjectivesActive) {
       const adjective1 = this.randomElement(this.currentAdjectives);
       prompt += `, ${adjective1}`;
@@ -125,31 +155,35 @@ class PromptGenerator {
       }
     }
 
-    // add improvers
+    // add improvers to the prompt if improver prompt is active
     if (isImproversActive) {
       prompt += `, ${this.randomElement(this.currentImprovers)}`;
     }
 
-    // adds a random color palette
+    // adds a random color palette to the prompt if color prompt is active
     if (isColorsActive) {
       prompt += `, ${this.randomElement(this.currentColors)}`;
     }
 
+    // add the prompt to the arrays of prompts
     this.currentPrompts.push(prompt);
   }
 
   generatePrompts(num) {
+    // Clears out any existing prompts in the currentPrompts array and in the promptsDiv element.
     this.currentPrompts = [];
     this.promptsDiv.innerHTML = "";
 
-    // replace the arrays with the user inputs, and if user inputs are empty, they are replaced with default arrays
+    // Replaces the default arrays used for generating prompts with any user-provided input arrays, if available.
     this.replaceArraysWithUserInputs.bind(this);
     this.replaceArraysWithUserInputs();
 
+    // Generates the prompts by calling the generatePrompt() function a specified number of times.
     for (let i = 0; i < num; i++) {
       this.generatePrompt();
     }
-    // create a temporary document fragment that receives all the new prompts lines
+
+    // Creates a temporary document fragment and appends each new prompt line to it.
     const tempDocumentFragment = document.createDocumentFragment();
     for (let i = 0; i < this.currentPrompts.length; i++) {
       const newPromptLine = document.createElement("p");
@@ -157,17 +191,23 @@ class PromptGenerator {
       newPromptLine.textContent = `${this.currentPrompts[i]}`;
       tempDocumentFragment.appendChild(newPromptLine);
     }
-    // apprend the temporary document fragment to the promptsDiv element in a single operation -> enhance performance
+
+    // Appends the entire temporary document fragment to the promptsDiv element in a single operation, which enhances performance.
     this.promptsDiv.appendChild(tempDocumentFragment);
   }
 
   showChosenGenerator() {
+    // Hide all generator divs and show input divs
     this.portraitDiv.classList.add("hidden");
     this.landscapesDiv.classList.add("hidden");
     this.randomDiv.classList.add("hidden");
     this.charactersInputDiv.classList.remove("hidden");
     this.objectsInputDiv.classList.remove("hidden");
+
+    // Show places input div and hide if current generator is landscapes
     document.querySelector("#placesActive").classList.remove("hidden");
+
+    // Show the chosen generator div based on current generator variable
     if (this.currentGenerator === "portrait") {
       this.portraitDiv.classList.remove("hidden");
     } else if (this.currentGenerator === "landscapes") {
@@ -180,15 +220,18 @@ class PromptGenerator {
     }
   }
 
+  // Select a random element inside the array
   randomElement(array) {
     return array[Math.floor(Math.random() * array.length)];
   }
 
+  // Copy the prompts to clipboard
   copyPromptsToClipboard(promptsArray) {
     this.textArea.textContent = promptsArray.join("\n");
     navigator.clipboard.writeText(this.textArea.textContent);
   }
 
+  // check if textArea are empty
   checkUserArraysInputs(textArea) {
     return textArea.value !== "";
   }
@@ -278,6 +321,7 @@ class PromptGenerator {
     }
   }
 
+  // If user entered inputs previously, get them back into the text areas
   addPreviousUserInputs() {
     const charactersInput = document.querySelector("#charactersTextArea");
     const objectsInput = document.querySelector("#objectsTextArea");
@@ -300,6 +344,7 @@ class PromptGenerator {
     improversInput.value = localStorage.getItem("improvers");
   }
 
+  // Reset all user's inputs
   resetUserInputs() {
     const charactersInput = document.querySelector("#charactersTextArea");
     const objectsInput = document.querySelector("#objectsTextArea");
