@@ -159,7 +159,7 @@
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-3" id="objectsInputDiv">
-          <h3 class="text-center font-bold mb-4">Objects</h3>
+          <h3 class="text-center font-bold mb-4"><input type="checkbox" name="objectsActive" id="objectsActive" checked class="align-middle mr-2" />Objects</h3>
           <textarea
             id="objectsTextArea"
             cols="30"
@@ -169,7 +169,7 @@
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-3">
-          <h3 class="text-center font-bold mb-4">Places</h3>
+          <h3 class="text-center font-bold mb-4"><input type="checkbox" name="placesActive" id="placesActive" checked class="align-middle mr-2" />Places</h3>
           <textarea
             id="placesTextArea"
             cols="30"
@@ -179,7 +179,7 @@
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-3">
-          <h3 class="text-center font-bold mb-4">Artists</h3>
+          <h3 class="text-center font-bold mb-4"><input type="checkbox" name="artistsActive" id="artistsActive" checked class="align-middle mr-2" />Artists</h3>
           <textarea
             id="artistsTextArea"
             cols="30"
@@ -189,7 +189,9 @@
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-3">
-          <h3 class="text-center font-bold mb-4">Styles &amp; Mediums</h3>
+          <h3 class="text-center font-bold mb-4"
+            ><input type="checkbox" name="stylesActive" id="stylesActive" checked class="align-middle mr-2" />Styles &amp; Mediums</h3
+          >
           <textarea
             id="stylesTextArea"
             cols="30"
@@ -199,12 +201,48 @@
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-5">
-          <h3 class="text-center font-bold mb-4">Colors</h3>
+          <h3 class="text-center font-bold mb-4"><input type="checkbox" name="colorsActive" id="colorsActive" checked class="align-middle mr-2" />Colors</h3>
           <textarea
             id="colorsTextArea"
             cols="30"
             rows="4"
             placeholder="Add colors to the generator, one per line (e.g. Black and White, Complimentary Colors, Sepia...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+          ></textarea>
+        </section>
+        <section class="flex flex-col flex-1 max-w-md mb-5">
+          <h3 class="text-center font-bold mb-4"
+            ><input type="checkbox" name="adjectivesActive" id="adjectivesActive" checked class="align-middle mr-2" />Adjectives</h3
+          >
+          <textarea
+            id="adjectivesTextArea"
+            cols="30"
+            rows="4"
+            placeholder="Add adjectives to the generator, one per line (e.g. Mystic, Heavenly, Majestic...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+          ></textarea>
+        </section>
+        <section class="flex flex-col flex-1 max-w-md mb-5">
+          <h3 class="text-center font-bold mb-4"
+            ><input type="checkbox" name="elementsActive" id="elementsActive" checked class="align-middle mr-2" />Elements</h3
+          >
+          <textarea
+            id="elementsTextArea"
+            cols="30"
+            rows="4"
+            placeholder="Add elements to the generator, one per line (e.g. Water, Ice, Fire...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+          ></textarea>
+        </section>
+        <section class="flex flex-col flex-1 max-w-md mb-5">
+          <h3 class="text-center font-bold mb-4"
+            ><input type="checkbox" name="improversActive" id="improversActive" checked class="align-middle mr-2" />Improvers
+          </h3>
+          <textarea
+            id="improversTextArea"
+            cols="30"
+            rows="4"
+            placeholder="Add improvers to the generator, one per line (e.g. trending on Artstation, masterpiece...)"
             class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
           ></textarea>
         </section>
