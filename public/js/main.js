@@ -47,6 +47,12 @@ class PromptGenerator {
     let prompt = "";
     let mainSubject = "";
 
+    if (isLandscapesPrompt) {
+      document.querySelector("#placesActive").classList.add("hidden");
+    } else {
+      document.querySelector("#placesActive").classList.remove("hidden");
+    }
+
     if (isArtistsActive && isStylesActive) {
       if (this.currentArtists[0] !== artists[0] && this.currentStyles[0] !== styles[0]) {
         prompt += `${this.randomElement(this.currentStyles)} in ${this.randomElement(this.currentArtists)} style `;
@@ -81,11 +87,9 @@ class PromptGenerator {
       }
     }
 
-    if (isArtistsActive || isStylesActive || prompt !== "") {
+    if (prompt.length > 1) {
       prompt += "of";
     }
-
-    // IDEA: ADD PREFIXES LIKE "ZOMBIE" BEFORE CHARACTERS
 
     if (!isLandscapesPrompt) {
       if (isObjectPrompt && isObjectsActive) {
@@ -172,12 +176,14 @@ class PromptGenerator {
     this.randomDiv.classList.add("hidden");
     this.charactersInputDiv.classList.remove("hidden");
     this.objectsInputDiv.classList.remove("hidden");
+    document.querySelector("#placesActive").classList.remove("hidden");
     if (this.currentGenerator === "portrait") {
       this.portraitDiv.classList.remove("hidden");
     } else if (this.currentGenerator === "landscapes") {
       this.landscapesDiv.classList.remove("hidden");
       this.charactersInputDiv.classList.add("hidden");
       this.objectsInputDiv.classList.add("hidden");
+      document.querySelector("#placesActive").classList.add("hidden");
     } else if (this.currentGenerator === "random") {
       this.randomDiv.classList.remove("hidden");
     }
