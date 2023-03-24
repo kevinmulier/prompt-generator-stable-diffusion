@@ -19,6 +19,9 @@ class PromptGenerator {
     this.currentArtists = [];
     this.currentStyles = [];
     this.currentColors = [];
+    this.currentAdjectives = [];
+    this.currentElements = [];
+    this.currentImprovers = [];
   }
 
   generatePrompt() {
@@ -32,18 +35,28 @@ class PromptGenerator {
     const selectedLandscapesShot = document.querySelector("#landscapesShotSelect").value;
     const landscapesShotOptions = ["Long Shot", "Medium Shot", "Close-Up Shot", "Extreme Close-Up Shot"];
     const randomizedLandscapesShot = landscapesShotOptions[Math.floor(Math.random() * landscapesShotOptions.length)];
+    const isObjectsActive = document.querySelector("#objectsActive").checked;
+    const isPlacesActive = document.querySelector("#placesActive").checked;
+    const isArtistsActive = document.querySelector("#artistsActive").checked;
+    const isStylesActive = document.querySelector("#stylesActive").checked;
+    const isColorsActive = document.querySelector("#colorsActive").checked;
+    const isAdjectivesActive = document.querySelector("#adjectivesActive").checked;
+    const isElementsActive = document.querySelector("#elementsActive").checked;
+    const isImproversActive = document.querySelector("#improversActive").checked;
 
     let prompt = "";
     let mainSubject = "";
 
-    if (this.currentArtists[0] !== artists[0] && this.currentStyles[0] !== styles[0]) {
-      prompt += `${this.randomElement(this.currentStyles)} in ${this.randomElement(this.currentArtists)} style `;
-    } else if (this.currentArtists[0] !== artists[0]) {
-      prompt += `${this.randomElement(this.currentArtists)} style `;
-    } else if (this.currentStyles[0] !== styles[0] || isStylePrompt) {
-      prompt += `${this.randomElement(this.currentStyles)} `;
-    } else {
-      prompt += `${this.randomElement(this.currentArtists)} style `;
+    if (isArtistsActive && isStylesActive) {
+      if (this.currentArtists[0] !== artists[0] && this.currentStyles[0] !== styles[0]) {
+        prompt += `${this.randomElement(this.currentStyles)} in ${this.randomElement(this.currentArtists)} style `;
+      } else if (this.currentArtists[0] !== artists[0]) {
+        prompt += `${this.randomElement(this.currentArtists)} style `;
+      } else if (this.currentStyles[0] !== styles[0] || isStylePrompt) {
+        prompt += `${this.randomElement(this.currentStyles)} `;
+      } else {
+        prompt += `${this.randomElement(this.currentArtists)} style `;
+      }
     }
 
     if (isPortraitPrompt) {
@@ -68,42 +81,63 @@ class PromptGenerator {
       }
     }
 
-    prompt += "of";
+    if (isArtistsActive || isStylesActive || prompt !== "") {
+      prompt += "of";
+    }
 
     // IDEA: ADD PREFIXES LIKE "ZOMBIE" BEFORE CHARACTERS
 
     if (!isLandscapesPrompt) {
-      if (isObjectPrompt) {
+      if (isObjectPrompt && isObjectsActive) {
         mainSubject = this.randomElement(this.currentObjects);
         prompt += ` ${mainSubject}`;
       } else {
         mainSubject = this.randomElement(this.currentCharacters);
         if (Math.random() < 0.25 || this.currentObjects[0] !== objects[0]) {
-          prompt += ` ${mainSubject} with ${this.randomElement(this.currentObjects)}`;
+          if (isObjectsActive) {
+            prompt += ` ${mainSubject} with ${this.randomElement(this.currentObjects)}`;
+          } else {
+            prompt += ` ${mainSubject}`;
+          }
         } else {
           prompt += ` ${mainSubject}`;
         }
       }
 
       // adds a random element
-      if (Math.random() < 0.5) {
-        prompt += ` of ${this.randomElement(elements)}`;
+      if (isElementsActive) {
+        if (Math.random() < 0.5 || this.currentElements[0] !== elements[0]) {
+          prompt += ` of ${this.randomElement(this.currentElements)}`;
+        }
       }
     }
 
     // adds a place
     if (isLandscapesPrompt) {
       prompt += ` ${this.randomElement(this.currentPlaces)}`;
-    } else if (Math.random() < 0.66 || this.currentPlaces[0] !== places[0]) {
+    } else if ((Math.random() < 0.66 && isPlacesActive) || (this.currentPlaces[0] !== places[0] && isPlacesActive)) {
       prompt += `, ${this.randomElement(this.currentPlaces)}`;
     }
 
     // adds random adjectives
-    prompt += `, ${this.randomElement(adjectives)}, ${this.randomElement(adjectives)}, masterpiece, trending on ArtStation`;
+    if (isAdjectivesActive) {
+      const adjective1 = this.randomElement(this.currentAdjectives);
+      prompt += `, ${adjective1}`;
+      if (this.currentAdjectives.length > 1) {
+        prompt += `, ${this.randomElement(this.currentAdjectives.filter((adjective) => adjective !== adjective1))}`;
+      }
+    }
+
+    // add improvers
+    if (isImproversActive) {
+      prompt += `, ${this.randomElement(this.currentImprovers)}`;
+    }
 
     // adds a random color palette
-    if (Math.random() < 0.25 || this.currentColors[0] !== colors[0]) {
-      prompt += `, ${this.randomElement(this.currentColors)}`;
+    if (isColorsActive) {
+      if (Math.random() < 0.25 || this.currentColors[0] !== colors[0]) {
+        prompt += `, ${this.randomElement(this.currentColors)}`;
+      }
     }
 
     this.currentPrompts.push(prompt);
@@ -170,6 +204,9 @@ class PromptGenerator {
     const artistsInput = document.querySelector("#artistsTextArea");
     const stylesInput = document.querySelector("#stylesTextArea");
     const colorsInput = document.querySelector("#colorsTextArea");
+    const adjectivesInput = document.querySelector("#adjectivesTextArea");
+    const elementsInput = document.querySelector("#elementsTextArea");
+    const improversInput = document.querySelector("#improversTextArea");
 
     if (this.checkUserArraysInputs(charactersInput)) {
       this.currentCharacters = charactersInput.value.split(/\r?\n/);
@@ -218,6 +255,30 @@ class PromptGenerator {
       this.currentColors = [...colors];
       localStorage.setItem("colors", "");
     }
+
+    if (this.checkUserArraysInputs(adjectivesInput)) {
+      this.currentAdjectives = adjectivesInput.value.split(/\r?\n/);
+      localStorage.setItem("adjectives", adjectivesInput.value);
+    } else {
+      this.currentAdjectives = [...adjectives];
+      localStorage.setItem("adjectives", "");
+    }
+
+    if (this.checkUserArraysInputs(elementsInput)) {
+      this.currentElements = elementsInput.value.split(/\r?\n/);
+      localStorage.setItem("elements", elementsInput.value);
+    } else {
+      this.currentElements = [...elements];
+      localStorage.setItem("elements", "");
+    }
+
+    if (this.checkUserArraysInputs(improversInput)) {
+      this.currentImprovers = improversInput.value.split(/\r?\n/);
+      localStorage.setItem("improvers", improversInput.value);
+    } else {
+      this.currentImprovers = [...improvers];
+      localStorage.setItem("improvers", "");
+    }
   }
 
   addPreviousUserInputs() {
@@ -227,13 +288,19 @@ class PromptGenerator {
     const artistsInput = document.querySelector("#artistsTextArea");
     const stylesInput = document.querySelector("#stylesTextArea");
     const colorsInput = document.querySelector("#colorsTextArea");
+    const adjectivesInput = document.querySelector("#adjectivesTextArea");
+    const elementsInput = document.querySelector("#elementsTextArea");
+    const improversInput = document.querySelector("#improversTextArea");
 
     charactersInput.value = localStorage.getItem("characters");
-    objectsInput.value = localStorage.getItem("objects", "");
-    placesInput.value = localStorage.getItem("places", "");
-    artistsInput.value = localStorage.getItem("artists", "");
-    stylesInput.value = localStorage.getItem("styles", "");
-    colorsInput.value = localStorage.getItem("colors", "");
+    objectsInput.value = localStorage.getItem("objects");
+    placesInput.value = localStorage.getItem("places");
+    artistsInput.value = localStorage.getItem("artists");
+    stylesInput.value = localStorage.getItem("styles");
+    colorsInput.value = localStorage.getItem("colors");
+    adjectivesInput.value = localStorage.getItem("adjectives");
+    elementsInput.value = localStorage.getItem("elements");
+    improversInput.value = localStorage.getItem("improvers");
   }
 
   resetUserInputs() {
@@ -243,6 +310,9 @@ class PromptGenerator {
     const artistsInput = document.querySelector("#artistsTextArea");
     const stylesInput = document.querySelector("#stylesTextArea");
     const colorsInput = document.querySelector("#colorsTextArea");
+    const adjectivesInput = document.querySelector("#adjectivesTextArea");
+    const elementsInput = document.querySelector("#elementsTextArea");
+    const improversInput = document.querySelector("#improversTextArea");
 
     localStorage.setItem("characters", "");
     localStorage.setItem("objects", "");
@@ -250,13 +320,19 @@ class PromptGenerator {
     localStorage.setItem("artists", "");
     localStorage.setItem("styles", "");
     localStorage.setItem("colors", "");
+    localStorage.setItem("adjectives", "");
+    localStorage.setItem("elements", "");
+    localStorage.setItem("improvers", "");
 
     charactersInput.value = localStorage.getItem("characters");
-    objectsInput.value = localStorage.getItem("objects", "");
-    placesInput.value = localStorage.getItem("places", "");
-    artistsInput.value = localStorage.getItem("artists", "");
-    stylesInput.value = localStorage.getItem("styles", "");
-    colorsInput.value = localStorage.getItem("colors", "");
+    objectsInput.value = localStorage.getItem("objects");
+    placesInput.value = localStorage.getItem("places");
+    artistsInput.value = localStorage.getItem("artists");
+    stylesInput.value = localStorage.getItem("styles");
+    colorsInput.value = localStorage.getItem("colors");
+    adjectivesInput.value = localStorage.getItem("adjectives");
+    elementsInput.value = localStorage.getItem("elements");
+    improversInput.value = localStorage.getItem("improvers");
   }
 }
 
@@ -1033,6 +1109,8 @@ const artists = [
   "Wayne Barlowe",
   "Zdzislaw Beksinski",
 ];
+
+const improvers = ["masterpiece, trending on artstation", "trending on deviantart", "award-winning", "masterpiece", "intricate and detailed"];
 
 promptGenerator.addPreviousUserInputs();
 
