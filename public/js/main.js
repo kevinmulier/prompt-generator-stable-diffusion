@@ -26,7 +26,6 @@ class PromptGenerator {
 
   generatePrompt() {
     const isObjectPrompt = Math.random() < 0.1; // determine if the prompt will be for an object or a character
-    const isStylePrompt = Math.random() < 0.75;
     const isPortraitPrompt = this.currentGenerator === "portrait";
     const selectedPortraitShot = document.querySelector("#portraitShotSelect").value;
     const portraitShotOptions = ["Full-Length Shot", "American Shot", "Medium Shot", "Close-Up Shot", "Extreme Close-Up Shot"];
@@ -54,15 +53,11 @@ class PromptGenerator {
     }
 
     if (isArtistsActive && isStylesActive) {
-      if (this.currentArtists[0] !== artists[0] && this.currentStyles[0] !== styles[0]) {
-        prompt += `${this.randomElement(this.currentStyles)} in ${this.randomElement(this.currentArtists)} style `;
-      } else if (this.currentArtists[0] !== artists[0]) {
-        prompt += `${this.randomElement(this.currentArtists)} style `;
-      } else if (this.currentStyles[0] !== styles[0] || isStylePrompt) {
-        prompt += `${this.randomElement(this.currentStyles)} `;
-      } else {
-        prompt += `${this.randomElement(this.currentArtists)} style `;
-      }
+      prompt += `${this.randomElement(this.currentStyles)} in ${this.randomElement(this.currentArtists)} style `;
+    } else if (isArtistsActive) {
+      prompt += `${this.randomElement(this.currentArtists)} style `;
+    } else if (isStylesActive) {
+      prompt += `${this.randomElement(this.currentStyles)} `;
     }
 
     if (isPortraitPrompt) {
@@ -110,16 +105,14 @@ class PromptGenerator {
 
       // adds a random element
       if (isElementsActive) {
-        if (Math.random() < 0.5 || this.currentElements[0] !== elements[0]) {
-          prompt += ` of ${this.randomElement(this.currentElements)}`;
-        }
+        prompt += ` of ${this.randomElement(this.currentElements)}`;
       }
     }
 
     // adds a place
     if (isLandscapesPrompt) {
       prompt += ` ${this.randomElement(this.currentPlaces)}`;
-    } else if ((Math.random() < 0.66 && isPlacesActive) || (this.currentPlaces[0] !== places[0] && isPlacesActive)) {
+    } else if (isPlacesActive) {
       prompt += `, ${this.randomElement(this.currentPlaces)}`;
     }
 
@@ -139,9 +132,7 @@ class PromptGenerator {
 
     // adds a random color palette
     if (isColorsActive) {
-      if (Math.random() < 0.25 || this.currentColors[0] !== colors[0]) {
-        prompt += `, ${this.randomElement(this.currentColors)}`;
-      }
+      prompt += `, ${this.randomElement(this.currentColors)}`;
     }
 
     this.currentPrompts.push(prompt);
