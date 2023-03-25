@@ -255,7 +255,7 @@ class PromptGenerator {
 
     const copyMessage = document.createElement("div");
     copyMessage.textContent = "Copied!";
-    copyMessage.className = "absolute text-white font-bold -left-14 top-2.5";
+    copyMessage.className = "absolute dark:text-fublu-50 text-fublu-300 font-bold -left-14 top-2.5";
 
     document.querySelector("#promptsCopyButton").appendChild(copyMessage);
 
