@@ -746,10 +746,6 @@ video {
   justify-content: space-between;
 }
 
-.justify-evenly {
-  justify-content: space-evenly;
-}
-
 .gap-5 {
   gap: 1.25rem;
 }
