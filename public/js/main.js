@@ -1117,6 +1117,7 @@ const styles = [
   "Closeup",
   "Blur Effect",
   "Lens Flare",
+  "Punk",
 ];
 
 const colors = [
