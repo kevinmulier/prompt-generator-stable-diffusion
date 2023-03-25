@@ -1,4 +1,4 @@
-const toggleThemeBtn = document.querySelector('.toggleThemeBtn');
+const toggleThemeBtn = document.querySelectorAll('.toggleThemeBtn');
 
 function toggleTheme() {
   const html = document.documentElement;
@@ -12,4 +12,4 @@ function toggleTheme() {
   }
 }
 
-toggleThemeBtn.addEventListener('click', toggleTheme);
+toggleThemeBtn.forEach((btn => btn.addEventListener('click', toggleTheme)));
