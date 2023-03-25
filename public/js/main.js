@@ -249,9 +249,19 @@ class PromptGenerator {
   }
 
   // Copy the prompts to clipboard
-  copyPromptsToClipboard(promptsArray) {
+  async copyPromptsToClipboard(promptsArray) {
     this.textArea.textContent = promptsArray.join("\n");
-    navigator.clipboard.writeText(this.textArea.textContent);
+    await navigator.clipboard.writeText(this.textArea.textContent);
+
+    const copyMessage = document.createElement("div");
+    copyMessage.textContent = "Copied!";
+    copyMessage.className = "absolute -left-14 top-2.5";
+
+    document.querySelector("#promptsCopyButton").appendChild(copyMessage);
+
+    // setTimeout(() => {
+    //   copyMessage.remove();
+    // }, 1500);
   }
 
   // check if textArea are empty
@@ -404,8 +414,8 @@ class PromptGenerator {
 const promptGenerator = new PromptGenerator();
 
 // Event listener to copy prompts to clipboard
-document.querySelector("#promptsCopyButton").addEventListener("click", (event) => {
-  promptGenerator.copyPromptsToClipboard(promptGenerator.currentPrompts);
+document.querySelector("#promptsCopyButton").addEventListener("click", async (event) => {
+  await promptGenerator.copyPromptsToClipboard(promptGenerator.currentPrompts);
 });
 
 // Event listener to generate prompts when pressing generate

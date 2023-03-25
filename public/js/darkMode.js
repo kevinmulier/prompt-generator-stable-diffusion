@@ -1,4 +1,4 @@
-const toggleThemeBtn = document.querySelector('#toggleThemeBtn');
+const toggleThemeBtn = document.querySelector('.toggleThemeBtn');
 
 function toggleTheme() {
   const html = document.documentElement;
