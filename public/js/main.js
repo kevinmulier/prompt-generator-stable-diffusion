@@ -484,6 +484,30 @@ document.querySelector("#generatorOptionsButton").addEventListener("click", show
 // add an event listener to reset generators options
 document.querySelector("#resetInputsButton").addEventListener("click", promptGenerator.resetUserInputs);
 
+// add an event listener to number of artists input that revert to min or max value if user input is out of range
+document.querySelector("#numArtists").addEventListener("change", () => {
+  let numArtists = document.querySelector("#numArtists");
+  let v = Number(numArtists.value);
+  if (v < 1) {
+    numArtists.value = 1;
+  }
+  if (v > 5) {
+    numArtists.value = 5;
+  }
+});
+
+// add an event listener to number of styles & mediums input that revert to min or max value if user input is out of range
+document.querySelector("#numStyles").addEventListener("change", () => {
+  let numStyles = document.querySelector("#numStyles");
+  let v = Number(numStyles.value);
+  if (v < 1) {
+    numStyles.value = 1;
+  }
+  if (v > 3) {
+    numStyles.value = 3;
+  }
+});
+
 // Arrays of randomness
 const characters = [
   "Mermaid",
