@@ -9,24 +9,24 @@
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.png" />
     <title>Stable Diffusion Prompts Generator</title>
   </head>
-  <body class="text-fublu-600 text-xs sm:text-base md:text-lg lg:text-xl pb-8">
+  <body class="text-fublu-600 text-xs sm:text-base md:text-xl lg:text-xl pb-8">
     <!--Nav wrapper-->
     <div class="mb-7 lg:mb-10">
-      <nav class="px-3 py-1 flex justify-between md:justify-center items-center bg-fublu-800">
+      <nav class="px-3 py-1 flex justify-between md:justify-center items-center  bg-fublu-500">
         <!-- Desktop navbar -->
-        <ul class="w-full max-w-5xl text-center text-sm lg:text-lg flex max-md:flex-col justify-center items-center md:gap-20 text-fublu-50 max-md:hidden">
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Home</a></li>
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer portraitLink"
+        <ul class="w-full max-w-5xl text-center text-sm lg:text-xl flex max-md:flex-col justify-center items-center text-fublu-50 max-md:hidden">
+          <li class="py-2 flex-1 min-w-fit"
+          ><img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" class="m-auto" width="50px" height="50px"
+        /></li>
+          <li class="py-2 flex-1 rounded-md hover:bg-fublu-400 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Home</a></li>
+          <li class="py-2 flex-1 rounded-md hover:bg-fublu-400 transition-all cursor-pointer portraitLink"
             ><a href="#" class="portraitLink">Portraits</a></li
           >
-          <li class="px-4 py-2 flex-1 min-w-fit"
-            ><img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" class="m-auto" width="50px" height="50px"
-          /></li>
-
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer landscapesLink"
+          <li class="py-2 flex-1 rounded-md hover:bg-fublu-400 transition-all cursor-pointer landscapesLink"
             ><a href="#" class="landscapesLink">Landscapes</a></li
           >
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Random</a></li>
+          <li class="py-2 flex-1 rounded-md hover:bg-fublu-400 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Random</a></li>
+          <li class="py-2 flex-1 rounded-md hover:bg-fublu-300 transition-all cursor-pointer darkMode"><a href="#" class="darkMode"><img src="assets/icons/dark-mode.svg" alt="Dark Mode" class="m-auto" width="50px" height="50px"></a></li>
         </ul>
         <!-- End of desktop navbar -->
         <!-- Mobile hamburger button -->
@@ -315,7 +315,7 @@
     <!-- End of user's inputs -->
     <!-- Prompts -->
     <div class="relative mx-auto mb-10 p-3 py-9 w-11/12 max-w-6xl bg-fublu-100 rounded-md border-2 border-fublu-800 text-center shadow-sm shadow-fublu-200">
-      <button class="absolute top-2 right-2 text-xs md:text-sm" id="promptsCopyButton"
+      <button class="absolute top-2 right-2 text-xs p-1 md:text-sm hover:bg-fublu-200 rounded-sm" id="promptsCopyButton"
         ><img src="assets/icons/copypaste.png" alt="Copy" title="Copy prompts" class="h-5 w-5 md:h-8 md:w-8" width="32px" height="32px"
       /></button>
       <div class="w-full text-xs md:text-sm lg:text-base text-fublu-800" id="prompts"></div>
