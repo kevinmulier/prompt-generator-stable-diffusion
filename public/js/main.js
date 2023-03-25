@@ -73,13 +73,36 @@ class PromptGenerator {
       document.querySelector("#placesActive").classList.remove("hidden");
     }
 
-    // Add a random artist and/or style to the prompt
+    // Get value from artists and styles number inputs
+    let numArtists = Number(document.querySelector("#numArtists").value);
+    let numStyles = Number(document.querySelector("#numStyles").value);
+
+    //  initialize artists prompt & styles prompt parts
+    let artistsPrompt = "";
+    let stylesPrompt = "";
+
+    // set content of artists & styles prompts parts depending on user number inputs
+    for (let i = 0; i < numArtists; i++) {
+      if (i < this.currentArtists.length) {
+        artistsPrompt += `${this.randomElement(this.currentArtists.filter((artist) => !artistsPrompt.includes(artist)))}, `;
+      }
+    }
+    artistsPrompt = artistsPrompt.slice(0, -2);
+
+    for (let i = 0; i < numStyles; i++) {
+      if (i < this.currentStyles.length) {
+        stylesPrompt += `${this.randomElement(this.currentStyles.filter((style) => !stylesPrompt.includes(style)))}, `;
+      }
+    }
+    stylesPrompt = stylesPrompt.slice(0, -2);
+
+    // Add a artists and/or styles to the prompt
     if (isArtistsActive && isStylesActive) {
-      prompt += `${this.randomElement(this.currentStyles)} in ${this.randomElement(this.currentArtists)} style `;
+      prompt += `${stylesPrompt} in ${artistsPrompt} style `;
     } else if (isArtistsActive) {
-      prompt += `${this.randomElement(this.currentArtists)} style `;
+      prompt += `${artistsPrompt} style `;
     } else if (isStylesActive) {
-      prompt += `${this.randomElement(this.currentStyles)} `;
+      prompt += `${stylesPrompt} `;
     }
 
     if (isPortraitPrompt) {
