@@ -6,6 +6,7 @@ module.exports = {
 	content: ["./public/**/*.{html,js}"],
 	theme: {
 		colors: {
+      ...colors,
 			fublu: {
 				50: "#eff1fe",
 				100: "#e2e4fd",
