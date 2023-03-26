@@ -25,9 +25,6 @@ class PromptGenerator {
   }
 
   generatePrompt() {
-    // Determine whether the prompt will be for an object or a character
-    const isObjectPrompt = Math.random() < 0.1;
-
     // Check if the current generator is for portraits
     const isPortraitPrompt = this.currentGenerator === "portrait";
 
@@ -138,7 +135,7 @@ class PromptGenerator {
     }
 
     if (!isLandscapesPrompt) {
-      if (isObjectPrompt && isObjectsActive) {
+      if (isObjectsActive && Math.random() < 0.1 && this.currentCharacters[0] === characters[0]) {
         // if object prompt is active and objects are active, add a random object as the main subject of the prompt
         mainSubject = this.randomElement(this.currentObjects);
         prompt += ` ${mainSubject}`;
