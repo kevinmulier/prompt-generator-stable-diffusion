@@ -119,7 +119,6 @@ class PromptGenerator {
 			}
 		}
 		artistsPrompt = artistsPrompt.slice(0, -2);
-
 		for (let i = 0; i < numStyles; i++) {
 			if (i < this.currentStyles.length) {
 				stylesPrompt += `${this.randomElement(
@@ -138,6 +137,7 @@ class PromptGenerator {
 			prompt += `${stylesPrompt} `;
 		}
 
+		// Selecting type of shot based on generator page.
 		if (isPortraitPrompt) {
 			if (selectedPortraitShot !== "Random Shot") {
 				// if a specific portrait shot is selected, add it to the prompt
@@ -170,6 +170,7 @@ class PromptGenerator {
 			prompt += "of";
 		}
 
+		// Selecting Objects, Characters and Elements based on prompt page.
 		if (!isLandscapesPrompt) {
 			if (isObjectPrompt && isObjectsActive) {
 				// if object prompt is active and objects are active, add a random object as the main subject of the prompt
