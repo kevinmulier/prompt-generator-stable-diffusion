@@ -22,9 +22,17 @@ class PromptGenerator {
     this.currentAdjectives = [];
     this.currentElements = [];
     this.currentImprovers = [];
+    this.currentPrefixes = [];
+    this.currentSuffixes = [];
   }
 
   generatePrompt() {
+    // Determine if the prompt will have prefix
+    const isPrefixePrompt = Math.random() < 0.1;
+
+    // Determine if the prompt will have suffix
+    const isSuffixPrompt = Math.random() < 0.1;
+
     // Check if the current generator is for portraits
     const isPortraitPrompt = this.currentGenerator === "portrait";
 
@@ -58,6 +66,8 @@ class PromptGenerator {
     const isAdjectivesActive = document.querySelector("#adjectivesActive").checked;
     const isElementsActive = document.querySelector("#elementsActive").checked;
     const isImproversActive = document.querySelector("#improversActive").checked;
+    const isPrefixesActive = document.querySelector("#prefixesActive").checked;
+    const isSuffixesActive = document.querySelector("#suffixesActive").checked;
 
     // Initialize prompt and mainSubject variables
     let prompt = "";
@@ -134,28 +144,38 @@ class PromptGenerator {
       prompt += "of";
     }
 
+    if ((isPrefixePrompt && isPrefixesActive) || this.currentPrefixes[0] !== prefixes[0]) {
+      // if is a prefix prompt, add a random prefix
+      prompt += ` ${this.randomElement(this.currentPrefixes)}`;
+    }
+
     if (!isLandscapesPrompt) {
       if (isObjectsActive && Math.random() < 0.1 && this.currentCharacters[0] === characters[0]) {
-        // if object prompt is active and objects are active, add a random object as the main subject of the prompt
+        // if objects are active, can add a random object as the main subject of the prompt
         mainSubject = this.randomElement(this.currentObjects);
-        prompt += ` ${mainSubject}`;
+        prompt += ` (${mainSubject})`;
       } else {
         // otherwise, add a random character as the main subject of the prompt, possibly with a random object
         mainSubject = this.randomElement(this.currentCharacters);
         if (Math.random() < 0.25 || this.currentObjects[0] !== objects[0]) {
           if (isObjectsActive) {
-            prompt += ` ${mainSubject} with ${this.randomElement(this.currentObjects)}`;
+            prompt += ` (${mainSubject}) with ${this.randomElement(this.currentObjects)}`;
           } else {
-            prompt += ` ${mainSubject}`;
+            prompt += ` (${mainSubject})`;
           }
         } else {
-          prompt += ` ${mainSubject}`;
+          prompt += ` (${mainSubject})`;
         }
       }
 
       // adds a random element to the prompt if element prompt is active
       if (isElementsActive) {
         prompt += ` of ${this.randomElement(this.currentElements)}`;
+      }
+
+      if ((isSuffixPrompt && isSuffixesActive) || this.currentSuffixes[0] !== suffixes[0]) {
+        // if is a suffix prompt, add a random suffix
+        prompt += ` ${this.randomElement(this.currentSuffixes)}`;
       }
     }
 
@@ -267,6 +287,8 @@ class PromptGenerator {
     const adjectivesInput = document.querySelector("#adjectivesTextArea");
     const elementsInput = document.querySelector("#elementsTextArea");
     const improversInput = document.querySelector("#improversTextArea");
+    const prefixesInput = document.querySelector("#prefixesTextArea");
+    const suffixesInput = document.querySelector("#suffixesTextArea");
 
     if (this.checkUserArraysInputs(charactersInput)) {
       this.currentCharacters = charactersInput.value.split(/\r?\n/);
@@ -339,6 +361,22 @@ class PromptGenerator {
       this.currentImprovers = [...improvers];
       localStorage.setItem("improvers", "");
     }
+
+    if (this.checkUserArraysInputs(prefixesInput)) {
+      this.currentPrefixes = prefixesInput.value.split(/\r?\n/);
+      localStorage.setItem("prefixes", prefixesInput.value);
+    } else {
+      this.currentPrefixes = [...prefixes];
+      localStorage.setItem("prefixes", "");
+    }
+
+    if (this.checkUserArraysInputs(suffixesInput)) {
+      this.currentSuffixes = suffixesInput.value.split(/\r?\n/);
+      localStorage.setItem("suffixes", suffixesInput.value);
+    } else {
+      this.currentSuffixes = [...suffixes];
+      localStorage.setItem("suffixes", "");
+    }
   }
 
   // If user entered inputs previously, get them back into the text areas
@@ -352,6 +390,8 @@ class PromptGenerator {
     const adjectivesInput = document.querySelector("#adjectivesTextArea");
     const elementsInput = document.querySelector("#elementsTextArea");
     const improversInput = document.querySelector("#improversTextArea");
+    const prefixesInput = document.querySelector("#prefixesTextArea");
+    const suffixesInput = document.querySelector("#suffixesTextArea");
 
     charactersInput.value = localStorage.getItem("characters");
     objectsInput.value = localStorage.getItem("objects");
@@ -362,6 +402,8 @@ class PromptGenerator {
     adjectivesInput.value = localStorage.getItem("adjectives");
     elementsInput.value = localStorage.getItem("elements");
     improversInput.value = localStorage.getItem("improvers");
+    prefixesInput.value = localStorage.getItem("prefixes");
+    suffixesInput.value = localStorage.getItem("suffixes");
   }
 
   // Reset all user's inputs
@@ -375,6 +417,8 @@ class PromptGenerator {
     const adjectivesInput = document.querySelector("#adjectivesTextArea");
     const elementsInput = document.querySelector("#elementsTextArea");
     const improversInput = document.querySelector("#improversTextArea");
+    const prefixesInput = document.querySelector("#prefixesTextArea");
+    const suffixesInput = document.querySelector("#suffixesTextArea");
 
     localStorage.setItem("characters", "");
     localStorage.setItem("objects", "");
@@ -385,6 +429,8 @@ class PromptGenerator {
     localStorage.setItem("adjectives", "");
     localStorage.setItem("elements", "");
     localStorage.setItem("improvers", "");
+    localStorage.setItem("prefixes", "");
+    localStorage.setItem("suffixes", "");
 
     charactersInput.value = localStorage.getItem("characters");
     objectsInput.value = localStorage.getItem("objects");
@@ -395,6 +441,8 @@ class PromptGenerator {
     adjectivesInput.value = localStorage.getItem("adjectives");
     elementsInput.value = localStorage.getItem("elements");
     improversInput.value = localStorage.getItem("improvers");
+    prefixesInput.value = localStorage.getItem("prefixes");
+    suffixesInput.value = localStorage.getItem("suffixes");
   }
 }
 
@@ -1195,6 +1243,51 @@ const artists = [
   "Richard Corben",
   "Wayne Barlowe",
   "Zdzislaw Beksinski",
+];
+
+const prefixes = [
+  "Zombie",
+  "Superhero",
+  "Robot",
+  "Pirate",
+  "Alien",
+  "Wizard",
+  "Vampire",
+  "Werewolf",
+  "Ninja",
+  "Dragon",
+  "Cyborg",
+  "Time-traveler",
+  "Space",
+  "Giant",
+  "Tiny",
+  "Invisible",
+  "Goblin",
+  "Goddess",
+  "Sorceress",
+  "Witch",
+  "Ghost",
+];
+
+const suffixes = [
+  "dancing",
+  "flying",
+  "running",
+  "singing",
+  "fighting",
+  "swimming",
+  "climbing",
+  "jumping",
+  "laughing",
+  "crying",
+  "shouting",
+  "exploring",
+  "sleeping",
+  "eating",
+  "walking",
+  "sneaking",
+  "teleporting",
+  "summoning",
 ];
 
 const improvers = ["masterpiece, trending on artstation", "trending on deviantart", "award-winning", "masterpiece", "intricate and detailed"];

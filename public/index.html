@@ -319,13 +319,51 @@
               checked
               class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
             />
-            <h3 class="text-center font-bold">Improvers </h3>
+            <h3 class="text-center font-bold">Improvers</h3>
           </div>
           <textarea
             id="improversTextArea"
             cols="30"
             rows="4"
             placeholder="Add improvers to the generator, one per line (e.g. trending on Artstation, masterpiece...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+          ></textarea>
+        </section>
+        <section class="flex flex-col flex-1 max-w-md mb-5">
+          <div class="flex justify-center items-center mb-4 gap-4">
+            <input
+              type="checkbox"
+              name="prefixesActive"
+              id="prefixesActive"
+              checked
+              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+            />
+            <h3 class="text-center font-bold">Prefixes</h3>
+          </div>
+          <textarea
+            id="prefixesTextArea"
+            cols="30"
+            rows="4"
+            placeholder="Add prefixes to the generator, one per line (e.g. zombie, superhero, wizard...)"
+            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+          ></textarea>
+        </section>
+        <section class="flex flex-col flex-1 max-w-md mb-5">
+          <div class="flex justify-center items-center mb-4 gap-4">
+            <input
+              type="checkbox"
+              name="suffixesActive"
+              id="suffixesActive"
+              checked
+              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+            />
+            <h3 class="text-center font-bold">Suffixes</h3>
+          </div>
+          <textarea
+            id="suffixesTextArea"
+            cols="30"
+            rows="4"
+            placeholder="Add suffixes to the generator, one per line (e.g. dancing, flying, summoning...)"
             class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
           ></textarea>
         </section>
