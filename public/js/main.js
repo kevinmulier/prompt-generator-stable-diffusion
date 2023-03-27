@@ -243,8 +243,11 @@ class PromptGenerator {
     this.randomDiv.classList.add("hidden");
     this.charactersInputDiv.classList.remove("hidden");
     this.objectsInputDiv.classList.remove("hidden");
+    document.querySelector("#elementsInputDiv").classList.remove("hidden");
+    document.querySelector("#prefixesInputDiv").classList.remove("hidden");
+    document.querySelector("#suffixesInputDiv").classList.remove("hidden");
 
-    // Show places input div and hide if current generator is landscapes
+    // Show places, prefixes and suffixes input divs and hide if current generator is landscapes
     document.querySelector("#placesActive").classList.remove("hidden");
 
     // Show the chosen generator div based on current generator variable
@@ -254,6 +257,9 @@ class PromptGenerator {
       this.landscapesDiv.classList.remove("hidden");
       this.charactersInputDiv.classList.add("hidden");
       this.objectsInputDiv.classList.add("hidden");
+      document.querySelector("#elementsInputDiv").classList.add("hidden");
+      document.querySelector("#prefixesInputDiv").classList.add("hidden");
+      document.querySelector("#suffixesInputDiv").classList.add("hidden");
       document.querySelector("#placesActive").classList.add("hidden");
     } else if (this.currentGenerator === "random") {
       this.randomDiv.classList.remove("hidden");
