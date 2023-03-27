@@ -179,41 +179,51 @@ class PromptGenerator {
 
 		// Selecting prefixes, suffixes, characters, objects if the page isn't landscape
 		if (!isLandscapesPrompt) {
-			if ((isPrefixPrompt && isPrefixesActive) || this.currentPrefixes[0] !== prefixes[0]) {
-			  // if is a prefix prompt, add a random prefix
-			  prompt += ` ${this.randomElement(this.currentPrefixes)}`;
+			if (
+				(isPrefixPrompt && isPrefixesActive) ||
+				this.currentPrefixes[0] !== prefixes[0]
+			) {
+				// if is a prefix prompt, add a random prefix
+				prompt += ` ${this.randomElement(this.currentPrefixes)}`;
 			}
 
-			if (isObjectsActive && Math.random() < 0.1 && this.currentCharacters[0] === characters[0]) {
-			  // if objects are active, can add a random object as the main subject of the prompt
-			  mainSubject = this.randomElement(this.currentObjects);
-			  prompt += ` (${mainSubject}:1.3)`;
-			} else {
-			  // otherwise, add a random character as the main subject of the prompt, possibly with a random object
-			  mainSubject = this.randomElement(this.currentCharacters);
-			  if (Math.random() < 0.25 || this.currentObjects[0] !== objects[0]) {
-				if (isObjectsActive) {
-				  prompt += ` (${mainSubject}:1.3) with ${this.randomElement(this.currentObjects)}`;
-				} else {
-				  prompt += ` (${mainSubject}:1.3)`;
-				}
-			  } else {
+			if (
+				isObjectsActive &&
+				Math.random() < 0.1 &&
+				this.currentCharacters[0] === characters[0]
+			) {
+				// if objects are active, can add a random object as the main subject of the prompt
+				mainSubject = this.randomElement(this.currentObjects);
 				prompt += ` (${mainSubject}:1.3)`;
-			  }
+			} else {
+				// otherwise, add a random character as the main subject of the prompt, possibly with a random object
+				mainSubject = this.randomElement(this.currentCharacters);
+				if (Math.random() < 0.25 || this.currentObjects[0] !== objects[0]) {
+					if (isObjectsActive) {
+						prompt += ` (${mainSubject}:1.3) with ${this.randomElement(
+							this.currentObjects
+						)}`;
+					} else {
+						prompt += ` (${mainSubject}:1.3)`;
+					}
+				} else {
+					prompt += ` (${mainSubject}:1.3)`;
+				}
 			}
 
 			// adds a random element to the prompt if element prompt is active
 			if (isElementsActive) {
-			  prompt += ` of ${this.randomElement(this.currentElements)}`;
+				prompt += ` of ${this.randomElement(this.currentElements)}`;
 			}
 
-			if ((isSuffixPrompt && isSuffixesActive) || this.currentSuffixes[0] !== suffixes[0]) {
-			  // if is a suffix prompt, add a random suffix
-			  prompt += ` ${this.randomElement(this.currentSuffixes)}`;
+			if (
+				(isSuffixPrompt && isSuffixesActive) ||
+				this.currentSuffixes[0] !== suffixes[0]
+			) {
+				// if is a suffix prompt, add a random suffix
+				prompt += ` ${this.randomElement(this.currentSuffixes)}`;
 			}
-		  }
-
-
+		}
 
 		// adds a random place to the prompt if landscape prompt is active, or a random place after the main subject if place prompt is active
 		if (isLandscapesPrompt) {
@@ -336,6 +346,8 @@ class PromptGenerator {
 		const adjectivesInput = document.querySelector("#adjectivesTextArea");
 		const elementsInput = document.querySelector("#elementsTextArea");
 		const improversInput = document.querySelector("#improversTextArea");
+		const prefixesInput = document.querySelector("#prefixesTextArea");
+		const suffixesInput = document.querySelector("#suffixesTextArea");
 
 		if (this.checkUserArraysInputs(charactersInput)) {
 			this.currentCharacters = charactersInput.value.split(/\r?\n/);
@@ -409,21 +421,21 @@ class PromptGenerator {
 			localStorage.setItem("improvers", "");
 		}
 
-	if (this.checkUserArraysInputs(prefixesInput)) {
-		this.currentPrefixes = prefixesInput.value.split(/\r?\n/);
-		localStorage.setItem("prefixes", prefixesInput.value);
-	  } else {
-		this.currentPrefixes = [...prefixes];
-		localStorage.setItem("prefixes", "");
-	  }
+		if (this.checkUserArraysInputs(prefixesInput)) {
+			this.currentPrefixes = prefixesInput.value.split(/\r?\n/);
+			localStorage.setItem("prefixes", prefixesInput.value);
+		} else {
+			this.currentPrefixes = [...prefixes];
+			localStorage.setItem("prefixes", "");
+		}
 
-	  if (this.checkUserArraysInputs(suffixesInput)) {
-		this.currentSuffixes = suffixesInput.value.split(/\r?\n/);
-		localStorage.setItem("suffixes", suffixesInput.value);
-	  } else {
-		this.currentSuffixes = [...suffixes];
-		localStorage.setItem("suffixes", "");
-	  }
+		if (this.checkUserArraysInputs(suffixesInput)) {
+			this.currentSuffixes = suffixesInput.value.split(/\r?\n/);
+			localStorage.setItem("suffixes", suffixesInput.value);
+		} else {
+			this.currentSuffixes = [...suffixes];
+			localStorage.setItem("suffixes", "");
+		}
 	}
 
 	// If user entered inputs previously, get them back into the text areas
@@ -437,8 +449,6 @@ class PromptGenerator {
 		const adjectivesInput = document.querySelector("#adjectivesTextArea");
 		const elementsInput = document.querySelector("#elementsTextArea");
 		const improversInput = document.querySelector("#improversTextArea");
-		const prefixesInput = document.querySelector("#prefixesTextArea");
-    	const suffixesInput = document.querySelector("#suffixesTextArea");
 
 		charactersInput.value = localStorage.getItem("characters");
 		objectsInput.value = localStorage.getItem("objects");
@@ -485,7 +495,7 @@ class PromptGenerator {
 		elementsInput.value = localStorage.getItem("elements");
 		improversInput.value = localStorage.getItem("improvers");
 		prefixesInput.value = localStorage.getItem("prefixes");
-    suffixesInput.value = localStorage.getItem("suffixes");
+		suffixesInput.value = localStorage.getItem("suffixes");
 	}
 }
 
