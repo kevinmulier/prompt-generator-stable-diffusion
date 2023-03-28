@@ -1,5 +1,15 @@
 {
-  "devDependencies": {
-    "tailwindcss": "^3.2.7"
-  }
+	"name": "prompt-generator-stable-diffusion",
+	"version": "1.0.0",
+	"description": "A Neat Webapp that lets you generate prompt.",
+	"main": "tailwind.config.js",
+	"devDependencies": {
+		"tailwindcss": "^3.2.7"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tailwindcss -i ./src/css/styles.css -o ./public/css/styles.css --watch"
+	},
+	"author": "Kevin Mulier",
+	"license": "MIT"
 }
