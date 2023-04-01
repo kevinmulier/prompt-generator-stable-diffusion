@@ -147,24 +147,24 @@ class PromptGenerator {
     if (!isLandscapesPrompt) {
       if ((isPrefixePrompt && isPrefixesActive) || this.currentPrefixes[0] !== prefixes[0]) {
         // if is a prefix prompt, add a random prefix
-        prompt += ` ${this.randomElement(this.currentPrefixes)}`;
+        prompt += ` (${this.randomElement(this.currentPrefixes)}:1.1)`;
       }
 
       if (isObjectsActive && Math.random() < 0.1 && this.currentCharacters[0] === characters[0]) {
         // if objects are active, can add a random object as the main subject of the prompt
         mainSubject = this.randomElement(this.currentObjects);
-        prompt += ` (${mainSubject}:1.3)`;
+        prompt += ` (${mainSubject}:1.2)`;
       } else {
         // otherwise, add a random character as the main subject of the prompt, possibly with a random object
         mainSubject = this.randomElement(this.currentCharacters);
         if (Math.random() < 0.25 || this.currentObjects[0] !== objects[0]) {
           if (isObjectsActive) {
-            prompt += ` (${mainSubject}:1.3) with ${this.randomElement(this.currentObjects)}`;
+            prompt += ` (${mainSubject}:1.2) with ${this.randomElement(this.currentObjects)}`;
           } else {
-            prompt += ` (${mainSubject}:1.3)`;
+            prompt += ` (${mainSubject}:1.2)`;
           }
         } else {
-          prompt += ` (${mainSubject}:1.3)`;
+          prompt += ` (${mainSubject}:1.2)`;
         }
       }
 
