@@ -7,7 +7,7 @@ Welcome to the Stable Diffusion and Midjourney Prompt Generator project. This co
 ## Table of Contents 🗂️
 
 1. [About the Project](#about-the-project-)
-2. [Technologies Used](#technologies-used-)
+2. [Technologies Used](#technologies-used-%EF%B8%8F)
 3. [Optimization Techniques](#optimization-techniques-)
 4. [Insights Gained](#insights-gained-)
 5. [Future Enhancements](#future-enhancements-)
