@@ -128,15 +128,6 @@ class PromptGenerator {
         // otherwise, randomly choose whether to add a randomized landscape shot to the prompt
         prompt += Math.random() < 0.33 ? " " : `${randomizedLandscapesShot} `;
       }
-    } else {
-      // if neither portrait nor landscapes prompt is active, randomly add either a randomized portrait shot or landscape shot to the prompt
-      if (Math.random() < 0.5) {
-        if (Math.random() < 0.5) {
-          prompt += `${randomizedLandscapesShot} `;
-        } else {
-          prompt += `${randomizedPortraitShot} `;
-        }
-      }
     }
 
     if (prompt.length > 1) {
