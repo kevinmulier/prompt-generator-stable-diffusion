@@ -144,18 +144,18 @@ class PromptGenerator {
       if (isObjectsActive && Math.random() < 0.1 && this.currentCharacters[0] === characters[0]) {
         // if objects are active, can add a random object as the main subject of the prompt
         mainSubject = this.randomElement(this.currentObjects);
-        prompt += ` (${mainSubject}:1.2)`;
+        prompt += ` ${mainSubject}`;
       } else {
         // otherwise, add a random character as the main subject of the prompt, possibly with a random object
         mainSubject = this.randomElement(this.currentCharacters);
         if (Math.random() < 0.25 || this.currentObjects[0] !== objects[0]) {
           if (isObjectsActive) {
-            prompt += ` (${mainSubject}:1.2) with ${this.randomElement(this.currentObjects)}`;
+            prompt += ` ${mainSubject} with ${this.randomElement(this.currentObjects)}`;
           } else {
-            prompt += ` (${mainSubject}:1.2)`;
+            prompt += ` ${mainSubject}`;
           }
         } else {
-          prompt += ` (${mainSubject}:1.2)`;
+          prompt += ` ${mainSubject}`;
         }
       }
 
