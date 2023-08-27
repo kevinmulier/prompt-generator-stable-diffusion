@@ -103,15 +103,6 @@ class PromptGenerator {
     }
     stylesPrompt = stylesPrompt.slice(0, -2);
 
-    // Add a artists and/or styles to the prompt
-    if (isArtistsActive && isStylesActive) {
-      prompt += `${stylesPrompt} in ${artistsPrompt} style `;
-    } else if (isArtistsActive) {
-      prompt += `${artistsPrompt} style `;
-    } else if (isStylesActive) {
-      prompt += `${stylesPrompt} `;
-    }
-
     if (isPortraitPrompt) {
       if (selectedPortraitShot !== "Random Shot") {
         // if a specific portrait shot is selected, add it to the prompt
@@ -132,30 +123,30 @@ class PromptGenerator {
 
     if (prompt.length > 1) {
       // if prompt has content, add "of" to the end of the prompt
-      prompt += "of";
+      prompt += "of ";
     }
 
     if (!isLandscapesPrompt) {
       if ((isPrefixePrompt && isPrefixesActive) || this.currentPrefixes[0] !== prefixes[0]) {
         // if is a prefix prompt, add a random prefix
-        prompt += ` ${this.randomElement(this.currentPrefixes)}`;
+        prompt += `${this.randomElement(this.currentPrefixes)}`;
       }
 
       if (isObjectsActive && Math.random() < 0.1 && this.currentCharacters[0] === characters[0]) {
         // if objects are active, can add a random object as the main subject of the prompt
         mainSubject = this.randomElement(this.currentObjects);
-        prompt += ` ${mainSubject}`;
+        prompt += `${mainSubject}`;
       } else {
         // otherwise, add a random character as the main subject of the prompt, possibly with a random object
         mainSubject = this.randomElement(this.currentCharacters);
         if (Math.random() < 0.25 || this.currentObjects[0] !== objects[0]) {
           if (isObjectsActive) {
-            prompt += ` ${mainSubject} with ${this.randomElement(this.currentObjects)}`;
+            prompt += `${mainSubject} with ${this.randomElement(this.currentObjects)}`;
           } else {
-            prompt += ` ${mainSubject}`;
+            prompt += `${mainSubject}`;
           }
         } else {
-          prompt += ` ${mainSubject}`;
+          prompt += `${mainSubject}`;
         }
       }
 
@@ -172,9 +163,18 @@ class PromptGenerator {
 
     // adds a random place to the prompt if landscape prompt is active, or a random place after the main subject if place prompt is active
     if (isLandscapesPrompt) {
-      prompt += ` ${this.randomElement(this.currentPlaces)}`;
+      prompt += `${this.randomElement(this.currentPlaces)}`;
     } else if (isPlacesActive) {
       prompt += `, ${this.randomElement(this.currentPlaces)}`;
+    }
+
+    // Add a artists and/or styles to the prompt
+    if (isArtistsActive && isStylesActive) {
+      prompt += `${stylesPrompt} in ${artistsPrompt} style, `;
+    } else if (isArtistsActive) {
+      prompt += `${artistsPrompt} style, `;
+    } else if (isStylesActive) {
+      prompt += `${stylesPrompt}, `;
     }
 
     // adds random adjectives to the prompt if adjective prompt is active
