@@ -170,11 +170,11 @@ class PromptGenerator {
 
     // Add a artists and/or styles to the prompt
     if (isArtistsActive && isStylesActive) {
-      prompt += `${stylesPrompt} in ${artistsPrompt} style, `;
+      prompt += `, ${stylesPrompt} in ${artistsPrompt} style`;
     } else if (isArtistsActive) {
-      prompt += `${artistsPrompt} style, `;
+      prompt += `, ${artistsPrompt} style`;
     } else if (isStylesActive) {
-      prompt += `${stylesPrompt}, `;
+      prompt += `, ${stylesPrompt}`;
     }
 
     // adds random adjectives to the prompt if adjective prompt is active
@@ -1056,6 +1056,9 @@ const objects = [
   "Cape",
   "Leather Jacket",
   "Dragonscale Armor",
+  "Refined Armor",
+  "Heavy Armor",
+  "Light Armor",
   "Laptop",
   "Smartphone",
   "Tablet",
@@ -1070,7 +1073,6 @@ const objects = [
   "Pauldrons",
   "Vambraces",
   "Greaves",
-  "Fascinator",
   "Beanie",
   "Bucket Hat",
   "Beret",
