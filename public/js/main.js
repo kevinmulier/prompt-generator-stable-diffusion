@@ -138,7 +138,7 @@ class PromptGenerator {
     if (!isLandscapesPrompt) {
       if ((isPrefixePrompt && isPrefixesActive) || this.currentPrefixes[0] !== prefixes[0]) {
         // if is a prefix prompt, add a random prefix
-        prompt += ` (${this.randomElement(this.currentPrefixes)}:1.1)`;
+        prompt += ` ${this.randomElement(this.currentPrefixes)}`;
       }
 
       if (isObjectsActive && Math.random() < 0.1 && this.currentCharacters[0] === characters[0]) {
