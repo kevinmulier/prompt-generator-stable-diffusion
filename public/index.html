@@ -9,30 +9,30 @@
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.png" />
     <title>Stable Diffusion Prompts Generator</title>
   </head>
-  <body class="text-fublu-600 text-xs sm:text-base md:text-lg lg:text-xl pb-8">
+  <body class="pb-8 text-xs text-fublu-600 sm:text-base md:text-lg lg:text-xl">
     <!--Nav wrapper-->
     <div class="mb-7 lg:mb-10">
-      <nav class="px-3 py-1 flex justify-between md:justify-center items-center bg-fublu-800">
+      <nav class="flex items-center justify-between px-3 py-1 md:justify-center bg-fublu-800">
         <!-- Desktop navbar -->
-        <ul class="w-full max-w-5xl text-center text-sm lg:text-lg flex max-md:flex-col justify-center items-center md:gap-20 text-fublu-50 max-md:hidden">
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Home</a></li>
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer portraitLink"
+        <ul class="flex items-center justify-center w-full max-w-5xl text-sm text-center lg:text-lg max-md:flex-col md:gap-20 text-fublu-50 max-md:hidden">
+          <li class="flex-1 px-4 py-2 transition-all rounded-md cursor-pointer hover:bg-fublu-700 randomLink"><a href="#" class="randomLink">Home</a></li>
+          <li class="flex-1 px-4 py-2 transition-all rounded-md cursor-pointer hover:bg-fublu-700 portraitLink"
             ><a href="#" class="portraitLink">Portraits</a></li
           >
-          <li class="px-4 py-2 flex-1 min-w-fit"
+          <li class="flex-1 px-4 py-2 min-w-fit"
             ><img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" class="m-auto" width="50px" height="50px"
           /></li>
 
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer landscapesLink"
+          <li class="flex-1 px-4 py-2 transition-all rounded-md cursor-pointer hover:bg-fublu-700 landscapesLink"
             ><a href="#" class="landscapesLink">Landscapes</a></li
           >
-          <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Random</a></li>
+          <li class="flex-1 px-4 py-2 transition-all rounded-md cursor-pointer hover:bg-fublu-700 randomLink"><a href="#" class="randomLink">Random</a></li>
         </ul>
         <!-- End of desktop navbar -->
         <!-- Mobile hamburger button -->
-        <div class="w-full py-4 px-2 flex justify-between md:hidden z-50">
+        <div class="z-50 flex justify-between w-full px-2 py-4 md:hidden">
           <img src="assets/images/logo.webp" alt="Stable Diffusion Prompts Generator" width="50px" height="50px" />
-          <button class="relative group" id="hamburgerButton" name="hamburgerButton">
+          <button class="relative group" id="hamburgerButton" name="hamburgerButton" aria-label="Menu Button">
             <div
               class="relative flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all bg-slate-700 ring-0 ring-fublu-300 hover:ring-8 group-focus:ring-4 ring-opacity-30 duration-200"
             >
@@ -55,16 +55,16 @@
       </nav>
       <!-- Mobile menu -->
       <div class="fixed top-[90px] left-0 w-screen h-screen bg-opacity-70 bg-fublu-900 z-40 hidden" id="bgMobileMenu">
-        <nav class="px-3 pt-4 pb-8 flex justify-between md:justify-center items-center bg-fublu-800 hidden" id="menuList">
-          <ul class="w-full h-full max-w-5xl text-center text-2xl flex-col justify-center items-center md:gap-20 text-fublu-50">
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Home</a></li>
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer portraitLink"
+        <nav class="flex items-center justify-between hidden px-3 pt-4 pb-8 md:justify-center bg-fublu-800" id="menuList">
+          <ul class="flex-col items-center justify-center w-full h-full max-w-5xl text-2xl text-center md:gap-20 text-fublu-50">
+            <li class="flex-1 px-4 py-2 transition-all rounded-md cursor-pointer hover:bg-fublu-700 randomLink"><a href="#" class="randomLink">Home</a></li>
+            <li class="flex-1 px-4 py-2 transition-all rounded-md cursor-pointer hover:bg-fublu-700 portraitLink"
               ><a href="#" class="portraitLink">Portraits</a></li
             >
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer landscapesLink"
+            <li class="flex-1 px-4 py-2 transition-all rounded-md cursor-pointer hover:bg-fublu-700 landscapesLink"
               ><a href="#" class="landscapesLink">Landscapes</a></li
             >
-            <li class="px-4 py-2 flex-1 rounded-md hover:bg-fublu-700 transition-all cursor-pointer randomLink"><a href="#" class="randomLink">Random</a></li>
+            <li class="flex-1 px-4 py-2 transition-all rounded-md cursor-pointer hover:bg-fublu-700 randomLink"><a href="#" class="randomLink">Random</a></li>
           </ul>
         </nav>
       </div>
@@ -74,11 +74,11 @@
     <!--User's inputs-->
     <div class="px-5 lg:px-20">
       <!-- Portraits -->
-      <div class="flex justify-center items-center flex-col text-center hidden" id="portraitDiv">
-        <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-5">Portrait prompts generator</h2>
+      <div class="flex flex-col items-center justify-center hidden text-center" id="portraitDiv">
+        <h2 class="mb-5 text-xl font-bold sm:text-3xl md:text-5xl lg:text-6xl">Portrait prompts generator</h2>
         <section class="mb-4 text-base sm:text-lg md:text-xl">
           <h3 class="mb-2 font-bold">Type of shot</h3>
-          <select name="portraitShotSelect" id="portraitShotSelect" class="p-2 text-center rounded-md border-2 border-fublu-800">
+          <select name="portraitShotSelect" id="portraitShotSelect" class="p-2 text-center border-2 rounded-md border-fublu-800">
             <option value="Random Shot" title="Choose a random type of portrait shot." selected>Random shot</option>
             <option value="Full-Length Shot" title="A shot that shows the person or object in its complete environment.">Full-length shot</option>
             <option value="American Shot" title="A shot that shows the person or object from the waist to the knees.">American shot</option>
@@ -94,11 +94,11 @@
       </div>
       <!-- Portraits End-->
       <!-- Landscapes -->
-      <div class="flex justify-center items-center flex-col text-center hidden" id="landscapesDiv">
-        <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-5">Landscapes prompts generator</h2>
+      <div class="flex flex-col items-center justify-center hidden text-center" id="landscapesDiv">
+        <h2 class="mb-5 text-xl font-bold sm:text-3xl md:text-5xl lg:text-6xl">Landscapes prompts generator</h2>
         <section class="mb-4 text-base sm:text-lg md:text-xl">
           <h3 class="mb-2 font-bold">Type of shot</h3>
-          <select name="landscapesShotSelect" id="landscapesShotSelect" class="p-2 text-center rounded-md border-2 border-fublu-800">
+          <select name="landscapesShotSelect" id="landscapesShotSelect" class="p-2 text-center border-2 rounded-md border-fublu-800">
             <option value="Random Shot" title="Choose a random type of portrait shot." selected>Random shot</option>
             <option value="Long Shot" title="A shot that shows an overall view of the landscape.">Long shot</option>
             <option value="Medium Shot" title="A shot that shows a specific part of the landscape, such as a mountain or a valley.">Medium shot</option>
@@ -113,106 +113,110 @@
       </div>
       <!-- Landscapes End-->
       <!-- Random -->
-      <div class="flex justify-center items-center flex-col text-center" id="randomDiv">
-        <h2 class="font-bold text-xl sm:text-3xl md:text-5xl lg:text-6xl mb-5">Random prompts generator</h2>
+      <div class="flex flex-col items-center justify-center text-center" id="randomDiv">
+        <h2 class="mb-5 text-xl font-bold sm:text-3xl md:text-5xl lg:text-6xl">Random prompts generator</h2>
       </div>
       <!-- Random End-->
       <!-- Num of prompts & show generator's options -->
-      <div class="flex justify-center items-center mb-5">
-        <section class="flex justify-center items-center flex-col text-center text-base sm:text-lg md:text-xl w-80 placeholder:p-0 placeholder:text-center">
-          <h3 class="font-bold mb-4">How many prompts to generate</h3>
+      <div class="flex items-center justify-center mb-5">
+        <section class="flex flex-col items-center justify-center text-base text-center sm:text-lg md:text-xl w-80 placeholder:p-0 placeholder:text-center">
+          <h3 class="mb-4 font-bold">How many prompts to generate</h3>
           <input
             type="text"
             id="promptsNumberInput"
             name="promptsNumberInput"
             value="10"
             title="How many prompts you want to generate"
-            class="w-24 md:w-32 px-2 py-1 mb-5 rounded-md border-fublu-800 border-2 border-solid text-center"
+            class="w-24 px-2 py-1 mb-5 text-center border-2 border-solid rounded-md md:w-32 border-fublu-800"
           />
-          <button class="text-fublu-800 p-4 md:w-80 rounded-md bg-fublu-200 hover:bg-fublu-100 border-2 border-fublu-800" id="generatorOptionsButton"
+          <button
+            class="p-4 border-2 rounded-md text-fublu-800 md:w-80 bg-fublu-200 hover:bg-fublu-100 border-fublu-800"
+            id="generatorOptionsButton"
+            aria-label="Options Button"
             >Show options</button
           >
         </section>
       </div>
       <!-- Enf of num of prompts & show generator's options -->
       <!-- Hidden inputs -->
-      <div class="flex flex-col items-center mb-7 hidden" id="inputsDisclaimer">
-        <p class="text-center mb-5"
+      <div class="flex flex-col items-center hidden mb-7" id="inputsDisclaimer">
+        <p class="mb-5 text-center"
           >* All inputs are optional. If you leave them empty, random ideas from our lists will replace them accordingly to their core concept (places,
           characters, objects, artists...).</p
         >
         <button
-          class="text-thunderbird-50 p-4 md:w-80 rounded-md bg-thunderbird-500 hover:bg-thunderbird-600 border-2 border-thunderbird-800"
+          class="p-4 border-2 rounded-md text-thunderbird-50 md:w-80 bg-thunderbird-500 hover:bg-thunderbird-600 border-thunderbird-800"
           id="resetInputsButton"
+          aria-label="Reset Inputs Button"
           >Reset inputs</button
         >
       </div>
-      <div class="mb-8 flex justify-center flex-wrap gap-5 hidden" id="generatorOptionsDiv">
+      <div class="flex flex-wrap justify-center hidden gap-5 mb-8" id="generatorOptionsDiv">
         <section class="flex flex-col flex-1 max-w-md mb-3" id="charactersInputDiv">
-          <div class="flex justify-center items-center mb-4 gap-4">
-            <h3 class="text-center font-bold">Characters</h3>
+          <div class="flex items-center justify-center gap-4 mb-4">
+            <h3 class="font-bold text-center">Characters</h3>
           </div>
           <textarea
             id="charactersTextArea"
             cols="30"
             rows="4"
             placeholder="Add characters to the generator, one per line (e.g. Medusa, Dog, Hercules...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-3" id="objectsInputDiv">
-          <div class="flex justify-center items-center mb-4 gap-4">
+          <div class="flex items-center justify-center gap-4 mb-4">
             <input
               type="checkbox"
               name="objectsActive"
               id="objectsActive"
               checked
-              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
-            /><h3 class="text-center font-bold">Objects</h3>
+              class="align-middle rounded md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 focus:ring-fublu-500 focus:ring-2"
+            /><h3 class="font-bold text-center">Objects</h3>
           </div>
           <textarea
             id="objectsTextArea"
             cols="30"
             rows="4"
             placeholder="Add Objects to the generator, one per line (e.g. Pan, Sword, Helmet...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-3">
-          <div class="flex justify-center items-center mb-4 gap-4">
+          <div class="flex items-center justify-center gap-4 mb-4">
             <input
               type="checkbox"
               name="placesActive"
               id="placesActive"
               checked
-              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+              class="align-middle rounded md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 focus:ring-fublu-500 focus:ring-2"
             />
-            <h3 class="text-center font-bold">Places</h3>
+            <h3 class="font-bold text-center">Places</h3>
           </div>
           <textarea
             id="placesTextArea"
             cols="30"
             rows="4"
             placeholder="Add places to the generator, one per line (e.g. Hidden Cave, Space Station, Underwater City...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-3">
-          <div class="flex justify-center items-center mb-4 gap-4">
+          <div class="flex items-center justify-center gap-4 mb-4">
             <input
               type="checkbox"
               name="artistsActive"
               id="artistsActive"
               checked
-              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+              class="align-middle rounded md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 focus:ring-fublu-500 focus:ring-2"
             />
-            <h3 class="text-center font-bold">Artists</h3>
+            <h3 class="font-bold text-center">Artists</h3>
             <input
               type="number"
               min="1"
               max="5"
               value="1"
-              class="w-10 text-sm md:text-base rounded-md border-fublu-800 border-2 border-solid text-center"
+              class="w-10 text-sm text-center border-2 border-solid rounded-md md:text-base border-fublu-800"
               title="How many artists do you want to include in the prompt ? (max: 5)"
               id="numArtists"
             />
@@ -222,25 +226,25 @@
             cols="30"
             rows="4"
             placeholder="Add artists to the generator, one per line (e.g. Makoto Shinkai, Artgerm, Rebeca Saray...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-3">
-          <div class="flex justify-center items-center mb-4 gap-4">
+          <div class="flex items-center justify-center gap-4 mb-4">
             <input
               type="checkbox"
               name="stylesActive"
               id="stylesActive"
               checked
-              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+              class="align-middle rounded md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 focus:ring-fublu-500 focus:ring-2"
             />
-            <h3 class="text-center font-bold">Styles &amp; Mediums</h3>
+            <h3 class="font-bold text-center">Styles &amp; Mediums</h3>
             <input
               type="number"
               min="1"
               max="3"
               value="1"
-              class="w-10 text-sm md:text-base rounded-md border-fublu-800 border-2 border-solid text-center"
+              class="w-10 text-sm text-center border-2 border-solid rounded-md md:text-base border-fublu-800"
               title="How many styles and mediums do you want to include in the prompt ? (max: 3)"
               id="numStyles"
             />
@@ -250,128 +254,131 @@
             cols="30"
             rows="4"
             placeholder="Add styles and mediums to the generator, one per line (e.g. Anime, Futurism, Woodcut Print...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-5">
-          <div class="flex justify-center items-center mb-4 gap-4">
+          <div class="flex items-center justify-center gap-4 mb-4">
             <input
               type="checkbox"
               name="colorsActive"
               id="colorsActive"
               checked
-              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+              class="align-middle rounded md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 focus:ring-fublu-500 focus:ring-2"
             />
-            <h3 class="text-center font-bold">Colors</h3>
+            <h3 class="font-bold text-center">Colors</h3>
           </div>
           <textarea
             id="colorsTextArea"
             cols="30"
             rows="4"
             placeholder="Add colors to the generator, one per line (e.g. Black and White, Complimentary Colors, Sepia...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-5">
-          <div class="flex justify-center items-center mb-4 gap-4">
+          <div class="flex items-center justify-center gap-4 mb-4">
             <input
               type="checkbox"
               name="adjectivesActive"
               id="adjectivesActive"
               checked
-              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+              class="align-middle rounded md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 focus:ring-fublu-500 focus:ring-2"
             />
-            <h3 class="text-center font-bold">Adjectives</h3>
+            <h3 class="font-bold text-center">Adjectives</h3>
           </div>
           <textarea
             id="adjectivesTextArea"
             cols="30"
             rows="4"
             placeholder="Add adjectives to the generator, one per line (e.g. Mystic, Heavenly, Majestic...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-5" id="elementsInputDiv">
-          <div class="flex justify-center items-center mb-4 gap-4">
+          <div class="flex items-center justify-center gap-4 mb-4">
             <input
               type="checkbox"
               name="elementsActive"
               id="elementsActive"
               checked
-              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+              class="align-middle rounded md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 focus:ring-fublu-500 focus:ring-2"
             />
-            <h3 class="text-center font-bold">Elements</h3>
+            <h3 class="font-bold text-center">Elements</h3>
           </div>
           <textarea
             id="elementsTextArea"
             cols="30"
             rows="4"
             placeholder="Add elements to the generator, one per line (e.g. Water, Ice, Fire...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-5">
-          <div class="flex justify-center items-center mb-4 gap-4">
+          <div class="flex items-center justify-center gap-4 mb-4">
             <input
               type="checkbox"
               name="improversActive"
               id="improversActive"
               checked
-              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+              class="align-middle rounded md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 focus:ring-fublu-500 focus:ring-2"
             />
-            <h3 class="text-center font-bold">Improvers</h3>
+            <h3 class="font-bold text-center">Improvers</h3>
           </div>
           <textarea
             id="improversTextArea"
             cols="30"
             rows="4"
             placeholder="Add improvers to the generator, one per line (e.g. trending on Artstation, masterpiece...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-5" id="prefixesInputDiv">
-          <div class="flex justify-center items-center mb-4 gap-4">
+          <div class="flex items-center justify-center gap-4 mb-4">
             <input
               type="checkbox"
               name="prefixesActive"
               id="prefixesActive"
               checked
-              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+              class="align-middle rounded md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 focus:ring-fublu-500 focus:ring-2"
             />
-            <h3 class="text-center font-bold">Prefixes</h3>
+            <h3 class="font-bold text-center">Prefixes</h3>
           </div>
           <textarea
             id="prefixesTextArea"
             cols="30"
             rows="4"
             placeholder="Add prefixes to the generator, one per line (e.g. zombie, superhero, wizard...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
         <section class="flex flex-col flex-1 max-w-md mb-5" id="suffixesInputDiv">
-          <div class="flex justify-center items-center mb-4 gap-4">
+          <div class="flex items-center justify-center gap-4 mb-4">
             <input
               type="checkbox"
               name="suffixesActive"
               id="suffixesActive"
               checked
-              class="align-middle md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 rounded focus:ring-fublu-500 focus:ring-2"
+              class="align-middle rounded md:w-4 md:h-4 text-fublu-600 bg-fublu-900 border-fublu-300 focus:ring-fublu-500 focus:ring-2"
             />
-            <h3 class="text-center font-bold">Suffixes</h3>
+            <h3 class="font-bold text-center">Suffixes</h3>
           </div>
           <textarea
             id="suffixesTextArea"
             cols="30"
             rows="4"
             placeholder="Add suffixes to the generator, one per line (e.g. dancing, flying, summoning...)"
-            class="p-3 placeholder:p-0 placeholder:text-center rounded-md border-2 border-fublu-800 focus-visible:border-fublu-900 shadow-sm shadow-fublu-200"
+            class="p-3 border-2 rounded-md shadow-sm placeholder:p-0 placeholder:text-center border-fublu-800 focus-visible:border-fublu-900 shadow-fublu-200"
           ></textarea>
         </section>
       </div>
       <!-- End of hidden inputs -->
       <!-- Generate prompts button -->
-      <div class="mb-8 flex justify-center">
-        <button class="text-white p-4 w-60 rounded-md bg-fublu-600 hover:bg-fublu-500 border-2 border-fublu-800" id="generatePromptsButton"
+      <div class="flex justify-center mb-8">
+        <button
+          class="p-4 text-white border-2 rounded-md w-60 bg-fublu-600 hover:bg-fublu-500 border-fublu-800"
+          id="generatePromptsButton"
+          aria-label="Generate Prompts Button"
           >Generate prompts</button
         >
       </div>
@@ -379,15 +386,15 @@
     </div>
     <!-- End of user's inputs -->
     <!-- Prompts -->
-    <div class="relative mx-auto mb-10 p-3 py-9 w-11/12 max-w-6xl bg-fublu-100 rounded-md border-2 border-fublu-800 text-center shadow-sm shadow-fublu-200">
-      <button class="absolute top-2 right-2 text-xs md:text-sm" id="promptsCopyButton"
-        ><img src="assets/icons/copypaste.png" alt="Copy" title="Copy prompts" class="h-5 w-5 md:h-8 md:w-8" width="32px" height="32px"
+    <div class="relative w-11/12 max-w-6xl p-3 mx-auto mb-10 text-center border-2 rounded-md shadow-sm py-9 bg-fublu-100 border-fublu-800 shadow-fublu-200">
+      <button class="absolute text-xs top-2 right-2 md:text-sm" id="promptsCopyButton" aria-label="Copy Prompts Button"
+        ><img src="assets/icons/copypaste.png" alt="Copy" title="Copy prompts" class="w-5 h-5 md:h-8 md:w-8" width="32px" height="32px"
       /></button>
       <div class="w-full text-xs md:text-sm lg:text-base text-fublu-800" id="prompts"></div>
     </div>
     <!-- End of prompts -->
     <!-- Credits -->
-    <div class="flex justify-center items-center flex-col">
+    <div class="flex flex-col items-center justify-center">
       <p class=""
         >Made by <span class="font-bold">Kevin Mulier</span> | <a href="https://github.com/kevinmulier" class="font-bold">GitHub</a> |
         <a href="https://twitter.com/KevinMulierDev" class="font-bold">Twitter</a></p
