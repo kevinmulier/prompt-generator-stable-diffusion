@@ -1,6 +1,6 @@
 # Stable Diffusion and Midjourney Prompt Generator 📚
 
-Welcome to the Stable Diffusion and Midjourney Prompt Generator project. This comprehensive prompt generator is customized specifically for the AI art generators "Stable Diffusion" and "Midjourney." Offering versatility to users, it can generate prompts randomly or based on distinct parameters. 🎉
+Welcome to the Stable Diffusion and Midjourney Prompt Generator project. This comprehensive prompt generator is customized specifically for the AI art generators "Stable Diffusion" and "Midjourney". Offering versatility to users, it can generate prompts randomly or based on distinct parameters.
 
 [Project Link: SDPromptGenerator](https://sdpromptsgenerator.netlify.app/)
 
@@ -43,5 +43,3 @@ Looking ahead, I plan to:
 ## Contributing 🤝
 
 Contributions, questions, and feedback are welcome. Feel free to open an issue or submit a pull request.
-
-Enjoy exploring the Stable Diffusion and Midjourney Prompt Generator!
