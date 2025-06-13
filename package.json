@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "tailwindcss": "^3.2.7"
+  },
+  "scripts": {
+    "tailwind:watch": "tailwindcss -i ./src/css/styles.css -o ./public/css/styles.css --watch"
   }
 }

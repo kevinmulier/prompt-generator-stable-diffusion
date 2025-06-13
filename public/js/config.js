@@ -33,13 +33,13 @@ export const CONFIG = {
 
   // Minimum and maximum number of artists in a prompt
   MIN_ARTISTS: 1,
-  MAX_ARTISTS: 3,
+  MAX_ARTISTS: 5,
 
   // Minimum and maximum number of styles in a prompt
   MIN_STYLES: 1,
   MAX_STYLES: 3,
 
   // Disclaimer text visibility toggling
-  DISCLAIMER_TEXT_SHOW: "Hide Disclaimer",
-  DISCLAIMER_TEXT_HIDE: "Show Disclaimer",
+  DISCLAIMER_TEXT_SHOW: "Hide options",
+  DISCLAIMER_TEXT_HIDE: "Show options",
 };
