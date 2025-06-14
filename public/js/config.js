@@ -26,10 +26,21 @@ export const CONFIG = {
   // Probability for a character prompt to include an object (0.0 to 1.0)
   CHARACTER_WITH_OBJECT_PROBABILITY: 0.25,
 
+  // Probability for a non-landscape prompt to include clothing if the toggle is active (0.0 to 1.0)
+  CLOTHING_PROBABILITY: 0.75,
+
+  // Probability to select a full outfit instead of individual pieces (0.0 to 1.0)
+  OUTFIT_PROBABILITY: 0.2,
+
+  // Minimum and maximum number of individual clothing pieces to add
+  MIN_CLOTHING_PIECES: 1,
+  MAX_CLOTHING_PIECES: 4,
+  // --- END NEW ---
+
   // Minimum and maximum number of prompts to generate
   MIN_PROMPTS_TO_GENERATE: 1,
   MAX_PROMPTS_TO_GENERATE: 10000,
-  DEFAULT_PROMPTS_TO_GENERATE: 10,
+  DEFAULT_PROMPTS_TO_GENERATE: 50,
 
   // Minimum and maximum number of artists in a prompt
   MIN_ARTISTS: 1,

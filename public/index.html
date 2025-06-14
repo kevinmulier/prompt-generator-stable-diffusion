@@ -193,6 +193,25 @@
             class="p-3 border-2 rounded-lg shadow-sm placeholder:p-0 placeholder:text-center border-fublu-500 focus:ring-2 focus:ring-fublu-500 focus:border-fublu-500 shadow-fublu-200 transition-all duration-150"
           ></textarea>
         </section>
+        <section class="flex flex-col" id="clothingInputDiv">
+          <div class="flex items-center justify-center gap-4 mb-4">
+            <input
+              type="checkbox"
+              name="clothingActive"
+              id="clothingActive"
+              checked
+              class="align-middle rounded-sm w-5 h-5 text-fublu-600 bg-fublu-200 border-fublu-500 focus:ring-fublu-500 focus:ring-2 transition-all duration-150"
+            /><h3 class="font-bold text-center text-fublu-800">Clothing</h3>
+          </div>
+          <textarea
+            id="clothingTextArea"
+            cols="30"
+            rows="4"
+            placeholder="Uses built-in categorized lists. Custom lists are not yet supported for this section."
+            class="p-3 border-2 rounded-lg shadow-sm placeholder:p-0 placeholder:text-center border-fublu-500 focus:ring-2 focus:ring-fublu-500 focus:border-fublu-500 shadow-fublu-200 transition-all duration-150 disabled:bg-slate-100 disabled:text-slate-500 disabled:border-slate-200"
+            disabled
+          ></textarea>
+        </section>
         <section class="flex flex-col" id="placesInputDiv">
           <div class="flex items-center justify-center gap-4 mb-4">
             <input

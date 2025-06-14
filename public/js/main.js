@@ -1,4 +1,22 @@
-import { characters, objects, places, elements, styles, colors, artists, prefixes, suffixes, improvers, adjectives } from "./data.js";
+import {
+  characters,
+  objects,
+  places,
+  elements,
+  styles,
+  colors,
+  artists,
+  prefixes,
+  suffixes,
+  improvers,
+  adjectives,
+  clothing_outfits,
+  clothing_headwear,
+  clothing_tops,
+  clothing_bottoms,
+  clothing_footwear,
+  clothing_accessories,
+} from "./data.js";
 import { CONFIG } from "./config.js";
 
 class PromptGenerator {
@@ -16,6 +34,7 @@ class PromptGenerator {
     // Select all relevant input sections by their IDs (newly added/confirmed)
     this.charactersInputSection = document.querySelector("#charactersInputDiv");
     this.objectsInputSection = document.querySelector("#objectsInputDiv");
+    this.clothingInputSection = document.querySelector("#clothingInputDiv"); // New
     this.placesInputSection = document.querySelector("#placesInputDiv");
     this.artistsInputSection = document.querySelector("#artistsInputDiv");
     this.stylesInputSection = document.querySelector("#stylesInputDiv");
@@ -41,6 +60,12 @@ class PromptGenerator {
     this.currentImprovers = [...improvers];
     this.currentPrefixes = [...prefixes];
     this.currentSuffixes = [...suffixes];
+    this.currentClothingOutfits = [...clothing_outfits];
+    this.currentClothingHeadwear = [...clothing_headwear];
+    this.currentClothingTops = [...clothing_tops];
+    this.currentClothingBottoms = [...clothing_bottoms];
+    this.currentClothingFootwear = [...clothing_footwear];
+    this.currentClothingAccessories = [...clothing_accessories];
   }
 
   generatePrompt() {
@@ -55,6 +80,7 @@ class PromptGenerator {
     const randomizedLandscapesShot = this.randomElement(this.config.LANDSCAPES_SHOT_OPTIONS);
 
     const isObjectsActive = document.querySelector("#objectsActive").checked;
+    const isClothingActive = document.querySelector("#clothingActive").checked;
     const isPlacesActive = document.querySelector("#placesActive").checked;
     const isArtistsActive = document.querySelector("#artistsActive").checked;
     const isStylesActive = document.querySelector("#stylesActive").checked;
@@ -81,9 +107,10 @@ class PromptGenerator {
       promptParts.push(...selectedImprovers);
     }
 
-    // 2. Subject, Pose, and Environment
+    // 2. Subject, Pose, Clothing, and Environment
     let subjectString = "";
     let poseString = "";
+    let clothingString = "";
     let environmentString = "";
 
     if (isLandscapesPrompt) {
@@ -136,7 +163,37 @@ class PromptGenerator {
       }
       poseString = poseParts.join(", ");
 
-      // 2c. Environment
+      // 2c. Clothing & Accessories
+      if (isClothingActive && Math.random() < this.config.CLOTHING_PROBABILITY) {
+        const clothingParts = [];
+        if (Math.random() < this.config.OUTFIT_PROBABILITY && this.currentClothingOutfits.length > 0) {
+          clothingParts.push(this.randomElement(this.currentClothingOutfits));
+        } else {
+          const categories = [];
+          if (this.currentClothingHeadwear.length > 0) categories.push(this.currentClothingHeadwear);
+          if (this.currentClothingTops.length > 0) categories.push(this.currentClothingTops);
+          if (this.currentClothingBottoms.length > 0) categories.push(this.currentClothingBottoms);
+          if (this.currentClothingFootwear.length > 0) categories.push(this.currentClothingFootwear);
+          if (this.currentClothingAccessories.length > 0) categories.push(this.currentClothingAccessories);
+
+          // Fisher-Yates shuffle to randomize category order
+          for (let i = categories.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [categories[i], categories[j]] = [categories[j], categories[i]];
+          }
+
+          const numPiecesToPick =
+            Math.floor(Math.random() * (this.config.MAX_CLOTHING_PIECES - this.config.MIN_CLOTHING_PIECES + 1)) + this.config.MIN_CLOTHING_PIECES;
+          const pickedCategories = categories.slice(0, numPiecesToPick);
+
+          for (const category of pickedCategories) {
+            clothingParts.push(this.randomElement(category));
+          }
+        }
+        clothingString = clothingParts.join(", ");
+      }
+
+      // 2d. Environment
       if (isPlacesActive && this.currentPlaces.length > 0) {
         environmentString = this.randomElement(this.currentPlaces);
       }
@@ -144,6 +201,7 @@ class PromptGenerator {
 
     if (subjectString) promptParts.push(subjectString);
     if (poseString) promptParts.push(poseString);
+    if (clothingString) promptParts.push(clothingString);
     if (environmentString) promptParts.push(environmentString);
 
     // 3. Adjectives
@@ -212,6 +270,7 @@ class PromptGenerator {
 
     this.charactersInputSection.classList.remove("hidden");
     this.objectsInputSection.classList.remove("hidden");
+    this.clothingInputSection.classList.remove("hidden");
     this.placesInputSection.classList.remove("hidden");
     this.artistsInputSection.classList.remove("hidden");
     this.stylesInputSection.classList.remove("hidden");
@@ -229,6 +288,7 @@ class PromptGenerator {
       this.landscapesDiv.classList.remove("hidden");
       this.charactersInputSection.classList.add("hidden");
       this.objectsInputSection.classList.add("hidden");
+      this.clothingInputSection.classList.add("hidden");
       this.elementsInputSection.classList.add("hidden");
       this.prefixesInputSection.classList.add("hidden");
       this.suffixesInputSection.classList.add("hidden");
