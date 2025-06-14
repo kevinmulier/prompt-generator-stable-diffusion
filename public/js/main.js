@@ -44,18 +44,16 @@ class PromptGenerator {
   }
 
   generatePrompt() {
-    const isPrefixePrompt = Math.random() < this.config.PREFIX_PROBABILITY;
+    // --- Get all checkbox states and values ---
+    const isPrefixPrompt = Math.random() < this.config.PREFIX_PROBABILITY;
     const isSuffixPrompt = Math.random() < this.config.SUFFIX_PROBABILITY;
     const isPortraitPrompt = this.currentGenerator === "portrait";
     const selectedPortraitShot = document.querySelector("#portraitShotSelect").value;
-    const portraitShotOptions = this.config.PORTRAIT_SHOT_OPTIONS;
-    const randomizedPortraitShot = this.randomElement(portraitShotOptions);
+    const randomizedPortraitShot = this.randomElement(this.config.PORTRAIT_SHOT_OPTIONS);
     const isLandscapesPrompt = this.currentGenerator === "landscapes";
     const selectedLandscapesShot = document.querySelector("#landscapesShotSelect").value;
-    const landscapesShotOptions = this.config.LANDSCAPES_SHOT_OPTIONS;
-    const randomizedLandscapesShot = this.randomElement(landscapesShotOptions);
+    const randomizedLandscapesShot = this.randomElement(this.config.LANDSCAPES_SHOT_OPTIONS);
 
-    // Check active options from checkboxes
     const isObjectsActive = document.querySelector("#objectsActive").checked;
     const isPlacesActive = document.querySelector("#placesActive").checked;
     const isArtistsActive = document.querySelector("#artistsActive").checked;
@@ -67,123 +65,124 @@ class PromptGenerator {
     const isPrefixesActive = document.querySelector("#prefixesActive").checked;
     const isSuffixesActive = document.querySelector("#suffixesActive").checked;
 
-    let prompt = "";
-    let mainSubject = "";
-
-    // Hide places checkbox for landscape prompts
-
     let numArtists = Number(document.querySelector("#numArtists").value);
     let numStyles = Number(document.querySelector("#numStyles").value);
 
-    // Build artists and styles prompt parts
-    let artistsPrompt = "";
-    let stylesPrompt = "";
+    // --- Prompt construction using ordered parts ---
+    const promptParts = [];
 
-    for (let i = 0; i < numArtists; i++) {
-      if (i < this.currentArtists.length) {
-        artistsPrompt += `${this.randomElement(this.currentArtists.filter((artist) => !artistsPrompt.includes(artist)))}, `;
+    // 1. Quality Tags (from improvers list)
+    if (isImproversActive && this.currentImprovers.length > 0) {
+      const numImproversToPick = Math.min(this.currentImprovers.length, 3);
+      const selectedImprovers = new Set();
+      while (selectedImprovers.size < numImproversToPick) {
+        selectedImprovers.add(this.randomElement(this.currentImprovers));
       }
+      promptParts.push(...selectedImprovers);
     }
-    artistsPrompt = artistsPrompt.slice(0, -2);
 
-    for (let i = 0; i < numStyles; i++) {
-      if (i < this.currentStyles.length) {
-        stylesPrompt += `${this.randomElement(this.currentStyles.filter((style) => !stylesPrompt.includes(style)))}, `;
-      }
-    }
-    stylesPrompt = stylesPrompt.slice(0, -2);
+    // 2. Subject, Pose, and Environment
+    let subjectString = "";
+    let poseString = "";
+    let environmentString = "";
 
-    // Add shot type for portraits
-    if (isPortraitPrompt) {
-      if (selectedPortraitShot !== this.config.RANDOM_SHOT_TEXT) {
-        prompt += selectedPortraitShot + " ";
-      } else {
-        prompt += Math.random() < this.config.PORTRAIT_RANDOM_SHOT_ADD_PROBABILITY ? "" : `${randomizedPortraitShot} `;
+    if (isLandscapesPrompt) {
+      // For landscapes, the "subject" is the place.
+      if (isPlacesActive && this.currentPlaces.length > 0) {
+        subjectString = this.randomElement(this.currentPlaces);
       }
-    } else if (isLandscapesPrompt) {
+      // The "pose" is the shot type.
       if (selectedLandscapesShot !== this.config.RANDOM_SHOT_TEXT) {
-        prompt += selectedLandscapesShot + " ";
-      } else {
-        prompt += Math.random() < this.config.LANDSCAPES_RANDOM_SHOT_ADD_PROBABILITY ? "" : `${randomizedLandscapesShot} `;
+        poseString = selectedLandscapesShot;
+      } else if (Math.random() > this.config.LANDSCAPES_RANDOM_SHOT_ADD_PROBABILITY) {
+        poseString = randomizedLandscapesShot;
       }
-    }
-
-    if (prompt.length > 1 && !prompt.endsWith("of ")) {
-      prompt += "of ";
-    }
-
-    // Build main subject (not for landscapes)
-    if (!isLandscapesPrompt) {
-      if ((isPrefixePrompt && isPrefixesActive && this.currentPrefixes.length > 0) || this.currentPrefixes[0] !== prefixes[0]) {
-        prompt += `${this.randomElement(this.currentPrefixes)} `;
+    } else {
+      // For portrait or random prompts
+      // 2a. Subject
+      const subjectParts = [];
+      if (isPrefixPrompt && isPrefixesActive && this.currentPrefixes.length > 0) {
+        subjectParts.push(this.randomElement(this.currentPrefixes));
       }
 
-      // Choose between object or character as main subject
-      if (isObjectsActive && Math.random() < this.config.OBJECT_AS_MAIN_SUBJECT_PROBABILITY && this.currentCharacters.length > 0) {
+      let mainSubject;
+      if (isObjectsActive && this.currentObjects.length > 0 && Math.random() < this.config.OBJECT_AS_MAIN_SUBJECT_PROBABILITY) {
         mainSubject = this.randomElement(this.currentObjects);
-        prompt += `${mainSubject}`;
-      } else {
+        subjectParts.push(mainSubject);
+      } else if (this.currentCharacters.length > 0) {
         mainSubject = this.randomElement(this.currentCharacters);
-        if ((Math.random() < this.config.CHARACTER_WITH_OBJECT_PROBABILITY && this.currentObjects.length > 0) || this.currentObjects[0] !== objects[0]) {
-          if (isObjectsActive) {
-            prompt += `${mainSubject} with ${this.randomElement(this.currentObjects)}`;
-          } else {
-            prompt += `${mainSubject}`;
-          }
-        } else {
-          prompt += `${mainSubject}`;
+        subjectParts.push(mainSubject);
+        if (isObjectsActive && this.currentObjects.length > 0 && Math.random() < this.config.CHARACTER_WITH_OBJECT_PROBABILITY) {
+          subjectParts.push(`with ${this.randomElement(this.currentObjects)}`);
         }
       }
 
       if (isElementsActive && this.currentElements.length > 0) {
-        prompt += ` of ${this.randomElement(this.currentElements)}`;
+        subjectParts.push(`of ${this.randomElement(this.currentElements)}`);
       }
+      subjectString = subjectParts.join(" ");
 
-      if (((isSuffixPrompt && isSuffixesActive) || this.currentSuffixes[0] !== suffixes[0]) && this.currentSuffixes.length > 0) {
-        prompt += ` ${this.randomElement(this.currentSuffixes)}`;
-      }
-    }
-
-    // Add places
-    if (isLandscapesPrompt && this.currentPlaces.length > 0) {
-      prompt += `${this.randomElement(this.currentPlaces)}`;
-    } else if (isPlacesActive && this.currentPlaces.length > 0) {
-      prompt += `, ${this.randomElement(this.currentPlaces)}`;
-    }
-
-    // Add style and artist information
-    const parts = [];
-    if (isArtistsActive && this.currentArtists.length > 0 && artistsPrompt.length > 0) {
-      parts.push(artistsPrompt);
-    }
-    if (isStylesActive && this.currentStyles.length > 0 && stylesPrompt.length > 0) {
-      parts.push(stylesPrompt);
-    }
-    if (parts.length > 0) {
-      prompt += `, ${parts.join(" in ")} style`;
-    }
-
-    // Add adjectives (ensure no duplicates)
-    if (isAdjectivesActive && this.currentAdjectives.length > 0) {
-      const adjective1 = this.randomElement(this.currentAdjectives);
-      prompt += `, ${adjective1}`;
-      if (this.currentAdjectives.length > 1) {
-        const remainingAdjectives = this.currentAdjectives.filter((adjective) => adjective !== adjective1);
-        if (remainingAdjectives.length > 0) {
-          prompt += `, ${this.randomElement(remainingAdjectives)}`;
+      // 2b. Pose/Perspective
+      const poseParts = [];
+      if (isPortraitPrompt) {
+        if (selectedPortraitShot !== this.config.RANDOM_SHOT_TEXT) {
+          poseParts.push(selectedPortraitShot);
+        } else if (Math.random() > this.config.PORTRAIT_RANDOM_SHOT_ADD_PROBABILITY) {
+          poseParts.push(randomizedPortraitShot);
         }
       }
+      if (isSuffixPrompt && isSuffixesActive && this.currentSuffixes.length > 0) {
+        poseParts.push(this.randomElement(this.currentSuffixes));
+      }
+      poseString = poseParts.join(", ");
+
+      // 2c. Environment
+      if (isPlacesActive && this.currentPlaces.length > 0) {
+        environmentString = this.randomElement(this.currentPlaces);
+      }
     }
 
-    if (isImproversActive && this.currentImprovers.length > 0) {
-      prompt += `, ${this.randomElement(this.currentImprovers)}`;
+    if (subjectString) promptParts.push(subjectString);
+    if (poseString) promptParts.push(poseString);
+    if (environmentString) promptParts.push(environmentString);
+
+    // 3. Adjectives
+    if (isAdjectivesActive && this.currentAdjectives.length > 0) {
+      const numAdjectivesToPick = Math.min(this.currentAdjectives.length, 2);
+      const selectedAdjectives = new Set();
+      while (selectedAdjectives.size < numAdjectivesToPick) {
+        selectedAdjectives.add(this.randomElement(this.currentAdjectives));
+      }
+      promptParts.push(...selectedAdjectives);
     }
 
+    // 4. Colors
     if (isColorsActive && this.currentColors.length > 0) {
-      prompt += `, ${this.randomElement(this.currentColors)}`;
+      promptParts.push(this.randomElement(this.currentColors));
     }
 
-    this.currentPrompts.push(prompt);
+    // 5. Styles
+    if (isStylesActive && this.currentStyles.length > 0) {
+      const selectedStyles = new Set();
+      while (selectedStyles.size < numStyles && selectedStyles.size < this.currentStyles.length) {
+        selectedStyles.add(this.randomElement(this.currentStyles));
+      }
+      promptParts.push(...selectedStyles);
+    }
+
+    // 6. Artists
+    if (isArtistsActive && this.currentArtists.length > 0) {
+      const selectedArtists = new Set();
+      while (selectedArtists.size < numArtists && selectedArtists.size < this.currentArtists.length) {
+        selectedArtists.add(this.randomElement(this.currentArtists));
+      }
+      const formattedArtists = Array.from(selectedArtists).map((artist) => `(by ${artist})`);
+      promptParts.push(...formattedArtists);
+    }
+
+    // --- Final Assembly ---
+    const finalPrompt = promptParts.filter((part) => part && part.trim() !== "").join(", ");
+    this.currentPrompts.push(finalPrompt);
   }
 
   generatePrompts(num) {
@@ -368,13 +367,11 @@ function toggleMobileMenu() {
     // Wait for animation to finish before hiding
     setTimeout(() => {
       bgMobileMenu.classList.add("hidden");
-      menuList.classList.add("hidden");
       document.body.style.overflowY = "visible";
     }, 300); // Duration of the transition
   } else {
     // Opening
     bgMobileMenu.classList.remove("hidden");
-    menuList.classList.remove("hidden");
     setTimeout(() => {
       // Small delay to allow 'hidden' to be removed before transition starts
       menuList.classList.remove("-translate-y-full");
